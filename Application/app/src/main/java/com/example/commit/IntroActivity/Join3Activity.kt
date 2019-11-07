@@ -1,0 +1,68 @@
+package com.example.commit.IntroActivity
+
+import android.content.Intent
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import android.util.Log
+import android.widget.AdapterView
+import com.example.commit.Adapter.DepartmentAdapter
+import com.example.commit.ListItem.DepartmentItem
+import com.example.commit.ListItem.UniversityItem
+import com.example.commit.R
+import com.example.commit.Singleton.VolleyService
+import kotlinx.android.synthetic.main.activity_join1.*
+import kotlinx.android.synthetic.main.activity_join3.*
+import org.json.JSONArray
+import org.json.JSONObject
+
+class Join3Activity : AppCompatActivity() {
+
+    var departmentAdapter = DepartmentAdapter()
+    var departmentArray: JSONArray? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_join3)
+
+        var getIntent=intent
+        var universityName=getIntent.getStringExtra("university_name")
+        var webMail=getIntent.getStringExtra("web_mail")
+
+        btn_department.setOnClickListener {
+            var departmentName = edit_department.text.toString()
+            VolleyService.search_department(universityName!!,departmentName, this, { success ->
+                list_department.adapter = departmentAdapter
+                departmentAdapter.clear()
+
+                departmentArray = success
+
+                if (departmentArray!!.length() == 0) {
+                    departmentAdapter.addItem("검색 결과가 없습니다.", false)
+                } else {
+                    for (i in 0..departmentArray!!.length() - 1) {
+                        var json = JSONObject()
+                        json = departmentArray!![i] as JSONObject
+                        departmentAdapter.addItem(json.getString("department_name"), true)
+                    }
+                }
+
+                departmentAdapter.notifyDataSetChanged()
+            })
+        }
+
+        list_department.setOnItemClickListener(AdapterView.OnItemClickListener { parent, view, position, id ->
+            var item= DepartmentItem()
+            item=departmentAdapter.getItem(position) as DepartmentItem
+            if(item.enable) {
+                var department = departmentArray!![position] as JSONObject
+                var departmentName=department.getString("department_name")
+
+                var intent= Intent(this,Join4Activity::class.java)
+                intent.putExtra("department_name",departmentName)
+                intent.putExtra("university_name",universityName)
+                intent.putExtra("web_mail",webMail)
+                startActivity(intent)
+            }
+        })
+    }
+}
