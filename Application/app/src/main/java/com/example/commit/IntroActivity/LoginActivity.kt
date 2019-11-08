@@ -23,6 +23,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+
         //버튼에 리스너 등록(버튼을 클릭했을 때 동작하는 함수)
         // 인승추가(계정찾기 intent 설정)
         text_find.setOnClickListener {
