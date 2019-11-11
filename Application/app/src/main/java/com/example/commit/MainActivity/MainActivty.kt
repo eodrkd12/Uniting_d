@@ -33,6 +33,7 @@ package com.example.commit.MainActivity
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import com.example.commit.R
 import kotlinx.android.synthetic.main.activity_main.*
@@ -40,6 +41,7 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.util.Log
 import android.view.View
 import com.example.commit.Adapter.MyPagerAdapter
+import com.example.commit.Fragment.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
 var staticId:String?=null
@@ -51,10 +53,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val fragmentAdapter = MyPagerAdapter(supportFragmentManager)
-        pager_content.adapter = fragmentAdapter
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bnv_main)
+        bottomNavigationView.setOnNavigationItemSelectedListener(navListener)
 
-        tablayout.setupWithViewPager(pager_content)
+        if (savedInstanceState == null) {
+            val fragment = HomeFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
+        }
 
         var intent=intent
         staticId=intent.getStringExtra("id")
@@ -62,7 +68,44 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
         //var getIntent:Intent=getIntent()
         // Log.d("test","id : ${getIntent.getStringExtra("id")} 로그인")
+    }
+
+    private val navListener = BottomNavigationView.OnNavigationItemSelectedListener {
+        when (it.itemId) {
+            R.id.home -> {
+                val fragment = HomeFragment()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.chat -> {
+                val fragment = ChatFragment()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.alarm -> {
+                val fragment = AlamFragment()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.option -> {
+                val fragment = OptionFragment()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.cafeteria -> {
+                val fragment = CafeteriaFragment()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
+                return@OnNavigationItemSelectedListener true
+            }
+        }
+        false
     }
 }

@@ -40,39 +40,18 @@
                 android:layout_height="wrap_content" android:id="@+id/btn_search" android:layout_weight="1"/>
     </LinearLayout>
 
-    <android.support.design.widget.TabLayout
+    <FrameLayout
+            android:id = "@+id/frame_main"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tablayout"
-            app:tabGravity="center"
-            app:tabMode="fixed"
+            android:layout_height="562dp">
 
-    >
+    </FrameLayout>
 
-        <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Home" android:id="@+id/tabitem_home"/>
-
-        <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Chat" android:id="@+id/tabitem_chat"/>
-
-        <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Alam" android:id="@+id/tabitem_notice"/>
-        <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Option" android:id="@+id/tabitem_option"/>
-
-
-    </android.support.design.widget.TabLayout>
-    <android.support.v4.view.ViewPager
-            android:id="@+id/pager_content"
+    <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bnv_main"
+            android:background="@color/colorPrimary"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            app:labelVisibilityMode="auto"/>
 
 </LinearLayout>
