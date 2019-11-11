@@ -52,7 +52,6 @@ class LoginActivity : AppCompatActivity() {
                         //로그인 실패 : ID not exist
                         Toast.makeText(this,"계정을 확인해주세요.",Toast.LENGTH_SHORT).show()
                     }
-
                     2 -> {
                         //로그인 실패 : PW error
                         Toast.makeText(this,"ID / PW를 확인해주세요.",Toast.LENGTH_SHORT).show()
