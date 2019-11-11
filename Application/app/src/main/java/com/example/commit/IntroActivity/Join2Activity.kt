@@ -21,8 +21,8 @@ class Join2Activity : AppCompatActivity() {
 
         var getIntent=intent
 
-        var universityName=getIntent.getStringExtra("university_name")
-        text_address.text=getIntent.getStringExtra("web_mail")
+        var universityName=getIntent.getStringExtra("univ_name")
+        text_address.text=getIntent.getStringExtra("univ_mail")
 
         btn_webmail.setOnClickListener {
             webMail= edit_webmail.text.toString()+text_address.text.toString()
@@ -54,8 +54,8 @@ class Join2Activity : AppCompatActivity() {
                 var intent=Intent(this,Join3Activity::class.java)
                 code="만료"
                 //Log.d("test","${universityName} / ${webMail}")
-                intent.putExtra("university_name",universityName)
-                intent.putExtra("web_mail",webMail)
+                intent.putExtra("univ_name",universityName)
+                intent.putExtra("univ_mail",webMail)
                 startActivity(intent)
             }
             else if(code=="만료"){

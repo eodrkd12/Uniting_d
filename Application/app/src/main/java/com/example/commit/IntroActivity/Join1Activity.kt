@@ -37,7 +37,7 @@ class Join1Activity : AppCompatActivity() {
                     for (i in 0..universityArray!!.length() - 1) {
                         var json = JSONObject()
                         json = universityArray!![i] as JSONObject
-                        universityAdapter.addItem(json.getString("university_name"),true)
+                        universityAdapter.addItem(json.getString("univ_name"),true)
                     }
                 }
 
@@ -50,13 +50,11 @@ class Join1Activity : AppCompatActivity() {
             item=universityAdapter.getItem(position) as UniversityItem
             if(item.enable) {
                 var university = universityArray!![position] as JSONObject
-                var webMail=university.getString("web_mail")
-                var universityName=university.getString("university_name")
-                Log.d("test",university.toString())
-                Log.d("test","${universityName}")
+                var webMail=university.getString("univ_mail")
+                var universityName=university.getString("univ_name")
                 var intent= Intent(this,Join2Activity::class.java)
-                intent.putExtra("web_mail",webMail)
-                intent.putExtra("university_name",universityName)
+                intent.putExtra("univ_mail",webMail)
+                intent.putExtra("univ_name",universityName)
                 startActivity(intent)
             }
         })

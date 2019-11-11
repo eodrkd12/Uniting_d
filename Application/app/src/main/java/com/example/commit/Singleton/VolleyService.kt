@@ -198,6 +198,8 @@ object VolleyService {
         var jsonArray: JSONArray = JSONArray()
         jsonArray.put(jsonObject)
 
+        Log.d("test","name : ${jsonObject.getString("name")}")
+
         var request = object : JsonArrayRequest(Method.POST
             , url
             , jsonArray
@@ -222,8 +224,8 @@ object VolleyService {
         val url = "${ip}/department"
 
         var jsonObject = JSONObject()
-        jsonObject.put("university_name", universityName)
-        jsonObject.put("department_name", departmentName)
+        jsonObject.put("univ_name", universityName)
+        jsonObject.put("dept_name", departmentName)
 
         var jsonArray: JSONArray = JSONArray()
         jsonArray.put(jsonObject)
