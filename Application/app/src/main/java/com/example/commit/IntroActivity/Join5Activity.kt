@@ -40,8 +40,10 @@ class Join5Activity : AppCompatActivity() {
         Log.d("test",enterYear)
 
         VolleyService.joinReq(id,pw,name,birthday,gender,nickname,webMail,universityName,departmentName,enterYear,this,{success->
-            var intent= Intent(this,LoginActivity::class.java)
-            startActivity(intent)
+            if(success.equals("success")) {
+                var intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }
         })
     }
 }

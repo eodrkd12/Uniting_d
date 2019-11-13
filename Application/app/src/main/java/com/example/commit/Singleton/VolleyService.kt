@@ -117,9 +117,9 @@ object VolleyService {
             , json
             , Response.Listener {
                 // 통신 성공 리스너 : 통신 성공 시에 호출
-                if (pw != it.getString("PW"))
+                if (pw != it.getString("user_pw"))
                     success(2)
-                else if (pw == it.getString("PW"))
+                else if (pw == it.getString("user_pw"))
                     success(3)
             }
             , Response.ErrorListener {
@@ -144,11 +144,10 @@ object VolleyService {
     }
 
     //회원가입 요청
-    //
     fun joinReq(
         id: String, pw: String, name: String, birthday: String, gender: String
         , nickname: String, webMail: String, universityName: String, departmentName: String, enterYear: String
-        , context: Context, success: (Int) -> Unit
+        , context: Context, success: (String) -> Unit
     ) {
         val url = "${ip}/user"//요청 URL
 
@@ -171,7 +170,7 @@ object VolleyService {
             , json
             , Response.Listener {
                 // 통신 성공 리스너 : 통신 성공 시에 호출
-                success(1)
+                success(it.getString("result"))
             }
             , Response.ErrorListener {
                 // 통신 실패 리스너 : 통신 실패 시에 호출
@@ -237,7 +236,7 @@ object VolleyService {
                 success(it)
             }
             , Response.ErrorListener {
-                Log.d("test", it.toString())
+                Log.d("test", "학과검색 에러 : ${it.toString()}")
             }) {
 
         }
@@ -417,6 +416,4 @@ object VolleyService {
             }
         }
     }
-
-
 }

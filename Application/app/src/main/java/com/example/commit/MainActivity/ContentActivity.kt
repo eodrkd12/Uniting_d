@@ -43,20 +43,20 @@ class ContentActivity : AppCompatActivity() {
                         for(i in 0..contentArray!!.length()-1){
                             var json=JSONObject()
                             json=contentArray!![i] as JSONObject
-                            var nickname=json.getString("nickname")
-                            var department=json.getString("department")
+                            var nickname=json.getString("user_nickname")
+                            var department=json.getString("dept_name")
                             //현재 연도 구하기
                             var calendar=GregorianCalendar(Locale.KOREA)
                             var year=calendar.get(Calendar.YEAR)
                             //이용자 생일 구하기
-                            var birthday=json.getString("birthday")
+                            var birthday=json.getString("user_birthday")
                             birthday=birthday.substring(0,4)
 
                             //이용자 나이 계산
                             var age=year-Integer.parseInt(birthday)+1
                             //이용자 성별
                             var gender:String?=null;
-                            if(json.getString("gender")=="M")
+                            if(json.getString("user_gender")=="M")
                                 gender="남자"
                             else
                                 gender="여자"

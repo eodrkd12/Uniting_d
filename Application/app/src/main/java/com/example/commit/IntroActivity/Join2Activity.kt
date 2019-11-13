@@ -3,6 +3,7 @@ package com.example.commit.IntroActivity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Debug
 import android.util.Log
 import android.widget.Toast
 import com.example.commit.Class.GMailSender
@@ -26,6 +27,7 @@ class Join2Activity : AppCompatActivity() {
 
         btn_webmail.setOnClickListener {
             webMail= edit_webmail.text.toString()+text_address.text.toString()
+
             if (edit_webmail.text.toString()!="") {
                 //@가 있는 경우
                 VolleyService.codeReq(this, { success ->
@@ -47,6 +49,8 @@ class Join2Activity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "올바른 이메일을 입력해주세요.", Toast.LENGTH_SHORT).show()
             }
+
+            Log.d("test","메일전송 : ${webMail}")
         }
 
         btn_code.setOnClickListener{
