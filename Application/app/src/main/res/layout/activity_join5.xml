@@ -7,4 +7,11 @@
         android:layout_height="match_parent"
         tools:context=".IntroActivity.Join5Activity">
 
+    <Button
+            android:id="@+id/btn_complete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp" android:layout_marginBottom="24dp"
+            android:text="가입완료" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 </android.support.constraint.ConstraintLayout>

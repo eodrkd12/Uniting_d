@@ -25,8 +25,8 @@ class Join3Activity : AppCompatActivity() {
         setContentView(R.layout.activity_join3)
 
         var getIntent=intent
-        var universityName=getIntent.getStringExtra("university_name")
-        var webMail=getIntent.getStringExtra("web_mail")
+        var universityName=getIntent.getStringExtra("univ_name")
+        var webMail=getIntent.getStringExtra("univ_mail")
 
         btn_department.setOnClickListener {
             var departmentName = edit_department.text.toString()
@@ -42,7 +42,7 @@ class Join3Activity : AppCompatActivity() {
                     for (i in 0..departmentArray!!.length() - 1) {
                         var json = JSONObject()
                         json = departmentArray!![i] as JSONObject
-                        departmentAdapter.addItem(json.getString("department_name"), true)
+                        departmentAdapter.addItem(json.getString("dept_name"), true)
                     }
                 }
 
@@ -55,12 +55,12 @@ class Join3Activity : AppCompatActivity() {
             item=departmentAdapter.getItem(position) as DepartmentItem
             if(item.enable) {
                 var department = departmentArray!![position] as JSONObject
-                var departmentName=department.getString("department_name")
+                var departmentName=department.getString("dept_name")
 
                 var intent= Intent(this,Join4Activity::class.java)
-                intent.putExtra("department_name",departmentName)
-                intent.putExtra("university_name",universityName)
-                intent.putExtra("web_mail",webMail)
+                intent.putExtra("dept_name",departmentName)
+                intent.putExtra("univ_name",universityName)
+                intent.putExtra("univ_mail",webMail)
                 startActivity(intent)
             }
         })
