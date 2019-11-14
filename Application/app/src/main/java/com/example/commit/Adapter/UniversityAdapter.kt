@@ -28,19 +28,14 @@ class UniversityAdapter : BaseAdapter(){
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         var view = convertView
         val context:Context? = parent?.context
-
         // "listview_item" Layout을 inflate하여 convertView 참조 획득.
         if (view == null) {
             val inflater = context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             view = inflater.inflate(R.layout.item_university, parent, false)
         }
-
         var textView=view?.findViewById(R.id.text_university) as TextView
-
         var item=universityList[position]
-
         textView.setText(item.university)
-
         return view
     }
 

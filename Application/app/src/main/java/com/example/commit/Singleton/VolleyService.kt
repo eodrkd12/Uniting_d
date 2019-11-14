@@ -18,13 +18,11 @@ import org.json.JSONObject
 
 object VolleyService {
     //학교
-    val ip: String = "http://172.30.104.192"
-    //val ip: String = "http://192.168.43.247"
+    val ip: String = "http://52.78.27.41:1901"
 
-    //==========세현==========
     //아이디 중복체크
     fun idCheckReq(id: String, context: Context, success: (Int) -> Unit) {
-        val url = "${ip}:3000/user/check"
+        val url = "${ip}/user/check"
 
         val json = JSONObject()
         json.put("id", id)
@@ -53,7 +51,7 @@ object VolleyService {
 
     //닉네임 중복체크
     fun nicknameCheckReq(nickname: String, context: Context, success: (Int) -> Unit) {
-        val url = "${ip}:3000/user/check/nickname"
+        val url = "${ip}/user/check/nickname"
 
         val json = JSONObject()
         json.put("nickname", nickname)
@@ -82,7 +80,7 @@ object VolleyService {
 
     //이메일 인증 코드 요청
     fun codeReq(context: Context, success: (String) -> Unit) {
-        val url = "${ip}:3000/code"//요청 URL
+        val url = "${ip}/code"//요청 URL
 
         val json = JSONObject() // 서버로 전송할 json 객체
 
@@ -107,7 +105,7 @@ object VolleyService {
 
     //로그인 요청
     fun loginReq(id: String, pw: String, context: Context, success: (Int) -> Unit) {
-        val url = "${ip}:3000/user/login"//요청 URL
+        val url = "${ip}/user/login"//요청 URL
 
         val json = JSONObject() // 서버로 전송할 json 객체
         json.put("id", id) // json 객체에 데이터 삽입, 첫번째 파라미터가 키, 두번째 파라미터가 값
@@ -119,9 +117,9 @@ object VolleyService {
             , json
             , Response.Listener {
                 // 통신 성공 리스너 : 통신 성공 시에 호출
-                if (pw != it.getString("PW"))
+                if (pw != it.getString("user_pw"))
                     success(2)
-                else if (pw == it.getString("PW"))
+                else if (pw == it.getString("user_pw"))
                     success(3)
             }
             , Response.ErrorListener {
@@ -146,13 +144,12 @@ object VolleyService {
     }
 
     //회원가입 요청
-    //
     fun joinReq(
         id: String, pw: String, name: String, birthday: String, gender: String
         , nickname: String, webMail: String, universityName: String, departmentName: String, enterYear: String
-        , context: Context, success: (Int) -> Unit
+        , context: Context, success: (String) -> Unit
     ) {
-        val url = "${ip}:3000/user"//요청 URL
+        val url = "${ip}/user"//요청 URL
 
         val json = JSONObject() // 서버로 전송할 json 객체
         json.put("id", id) // json 객체에 데이터 삽입, 첫번째 파라미터가 키, 두번째 파라미터가 값
@@ -173,7 +170,7 @@ object VolleyService {
             , json
             , Response.Listener {
                 // 통신 성공 리스너 : 통신 성공 시에 호출
-                success(1)
+                success(it.getString("result"))
             }
             , Response.ErrorListener {
                 // 통신 실패 리스너 : 통신 실패 시에 호출
@@ -192,13 +189,15 @@ object VolleyService {
 
     //학교 검색
     fun search_university(name: String, context: Context, success: (JSONArray?) -> Unit) {
-        val url = "${ip}:3000/university"
+        val url = "${ip}/university"
 
         var jsonObject = JSONObject()
         jsonObject.put("name", name)
 
         var jsonArray: JSONArray = JSONArray()
         jsonArray.put(jsonObject)
+
+        Log.d("test","name : ${jsonObject.getString("name")}")
 
         var request = object : JsonArrayRequest(Method.POST
             , url
@@ -221,11 +220,11 @@ object VolleyService {
         context: Context,
         success: (JSONArray?) -> Unit
     ) {
-        val url = "${ip}:3000/department"
+        val url = "${ip}/department"
 
         var jsonObject = JSONObject()
-        jsonObject.put("university_name", universityName)
-        jsonObject.put("department_name", departmentName)
+        jsonObject.put("univ_name", universityName)
+        jsonObject.put("dept_name", departmentName)
 
         var jsonArray: JSONArray = JSONArray()
         jsonArray.put(jsonObject)
@@ -237,7 +236,7 @@ object VolleyService {
                 success(it)
             }
             , Response.ErrorListener {
-                Log.d("test", it.toString())
+                Log.d("test", "학과검색 에러 : ${it.toString()}")
             }) {
 
         }
@@ -248,7 +247,7 @@ object VolleyService {
     //현재 : 모든 유저 불러오기(임시)
     //계획 : 데이팅 ON 유저만 불러오기
     fun datingUserReq(context:Context,success:(JSONArray?)->Unit){
-        val url="${ip}:3000/user/dating"
+        val url="${ip}/user/dating"
 
         var jsonArray=JSONArray()
 
@@ -269,7 +268,7 @@ object VolleyService {
 
     //게시글 불러오기 : 태그 이용
     fun postReq(tag:String, context: Context, success: (JSONArray?)->Unit){
-        val url="${ip}:3000/post/${tag}"
+        val url="${ip}/post/${tag}"
 
         val jsonArray=JSONArray()
 
@@ -292,7 +291,7 @@ object VolleyService {
 
     //이메일로 아이디 찾기 ->상원
     fun findReq(email: String, context: Context, success: (Int) -> Unit) {
-        val url = "${ip}:3000/user"
+        val url = "${ip}/user"
 
         val json_search = JSONObject()
         json_search.put("email", email)
@@ -323,7 +322,7 @@ object VolleyService {
     } //ID만 찾을떄쓰는 함수
 
     fun findReq2(id: String, email: String, context: Context, success: (Int) -> Unit) {
-        val url = "${ip}:3000/user"
+        val url = "${ip}/user"
 
         val json_search2 = JSONObject()
         json_search2.put("id", id)
@@ -357,7 +356,7 @@ object VolleyService {
     }//비번 찾을때 함수
 
     fun check_num(number: Int, context: Context, success: (Int) -> Unit) {
-        val url = "${ip}:3000/user"
+        val url = "${ip}/user"
 
         val json_num = JSONObject()
         json_num.put("number", number)
@@ -388,7 +387,7 @@ object VolleyService {
     }
 
     fun change_pw(pw: String, pw2: String, context: Context, success: (Int) -> Unit) {
-        val url = "${ip}:3000/user"
+        val url = "${ip}/user"
 
         val json_ch = JSONObject()
         json_ch.put("pw", pw)
@@ -417,6 +416,4 @@ object VolleyService {
             }
         }
     }
-
-
 }

@@ -23,6 +23,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+
         //버튼에 리스너 등록(버튼을 클릭했을 때 동작하는 함수)
         // 인승추가(계정찾기 intent 설정)
         text_find.setOnClickListener {
@@ -51,7 +52,6 @@ class LoginActivity : AppCompatActivity() {
                         //로그인 실패 : ID not exist
                         Toast.makeText(this,"계정을 확인해주세요.",Toast.LENGTH_SHORT).show()
                     }
-
                     2 -> {
                         //로그인 실패 : PW error
                         Toast.makeText(this,"ID / PW를 확인해주세요.",Toast.LENGTH_SHORT).show()
