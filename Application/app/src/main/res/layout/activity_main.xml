@@ -1,78 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent" android:layout_height="match_parent"
         android:orientation="vertical"
->
+        android:weightSum="10">
     <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/layout_logo">
-        <TextView
-                android:text="KMU"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/text_university" android:layout_weight="1"
-                android:textSize="30dp"/>
-        <TextView
-                android:text="LOGO"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/text_logo" android:layout_weight="1"
-                android:textSize="30dp"/>
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/text_null" android:layout_weight="1"
-                android:textSize="30dp"/>
-    </LinearLayout>
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/layout_search">
-        <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/edit_search" android:layout_weight="1"/>
-        <Button
-                android:text="검색"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/btn_search" android:layout_weight="1"/>
-    </LinearLayout>
-
-    <android.support.design.widget.TabLayout
+            android:id="@+id/layout_logo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tablayout"
-            app:tabGravity="center"
-            app:tabMode="fixed"
-
-    >
-
-        <android.support.design.widget.TabItem
+            android:layout_weight="1" android:orientation="horizontal">
+        <TextView
+                android:id="@+id/text_university"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Home" android:id="@+id/tabitem_home"/>
-
-        <android.support.design.widget.TabItem
+                android:layout_height="wrap_content" android:layout_weight="1" android:text="KMU"
+                android:textSize="30dp"/>
+        <TextView
+                android:id="@+id/text_logo"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Chat" android:id="@+id/tabitem_chat"/>
-
-        <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Alam" android:id="@+id/tabitem_notice"/>
-        <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Option" android:id="@+id/tabitem_option"/>
-
-
-    </android.support.design.widget.TabLayout>
-    <android.support.v4.view.ViewPager
-            android:id="@+id/pager_content"
+                android:layout_height="wrap_content" android:layout_weight="1" android:text="LOGO"
+                android:textSize="30dp"/>
+        <TextView
+                android:id="@+id/text_null"
+                android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"
+                android:textSize="30dp"/>
+    </LinearLayout>
+    <LinearLayout
+            android:id="@+id/layout_search"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content" android:layout_weight="1" android:orientation="horizontal">
+        <EditText
+                android:id="@+id/edit_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10" android:inputType="textPersonName"/>
+        <Button
+                android:id="@+id/btn_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:layout_weight="1" android:text="검색"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="8" android:orientation="vertical" android:weightSum="10">
+        <FrameLayout
+                android:id="@+id/frame_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:layout_weight="1">
+
+        </FrameLayout>
+        <android.support.design.widget.BottomNavigationView
+                android:id="@+id/bnv_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="9"
+                android:background="@color/colorPrimary" app:labelVisibilityMode="auto">
+        </android.support.design.widget.BottomNavigationView>
+    </LinearLayout>
 
 </LinearLayout>

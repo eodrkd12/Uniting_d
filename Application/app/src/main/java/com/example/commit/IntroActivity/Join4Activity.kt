@@ -27,9 +27,9 @@ class Join4Activity : AppCompatActivity() {
 
         var getIntent=intent
 
-        var universityName=getIntent.getStringExtra("university_name")
-        var departmentName=getIntent.getStringExtra("department_name")
-        var webMail=getIntent.getStringExtra("web_mail")
+        var universityName=getIntent.getStringExtra("univ_name")
+        var departmentName=getIntent.getStringExtra("dept_name")
+        var webMail=getIntent.getStringExtra("univ_mail")
         var birthday:String?=null
 
         text_webmail_edited.text=webMail
@@ -110,9 +110,9 @@ class Join4Activity : AppCompatActivity() {
                     intent.putExtra("gender", "W")
                     Log.d("test","여자")
                 }
-                intent.putExtra("university_name",universityName)
-                intent.putExtra("department_name",departmentName)
-                intent.putExtra("web_mail",webMail)
+                intent.putExtra("univ_name",universityName)
+                intent.putExtra("dept_name",departmentName)
+                intent.putExtra("univ_mail",webMail)
                 intent.putExtra("enter_year",enterYear)
                 startActivity(intent)
             }
