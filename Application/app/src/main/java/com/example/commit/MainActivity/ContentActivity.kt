@@ -54,13 +54,7 @@ class ContentActivity : AppCompatActivity() {
 
                             //이용자 나이 계산
                             var age=year-Integer.parseInt(birthday)+1
-                            //이용자 성별
-                            var gender:String?=null;
-                            if(json.getString("user_gender")=="M")
-                                gender="남자"
-                            else
-                                gender="여자"
-                            datingAdapter.addItem(nickname,department,age,gender)
+                            datingAdapter.addItem(nickname,department,age)
                         }
                     }
 

@@ -38,25 +38,22 @@ class DatingAdapter : BaseAdapter() {
         var textNickname=view?.findViewById(R.id.text_nickname) as TextView
         var textDepartment=view?.findViewById(R.id.text_department) as TextView
         var textAge=view?.findViewById(R.id.text_age) as TextView
-        var textGender=view?.findViewById(R.id.text_gender) as TextView
 
         var item=datingList[position]
 
         textNickname.setText(item.nickname)
         textDepartment.setText(item.department)
         textAge.setText(item.age)
-        textGender.setText(item.gender)
 
         return view
     }
 
-    fun addItem(nickname: String, department: String, age:Int, gender:String){
+    fun addItem(nickname: String, department: String, age:Int){
         val item=DatingItem()
 
         item.nickname=nickname
         item.department=department
         item.age=age.toString()
-        item.gender=gender
 
 
         datingList.add(item)
