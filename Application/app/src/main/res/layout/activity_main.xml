@@ -57,7 +57,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="9"
-                android:background="@color/colorPrimary" app:labelVisibilityMode="auto">
+                app:menu="@menu/bnv_main"
+                app:itemIconTint="@drawable/selector_bottomnav"
+                app:itemTextColor="@drawable/selector_bottomnav"
+                android:background="@color/colorPrimary"
+                app:labelVisibilityMode="auto">
+
         </android.support.design.widget.BottomNavigationView>
     </LinearLayout>
 
