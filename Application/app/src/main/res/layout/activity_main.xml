@@ -41,17 +41,18 @@
     </LinearLayout>
 
     <FrameLayout
-            android:id = "@+id/frame_main"
+            android:id="@+id/frame_main"
             android:layout_width="match_parent"
-            android:layout_height="562dp">
+            android:layout_height="394dp">
 
     </FrameLayout>
 
     <android.support.design.widget.BottomNavigationView
             android:id="@+id/bnv_main"
-            android:background="@color/colorPrimary"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:labelVisibilityMode="auto"/>
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimary"
+            app:labelVisibilityMode="auto" />
 
 </LinearLayout>
