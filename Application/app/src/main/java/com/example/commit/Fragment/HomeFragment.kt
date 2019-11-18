@@ -25,8 +25,6 @@ class HomeFragment() : Fragment() {
         var view=inflater.inflate(R.layout.fragment_home,container,false)
 
         var btnDating:Button=view.findViewById(R.id.btn_dating)
-        var btnMarket:Button=view.findViewById(R.id.btn_market)
-        var btnStudy:Button=view.findViewById(R.id.btn_study)
 
         var contentBtnClick=View.OnClickListener {
             var tag=it.getTag().toString()
@@ -36,8 +34,6 @@ class HomeFragment() : Fragment() {
         }
 
         btnDating.setOnClickListener(contentBtnClick)
-        btnMarket.setOnClickListener(contentBtnClick)
-        btnStudy.setOnClickListener(contentBtnClick)
 
         // Inflate the layout for this fragment
         return view

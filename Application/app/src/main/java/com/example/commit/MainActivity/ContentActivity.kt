@@ -59,10 +59,21 @@ class ContentActivity : AppCompatActivity() {
                     }
 
                     datingAdapter.notifyDataSetChanged()
+
+                    list_content.setOnItemClickListener { parent, view, position, id ->
+
+                    }
                 })
             }
 
-            //마켓 OR STUDY 게시글 리스트 표시
+            "OPEN"->{
+
+            }
+        }
+    }
+}
+/*
+//마켓 OR STUDY 게시글 리스트 표시
             else -> {
                 VolleyService.postReq(tag,this,{success ->
                     if(tag=="MARKET") {
@@ -94,6 +105,4 @@ class ContentActivity : AppCompatActivity() {
                     else studyAdapter.notifyDataSetChanged()
                 })
             }
-        }
-    }
-}
+ */
