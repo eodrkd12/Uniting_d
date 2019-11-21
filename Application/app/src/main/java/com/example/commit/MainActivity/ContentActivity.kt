@@ -17,7 +17,6 @@ class ContentActivity : AppCompatActivity() {
     var datingAdapter=DatingAdapter()
     var marketAdapter= MarketAdapter()
     var studyAdapter= StudyAdapter()
-
     var contentArray:JSONArray?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +29,7 @@ class ContentActivity : AppCompatActivity() {
         when(tag){
             //데이팅 리스트 표시
             "DATING" -> {
-                VolleyService.datingUserReq(this,{success ->
+                VolleyService.datingUserReq("uniting","M","kmu",this,{success ->
                     list_content.adapter=datingAdapter
                     datingAdapter.clear()
 

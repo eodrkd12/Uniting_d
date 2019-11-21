@@ -244,19 +244,51 @@ object VolleyService {
     }
 
     //데이팅 유저 불러오기
-    //현재 : 모든 유저 불러오기(임시)
-    //계획 : 데이팅 ON 유저만 불러오기
-    fun datingUserReq(context:Context,success:(JSONArray?)->Unit){
+    fun datingUserReq(nickname: String,gender: String,universityName: String,context:Context,success:(JSONArray?)->Unit){
         val url="${ip}/user/dating"
 
         var jsonArray=JSONArray()
 
+        var jsonObject=JSONObject()
+        jsonObject.put("nickname",nickname)
+        jsonObject.put("gender",gender)
+        jsonObject.put("univ_name",universityName)
+
+
+        jsonArray.put(jsonObject)
+
         var request=object:JsonArrayRequest(
-            Method.GET,
+            Method.POST,
             url,
             jsonArray,
             Response.Listener{
                 success(it)
+            },
+            Response.ErrorListener{
+                Log.d("test",it.toString())
+            }){
+        }
+
+
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    //데이팅 채팅방 생성
+    fun createDatingReq(maker:String,user:String,context: Context,success:(String?)->Unit){
+        val url="${ip}/join_room"
+
+        var jsonObject=JSONObject()
+
+        jsonObject.put("cate_name","데이팅")
+        jsonObject.put("maker",maker)
+        jsonObject.put("user",user)
+
+        var request=object:JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonObject,
+            Response.Listener{
+                success(it.getString("result"))
             },
             Response.ErrorListener{
                 Log.d("test",it.toString())
