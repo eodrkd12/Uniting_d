@@ -59,6 +59,12 @@ class DatingAdapter : BaseAdapter() {
         datingList.add(item)
     }
 
+    fun getNickname(position: Int): String?{
+        var datingItem=datingList.get(position)
+
+        return datingItem.nickname
+    }
+
     fun clear(){
         datingList.clear()
     }
