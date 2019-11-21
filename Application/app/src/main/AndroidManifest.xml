@@ -17,7 +17,7 @@
         <activity android:name=".Adapter.CafeVerticalAdapter" />
         <activity android:name=".Fragment.CafeteriaFragment" />
         <activity android:name=".MainActivity.MainActivty" />
-        <activity android:name=".MainActivity.ContentActivity" />
+        <activity android:name=".MainActivity.DatingActivity" />
         <activity android:name=".IntroActivity.Join3Activity" />
         <activity android:name=".IntroActivity.Join1Activity" />
         <activity android:name=".IntroActivity.Join5Activity" />

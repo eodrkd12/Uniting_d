@@ -274,7 +274,7 @@ object VolleyService {
     }
 
     //데이팅 채팅방 생성
-    fun createDatingReq(maker:String,user:String,context: Context,success:(String?)->Unit){
+    fun createDatingReq(maker:String,user:String,universityName: String,context: Context,success:(JSONObject?)->Unit){
         val url="${ip}/join_room"
 
         var jsonObject=JSONObject()
@@ -282,13 +282,15 @@ object VolleyService {
         jsonObject.put("cate_name","데이팅")
         jsonObject.put("maker",maker)
         jsonObject.put("user",user)
+        jsonObject.put("univ_name",universityName)
 
         var request=object:JsonObjectRequest(
             Method.POST,
             url,
             jsonObject,
             Response.Listener{
-                success(it.getString("result"))
+                Log.d("test",it.toString())
+                success(it)
             },
             Response.ErrorListener{
                 Log.d("test",it.toString())

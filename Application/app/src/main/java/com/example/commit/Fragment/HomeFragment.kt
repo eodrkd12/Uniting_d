@@ -1,19 +1,14 @@
 package com.example.commit.Fragment
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import com.example.commit.MainActivity.ContentActivity
-import com.example.commit.MainActivity.MainActivity
+import com.example.commit.MainActivity.DatingActivity
 import com.example.commit.R
-import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment() : Fragment() {
 
@@ -28,7 +23,7 @@ class HomeFragment() : Fragment() {
 
         var contentBtnClick=View.OnClickListener {
             var tag=it.getTag().toString()
-            var intent= Intent(activity,ContentActivity::class.java)
+            var intent= Intent(activity,DatingActivity::class.java)
             intent.putExtra("tag",tag.toString())
             startActivity(intent)
         }
