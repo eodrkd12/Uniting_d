@@ -65,12 +65,6 @@ class MainActivity : AppCompatActivity() {
         var intent=intent
         staticId=intent.getStringExtra("id")
         staticPw=intent.getStringExtra("pw")
-
-
-
-
-        //var getIntent:Intent=getIntent()
-        // Log.d("test","id : ${getIntent.getStringExtra("id")} 로그인")
     }
 
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener {

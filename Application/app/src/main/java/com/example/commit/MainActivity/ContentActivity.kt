@@ -17,7 +17,6 @@ class ContentActivity : AppCompatActivity() {
     var datingAdapter=DatingAdapter()
     var marketAdapter= MarketAdapter()
     var studyAdapter= StudyAdapter()
-
     var contentArray:JSONArray?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +29,7 @@ class ContentActivity : AppCompatActivity() {
         when(tag){
             //데이팅 리스트 표시
             "DATING" -> {
-                VolleyService.datingUserReq(this,{success ->
+                VolleyService.datingUserReq("uniting","M","kmu",this,{success ->
                     list_content.adapter=datingAdapter
                     datingAdapter.clear()
 
@@ -54,21 +53,26 @@ class ContentActivity : AppCompatActivity() {
 
                             //이용자 나이 계산
                             var age=year-Integer.parseInt(birthday)+1
-                            //이용자 성별
-                            var gender:String?=null;
-                            if(json.getString("user_gender")=="M")
-                                gender="남자"
-                            else
-                                gender="여자"
-                            datingAdapter.addItem(nickname,department,age,gender)
+                            datingAdapter.addItem(nickname,department,age)
                         }
                     }
 
                     datingAdapter.notifyDataSetChanged()
+
+                    list_content.setOnItemClickListener { parent, view, position, id ->
+
+                    }
                 })
             }
 
-            //마켓 OR STUDY 게시글 리스트 표시
+            "OPEN"->{
+
+            }
+        }
+    }
+}
+/*
+//마켓 OR STUDY 게시글 리스트 표시
             else -> {
                 VolleyService.postReq(tag,this,{success ->
                     if(tag=="MARKET") {
@@ -100,6 +104,4 @@ class ContentActivity : AppCompatActivity() {
                     else studyAdapter.notifyDataSetChanged()
                 })
             }
-        }
-    }
-}
+ */
