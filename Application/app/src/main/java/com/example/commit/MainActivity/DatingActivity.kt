@@ -1,6 +1,7 @@
 package com.example.commit.MainActivity
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Debug
@@ -13,7 +14,7 @@ import com.example.commit.Adapter.StudyAdapter
 import com.example.commit.ListItem.DatingItem
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
-import kotlinx.android.synthetic.main.activity_content.*
+import kotlinx.android.synthetic.main.activity_dating.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
@@ -21,13 +22,11 @@ import java.util.*
 class DatingActivity : AppCompatActivity() {
 
     var datingAdapter=DatingAdapter()
-    var marketAdapter= MarketAdapter()
-    var studyAdapter= StudyAdapter()
-    var contentArray:JSONArray?=null
+    var datingArray:JSONArray?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_content)
+        setContentView(R.layout.activity_dating)
 
         var intent=intent
         var tag=intent.getStringExtra("tag")
@@ -39,15 +38,15 @@ class DatingActivity : AppCompatActivity() {
                     list_content.adapter=datingAdapter
                     datingAdapter.clear()
 
-                    contentArray=success
+                    datingArray=success
 
-                    if(contentArray!!.length()==0){
+                    if(datingArray!!.length()==0){
 
                     }
                     else{
-                        for(i in 0..contentArray!!.length()-1){
+                        for(i in 0..datingArray!!.length()-1){
                             var json=JSONObject()
-                            json=contentArray!![i] as JSONObject
+                            json=datingArray!![i] as JSONObject
                             var nickname=json.getString("user_nickname")
                             var department=json.getString("dept_name")
                             //현재 연도 구하기
@@ -71,19 +70,17 @@ class DatingActivity : AppCompatActivity() {
                         builder.setTitle("${userNickname}님과의 대화")
                         builder.setMessage("시작하시겠습니까?")
 
-                        /*builder.setPositiveButton("확인") {dialog, id ->
-                        }
-                        builder.setNegativeButton("취소") {dialog, id ->
-                        }*/
                         builder.setPositiveButton("확인") { _, _ ->
                             VolleyService.createDatingReq("uniting",userNickname!!,"kmu",this, { success ->
-
+                                var roomId=success!!.getString("room_id")
+                                var intent= Intent(this,ChatActivity::class.java)
+                                intent.putExtra("room_id",roomId)
+                                startActivity(intent)
                             })
                         }
                         builder.setNegativeButton("취소") { _, _ ->
 
                         }
-
                         builder.show()
                     }
                 })

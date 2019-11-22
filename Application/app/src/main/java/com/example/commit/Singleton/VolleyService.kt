@@ -320,6 +320,30 @@ object VolleyService {
         }
         Volley.newRequestQueue(context).add(request)
     }
+
+    fun chatRoomListReq(nickname: String, context: Context,success: (JSONArray?)->Unit) {
+        var url="${ip}/join_room/chat_room"
+
+        var jsonArray=JSONArray()
+
+        var jsonObject=JSONObject()
+        jsonObject.put("nickname",nickname)
+
+        jsonArray.put(jsonObject)
+        var request=object : JsonArrayRequest(
+            Method.POST,
+            url,
+            jsonArray,
+            Response.Listener{
+                success(it)
+            },
+            Response.ErrorListener {
+
+            }){
+
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
     //==========세현==========
 
 
