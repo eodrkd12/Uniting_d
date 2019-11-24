@@ -31,6 +31,7 @@
 */
 package com.example.commit.MainActivity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
@@ -65,6 +66,16 @@ class MainActivity : AppCompatActivity() {
         var intent=intent
         staticId=intent.getStringExtra("id")
         staticPw=intent.getStringExtra("pw")
+
+        btn_search.setOnClickListener {
+            var pref=this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
+            var editor=pref.edit()
+
+            editor.clear()
+            editor.commit()
+
+            Log.d("test",pref.getString("ID",""))
+        }
     }
 
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener {

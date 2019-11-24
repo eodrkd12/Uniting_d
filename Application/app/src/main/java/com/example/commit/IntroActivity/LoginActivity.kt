@@ -9,10 +9,14 @@ Login Activity
  */
 package com.example.commit.IntroActivity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.preference.Preference
+import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import com.example.commit.Class.UserInfo
 import com.example.commit.MainActivity.ChatRoomListActivity
 import com.example.commit.MainActivity.MainActivity
 import com.example.commit.R
@@ -44,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
             var pw:String=edit_pw.text.toString()
 
             VolleyService.loginReq(id,pw,this, {success ->
-                when(success){
+                when(success.getInt("code")){
                     0 -> {
                         //통신 실패
                         Toast.makeText(this,"서버와의 통신에 실패했습니다.",Toast.LENGTH_SHORT).show()
@@ -59,6 +63,35 @@ class LoginActivity : AppCompatActivity() {
                     }
                     3 -> {
                         //로그인 성공
+                        //프리퍼런스 저장
+                        var user=success.getJSONObject("user")
+                        UserInfo.ID=user.getString("user_id")
+                        UserInfo.PW=user.getString("user_pw")
+                        UserInfo.NAME=user.getString("user_name")
+                        UserInfo.BIRTH=user.getString("user_birthday")
+                        UserInfo.GENDER=user.getString("user_gender")
+                        UserInfo.NICKNAME=user.getString("user_nickname")
+                        UserInfo.EMAIL=user.getString("user_email")
+                        UserInfo.UNIV=user.getString("univ_name")
+                        UserInfo.ENTER=user.getString("enter_year")
+                        UserInfo.DEPT=user.getString("dept_name")
+                        UserInfo.IMG=user.getString("user_image")
+
+                        var pref=this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
+                        var editor=pref.edit()
+                        editor.putString("ID",UserInfo.ID)
+                            .putString("PW",UserInfo.PW)
+                            .putString("NAME",UserInfo.NAME)
+                            .putString("BIRTH",UserInfo.BIRTH)
+                            .putString("GENDER",UserInfo.GENDER)
+                            .putString("NICKNAME",UserInfo.NICKNAME)
+                            .putString("EMAIL",UserInfo.EMAIL)
+                            .putString("UNIV",UserInfo.UNIV)
+                            .putString("ENTER",UserInfo.ENTER)
+                            .putString("DEPT",UserInfo.DEPT)
+                            .putString("ING",UserInfo.IMG)
+                            .apply()
+
                         //Intent클래스를 이용하여 화면 전환
                         //첫번째 파라미터는 this, 두번째 파라미터는 전환할 Activity)
                         var intent:Intent=Intent(this,MainActivity::class.java)

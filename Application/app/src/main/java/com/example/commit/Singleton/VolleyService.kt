@@ -104,11 +104,13 @@ object VolleyService {
     }
 
     //로그인 요청
-    fun loginReq(id: String, pw: String, context: Context, success: (Int) -> Unit) {
+    fun loginReq(id: String, pw: String, context: Context, success: (JSONObject) -> Unit) {
         val url = "${ip}/user/login"//요청 URL
 
         val json = JSONObject() // 서버로 전송할 json 객체
         json.put("id", id) // json 객체에 데이터 삽입, 첫번째 파라미터가 키, 두번째 파라미터가 값
+
+        var result=JSONObject()
 
         // Request객체를 생성하여야 함 종류는 다양하지만 여기선 JsonObjectRequest객체를 생성
         // 객체 생성 파라미터(메소드타입(GET,POST,PUT,DELETE) / URL / 보낼 데이터(json) / 통신 성공 리스너 / 통신 실패 리스너
@@ -116,21 +118,24 @@ object VolleyService {
             , url
             , json
             , Response.Listener {
+                result.put("user",it)
                 // 통신 성공 리스너 : 통신 성공 시에 호출
                 if (pw != it.getString("user_pw"))
-                    success(2)
+                    result.put("code",2)
                 else if (pw == it.getString("user_pw"))
-                    success(3)
+                    result.put("code",3)
+                success(result)
             }
             , Response.ErrorListener {
                 // 통신 실패 리스너 : 통신 실패 시에 호출
                 if (it is com.android.volley.TimeoutError) {
                     Log.d("test", "TimeoutError")
-                    success(0)
+                    result.put("code",0)
                 } else if (it is com.android.volley.ParseError) {
                     Log.d("test", "ParserError")
-                    success(1)
+                    result.put("code",1)
                 }
+                success(result)
             }
         ) {
             //객체 생성 괄호(소괄호)를 닫은 후에 추가하는 요청 Body 부분(비어있어도 됨)
