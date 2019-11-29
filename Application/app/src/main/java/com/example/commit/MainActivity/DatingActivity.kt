@@ -2,15 +2,17 @@ package com.example.commit.MainActivity
 
 import android.content.DialogInterface
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Debug
-import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.ContextThemeWrapper
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.example.commit.Adapter.DatingAdapter
 import com.example.commit.Adapter.MarketAdapter
 import com.example.commit.Adapter.StudyAdapter
+import com.example.commit.Class.UserInfo
+import com.example.commit.IntroActivity.SplashActivity
 import com.example.commit.ListItem.DatingItem
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
@@ -34,7 +36,7 @@ class DatingActivity : AppCompatActivity() {
         when(tag){
             //데이팅 리스트 표시
             "DATING" -> {
-                VolleyService.datingUserReq("uniting","M","kmu",this,{success ->
+                VolleyService.datingUserReq(UserInfo.NICKNAME,UserInfo.GENDER,UserInfo.UNIV,this,{ success ->
                     list_content.adapter=datingAdapter
                     datingAdapter.clear()
 
@@ -71,7 +73,7 @@ class DatingActivity : AppCompatActivity() {
                         builder.setMessage("시작하시겠습니까?")
 
                         builder.setPositiveButton("확인") { _, _ ->
-                            VolleyService.createDatingReq("uniting",userNickname!!,"kmu",this, { success ->
+                            VolleyService.createDatingReq(UserInfo.ID,userNickname!!,UserInfo.UNIV,this, { success ->
                                 var roomId=success!!.getString("room_id")
                                 var intent= Intent(this,ChatActivity::class.java)
                                 intent.putExtra("room_id",roomId)

@@ -14,8 +14,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.preference.Preference
 import android.preference.PreferenceManager
-import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.commit.Class.UserInfo
 import com.example.commit.MainActivity.ChatRoomListActivity
 import com.example.commit.MainActivity.MainActivity
