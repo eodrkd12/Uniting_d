@@ -3,6 +3,7 @@ package com.example.commit.MainActivity
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import com.example.commit.Adapter.ChatRoomListAdapter
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
@@ -13,12 +14,16 @@ import org.json.JSONObject
 
 class ChatRoomListActivity : AppCompatActivity() {
 
+    lateinit var rvCategory : RecyclerView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_room_list)
 
         var chatRoomAdapter= ChatRoomListAdapter()
         var chatRoomArray: JSONArray?=null
+
+        rv_category.setHasFixedSize(true)
 
         VolleyService.chatRoomListReq("uniting",this,{success ->
             list_chat_room.adapter=chatRoomAdapter

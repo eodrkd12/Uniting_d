@@ -2,7 +2,6 @@ package com.example.commit.Adapter
 
 import android.app.Activity
 //import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
 //import android.support.v7.widget.LinearLayoutManager
 //import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -63,7 +62,7 @@ class CafeVerticalAdapter(activity: Activity) : RecyclerView.Adapter<CafeVertica
 
                         holder.CafeHorizontalRV.setHasFixedSize(true)
                         holder.CafeHorizontalRV.layoutManager = LinearLayoutManager(mactivity, LinearLayout.HORIZONTAL, false)
-                        holder.CafeHorizontalRV.adapter = CafeHorizontalAdapter(mactivity!!, homefeed)
+                        holder.CafeHorizontalRV.adapter = CategoryAdapter(mactivity!!, homefeed)
                     }
                 }
 
