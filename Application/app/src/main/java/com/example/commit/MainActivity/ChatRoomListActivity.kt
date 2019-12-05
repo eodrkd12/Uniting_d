@@ -1,40 +1,27 @@
-package com.example.commit.Fragment
+package com.example.commit.MainActivity
 
-import android.annotation.SuppressLint
-import android.content.Context
+import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.ListView
 import com.example.commit.Adapter.ChatRoomListAdapter
-import com.example.commit.Adapter.DatingAdapter
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
-import kotlinx.android.synthetic.main.activity_dating.*
-import kotlinx.android.synthetic.main.fragment_chat.*
+import kotlinx.android.synthetic.main.activity_chat.*
+import kotlinx.android.synthetic.main.activity_chat_room_list.*
 import org.json.JSONArray
 import org.json.JSONObject
-import java.util.*
 
-class ChatFragment() : Fragment() {
+class ChatRoomListActivity : AppCompatActivity() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_chat, container, false)
-
-        var view=inflater.inflate(R.layout.fragment_chat,container,false)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_chat_room_list)
 
         var chatRoomAdapter= ChatRoomListAdapter()
         var chatRoomArray: JSONArray?=null
-        var listChatRoom:ListView=view.findViewById(R.id.list_chat_room)
-        VolleyService.chatRoomListReq("uniting",context!!,{success ->
-            listChatRoom.adapter=chatRoomAdapter
+
+        VolleyService.chatRoomListReq("uniting",this,{success ->
+            list_chat_room.adapter=chatRoomAdapter
             chatRoomAdapter.clear()
 
             chatRoomArray=success
@@ -57,13 +44,11 @@ class ChatFragment() : Fragment() {
                 }
             }
 
-            listChatRoom.setOnItemClickListener { parent, view, position, id ->
+            list_chat_room.setOnItemClickListener { parent, view, position, id ->
 
             }
 
             chatRoomAdapter.notifyDataSetChanged()
         })
-
-        return view
     }
 }
