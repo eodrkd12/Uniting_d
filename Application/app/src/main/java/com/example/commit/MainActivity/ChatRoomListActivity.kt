@@ -1,13 +1,11 @@
 package com.example.commit.MainActivity
 
 import android.os.Bundle
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.commit.Adapter.ChatRoomListAdapter
+import com.example.commit.Adapter.ChatAdapter
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
-import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.android.synthetic.main.activity_chat_room_list.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -20,7 +18,7 @@ class ChatRoomListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_room_list)
 
-        var chatRoomAdapter= ChatRoomListAdapter()
+        var chatRoomAdapter= ChatAdapter()
         var chatRoomArray: JSONArray?=null
 
         rv_category.setHasFixedSize(true)

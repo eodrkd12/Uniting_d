@@ -62,7 +62,7 @@ class CafeVerticalAdapter(activity: Activity) : RecyclerView.Adapter<CafeVertica
 
                         holder.CafeHorizontalRV.setHasFixedSize(true)
                         holder.CafeHorizontalRV.layoutManager = LinearLayoutManager(mactivity, LinearLayout.HORIZONTAL, false)
-                        holder.CafeHorizontalRV.adapter = CategoryAdapter(mactivity!!, homefeed)
+                        holder.CafeHorizontalRV.adapter = CafeHorizontalAdapter(mactivity!!, homefeed)
                     }
                 }
 

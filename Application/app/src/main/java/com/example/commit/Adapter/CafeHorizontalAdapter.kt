@@ -1,6 +1,7 @@
 package com.example.commit.Adapter
 
 import android.content.Context
+import android.content.Intent
 //import android.support.v7.app.AppCompatActivity
 //import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -19,16 +20,18 @@ class CafeHorizontalAdapter(val context: Context, val homefeed: Homefeed) : Recy
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryAdapter.ViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.cafe_horizontal_item, parent, false)
-        return ViewHolder(itemView)
+        /*val itemView = LayoutInflater.from(parent.context).inflate(R.layout.cafe_horizontal_item, parent, false)
+        return ViewHolder(itemView)*/
+        return
     }
 
     override fun onBindViewHolder(holder: CategoryAdapter.ViewHolder, position: Int) {
-        holder.bindItems(homefeed.items.get(position))
-        /*holder.view.setOnClickListener{
+        /*holder.bindItems(homefeed.items.get(position))
+holder.view.setOnClickListener{
             val intent = Intent(context, InformActivity::class.java)
             context.startActivity(intent)
         }*/
+
     }
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view){
@@ -36,6 +39,4 @@ class CafeHorizontalAdapter(val context: Context, val homefeed: Homefeed) : Recy
             itemView.cafehorizontaltitle.text = data.title
         }
     }
-
-
 }
