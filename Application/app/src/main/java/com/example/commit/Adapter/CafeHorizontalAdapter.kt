@@ -12,18 +12,18 @@ import com.example.commit.ListItem.Item
 import com.example.commit.R
 import kotlinx.android.synthetic.main.cafe_horizontal_item.view.*
 
-class CafeHorizontalAdapter(val context: Context, val homefeed: Homefeed) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+class CafeHorizontalAdapter(val context: Context, val homefeed: Homefeed) : RecyclerView.Adapter<CafeHorizontalAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
         return homefeed.items.count();
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CafeHorizontalAdapter.ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.cafe_horizontal_item, parent, false)
         return ViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: CategoryAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CafeHorizontalAdapter.ViewHolder, position: Int) {
         holder.bindItems(homefeed.items.get(position))
         /*holder.view.setOnClickListener{
             val intent = Intent(context, InformActivity::class.java)

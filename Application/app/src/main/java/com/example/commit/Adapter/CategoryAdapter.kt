@@ -7,14 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.commit.ListItem.CategoryItem
+import com.example.commit.ListItem.Categoryitem
 import com.example.commit.R
 import kotlinx.android.synthetic.main.cafe_horizontal_item.view.*
+import kotlinx.android.synthetic.main.rvitem_chat_category.view.*
 
-class CategoryAdapter(val context: Context, val items: ArrayList<CategoryItem>) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+class CategoryAdapter(val context: Context) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+
+    val categorylist = arrayListOf<Categoryitem>(Categoryitem("카테고리1"), Categoryitem("카테고리2"), Categoryitem("카테고리3"), Categoryitem("카테고리4"), Categoryitem("카테고리5"), Categoryitem("카테고리6"))
 
     override fun getItemCount(): Int {
-        return items.count();
+        return categorylist.count();
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryAdapter.ViewHolder {
@@ -23,7 +26,7 @@ class CategoryAdapter(val context: Context, val items: ArrayList<CategoryItem>) 
     }
 
     override fun onBindViewHolder(holder: CategoryAdapter.ViewHolder, position: Int) {
-        holder.bindItems(items.get(position))
+        holder.bindItems(categorylist.get(position))
         /*holder.view.setOnClickListener{
             val intent = Intent(context, InformActivity::class.java)
             context.startActivity(intent)
@@ -31,8 +34,8 @@ class CategoryAdapter(val context: Context, val items: ArrayList<CategoryItem>) 
     }
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view){
-        fun bindItems(data: CategoryItem) {
-            itemView.cafehorizontaltitle.text = data.category
+        fun bindItems(data: Categoryitem) {
+            itemView.btn_category.text = data.categoryname
         }
     }
 }
