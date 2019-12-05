@@ -1,9 +1,13 @@
 package com.example.commit.MainActivity
 
 import android.os.Bundle
+import android.widget.LinearLayout
+import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.commit.Adapter.ChatAdapter
+import com.example.commit.Adapter.CategoryAdapter
+import com.example.commit.Adapter.ChatRoomListAdapter
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
 import kotlinx.android.synthetic.main.activity_chat_room_list.*
@@ -21,6 +25,9 @@ class ChatRoomListActivity : AppCompatActivity() {
         var chatRoomAdapter= ChatAdapter()
         var chatRoomArray: JSONArray?=null
 
+
+rv_category.layoutManager = LinearLayoutManager(this, LinearLayout.HORIZONTAL, false)
+        rv_category.adapter = CategoryAdapter(this)
         rv_category.setHasFixedSize(true)
 
         VolleyService.chatRoomListReq("uniting",this,{success ->
@@ -53,5 +60,7 @@ class ChatRoomListActivity : AppCompatActivity() {
 
             chatRoomAdapter.notifyDataSetChanged()
         })
+
+
     }
 }
