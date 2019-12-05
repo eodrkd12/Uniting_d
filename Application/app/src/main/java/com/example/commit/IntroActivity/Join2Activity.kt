@@ -1,11 +1,11 @@
 package com.example.commit.IntroActivity
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Debug
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.commit.Class.GMailSender
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService

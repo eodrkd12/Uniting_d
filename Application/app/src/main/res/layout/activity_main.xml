@@ -52,7 +52,7 @@
                 android:layout_height="match_parent" android:layout_weight="1">
 
         </FrameLayout>
-        <android.support.design.widget.BottomNavigationView
+        <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bnv_main"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -61,9 +61,8 @@
                 app:itemIconTint="@drawable/selector_bottomnav"
                 app:itemTextColor="@drawable/selector_bottomnav"
                 android:background="@color/colorPrimary"
-                app:labelVisibilityMode="auto">
+                app:labelVisibilityMode="auto"/>
 
-        </android.support.design.widget.BottomNavigationView>
     </LinearLayout>
 
 </LinearLayout>

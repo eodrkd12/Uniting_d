@@ -3,9 +3,9 @@ package com.example.commit.IntroActivity
 //프사 설정은 나중에 ..
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
 

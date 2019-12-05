@@ -2,10 +2,11 @@ package com.example.commit.IntroActivity
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.StrictMode
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.example.commit.Class.UserInfo
 import com.example.commit.MainActivity.MainActivity
 import com.example.commit.R

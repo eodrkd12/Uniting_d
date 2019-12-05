@@ -2,12 +2,12 @@ package com.example.commit.IntroActivity
 
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.DatePicker
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
 import kotlinx.android.synthetic.main.activity_join4.*

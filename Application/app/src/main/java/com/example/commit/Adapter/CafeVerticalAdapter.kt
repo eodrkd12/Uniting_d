@@ -1,14 +1,16 @@
 package com.example.commit.Adapter
 
 import android.app.Activity
-import android.support.v7.app.AppCompatActivity
+//import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+//import android.support.v7.widget.LinearLayoutManager
+//import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.commit.ListItem.Homefeed
 import com.example.commit.R
 import com.google.gson.GsonBuilder
