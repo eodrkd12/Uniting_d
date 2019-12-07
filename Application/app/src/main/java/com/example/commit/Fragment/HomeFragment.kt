@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import com.example.commit.MainActivity.ChatRoomListActivity
 import com.example.commit.MainActivity.DatingActivity
 import com.example.commit.MainActivity.OpenChatListActivity
 import com.example.commit.R
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment() : Fragment() {
 
@@ -25,9 +27,7 @@ class HomeFragment() : Fragment() {
 
 
         var contentBtnClick=View.OnClickListener {
-            var tag=it.getTag().toString()
             var intent= Intent(activity,DatingActivity::class.java)
-            intent.putExtra("tag",tag.toString())
             startActivity(intent)
         }
 
@@ -37,6 +37,15 @@ class HomeFragment() : Fragment() {
         btnDating.setOnClickListener(contentBtnClick)
 
 
+<<<<<<< HEAD
+=======
+        var btnOpen:Button = view.findViewById(R.id.btn_open)
+        var btnopenclick = View.OnClickListener{
+            val intent = Intent(activity,ChatRoomListActivity::class.java)
+            startActivity(intent)
+        }
+        btnOpen.setOnClickListener(btnopenclick)
+>>>>>>> origin/JaeSeong
 
         // Inflate the layout for this fragment
         return view

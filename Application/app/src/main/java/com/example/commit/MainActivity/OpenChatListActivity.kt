@@ -1,7 +1,15 @@
 package com.example.commit.MainActivity
 
 import android.os.Bundle
+<<<<<<< HEAD:Application/app/src/main/java/com/example/commit/MainActivity/OpenChatListActivity.kt
+=======
+import android.widget.LinearLayout
+import android.widget.ListView
+>>>>>>> origin/JaeSeong:Application/app/src/main/java/com/example/commit/MainActivity/ChatRoomListActivity.kt
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.commit.Adapter.CategoryAdapter
 import com.example.commit.Adapter.ChatRoomListAdapter
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
@@ -11,12 +19,19 @@ import org.json.JSONObject
 
 class OpenChatListActivity : AppCompatActivity() {
 
+    lateinit var rvCategory : RecyclerView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_open_chat_list)
 
         var chatRoomAdapter= ChatRoomListAdapter()
         var chatRoomArray: JSONArray?=null
+
+
+rv_category.layoutManager = LinearLayoutManager(this, LinearLayout.HORIZONTAL, false)
+        rv_category.adapter = CategoryAdapter(this)
+        rv_category.setHasFixedSize(true)
 
         VolleyService.chatRoomListReq("uniting",this,{success ->
             list_chat_room.adapter=chatRoomAdapter
@@ -48,5 +63,7 @@ class OpenChatListActivity : AppCompatActivity() {
 
             chatRoomAdapter.notifyDataSetChanged()
         })
+
+
     }
 }

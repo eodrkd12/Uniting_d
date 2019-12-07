@@ -19,7 +19,7 @@
         <activity android:name=".MainActivity.ChatActivity">
         </activity>
         <activity android:name=".ListItem.CafeHorizontalItem"/>
-        <activity android:name=".Adapter.CafeHorizontalAdapter"/>
+        <activity android:name=".Adapter.CategoryAdapter"/>
         <activity android:name=".Adapter.CafeVerticalAdapter"/>
         <activity android:name=".Fragment.CafeteriaFragment"/>
         <activity android:name=".MainActivity.MainActivty"/>
