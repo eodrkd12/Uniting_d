@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
             val fragment = HomeFragment()
             supportFragmentManager.beginTransaction()
                 .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
-        }/a
+        }
 
         var intent=intent
         staticId=intent.getStringExtra("id")

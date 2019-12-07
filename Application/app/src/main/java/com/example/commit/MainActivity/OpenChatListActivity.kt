@@ -1,21 +1,19 @@
 package com.example.commit.MainActivity
 
 import android.os.Bundle
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.commit.Adapter.ChatRoomListAdapter
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
-import kotlinx.android.synthetic.main.activity_chat.*
-import kotlinx.android.synthetic.main.activity_chat_room_list.*
+import kotlinx.android.synthetic.main.activity_open_chat_list.*
 import org.json.JSONArray
 import org.json.JSONObject
 
-class ChatRoomListActivity : AppCompatActivity() {
+class OpenChatListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chat_room_list)
+        setContentView(R.layout.activity_open_chat_list)
 
         var chatRoomAdapter= ChatRoomListAdapter()
         var chatRoomArray: JSONArray?=null

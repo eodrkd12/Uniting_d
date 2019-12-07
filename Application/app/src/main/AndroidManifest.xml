@@ -14,7 +14,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
-        <activity android:name=".MainActivity.ChatRoomListActivity">
+        <activity android:name=".MainActivity.OpenChatListActivity">
         </activity>
         <activity android:name=".MainActivity.ChatActivity">
         </activity>
