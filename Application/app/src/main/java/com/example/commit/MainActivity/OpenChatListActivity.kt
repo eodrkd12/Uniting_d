@@ -26,7 +26,7 @@ class OpenChatListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_open_chat_list)
 
-        var chatRoomAdapter= ChatRoomListAdapter()
+        var chatRoomAdapter= ChatAdapter()
         var chatRoomArray: JSONArray?=null
 
 
