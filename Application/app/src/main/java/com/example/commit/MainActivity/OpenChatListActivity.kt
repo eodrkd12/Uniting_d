@@ -1,11 +1,10 @@
 package com.example.commit.MainActivity
 
 import android.os.Bundle
-<<<<<<< HEAD:Application/app/src/main/java/com/example/commit/MainActivity/OpenChatListActivity.kt
-=======
+
 import android.widget.LinearLayout
 import android.widget.ListView
->>>>>>> origin/JaeSeong:Application/app/src/main/java/com/example/commit/MainActivity/ChatRoomListActivity.kt
+
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +12,9 @@ import com.example.commit.Adapter.CategoryAdapter
 import com.example.commit.Adapter.ChatRoomListAdapter
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
+import kotlinx.android.synthetic.main.activity_chat_room_list.*
 import kotlinx.android.synthetic.main.activity_open_chat_list.*
+import kotlinx.android.synthetic.main.activity_open_chat_list.list_chat_room
 import org.json.JSONArray
 import org.json.JSONObject
 

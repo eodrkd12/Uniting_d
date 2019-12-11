@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import com.example.commit.MainActivity.ChatRoomListActivity
+
 import com.example.commit.MainActivity.DatingActivity
 import com.example.commit.MainActivity.OpenChatListActivity
 import com.example.commit.R
@@ -37,15 +37,13 @@ class HomeFragment() : Fragment() {
         btnDating.setOnClickListener(contentBtnClick)
 
 
-<<<<<<< HEAD
-=======
         var btnOpen:Button = view.findViewById(R.id.btn_open)
         var btnopenclick = View.OnClickListener{
-            val intent = Intent(activity,ChatRoomListActivity::class.java)
+            val intent = Intent(activity,OpenChatListActivity::class.java)
             startActivity(intent)
         }
         btnOpen.setOnClickListener(btnopenclick)
->>>>>>> origin/JaeSeong
+
 
         // Inflate the layout for this fragment
         return view
