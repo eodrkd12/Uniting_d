@@ -21,7 +21,7 @@ class HomeFragment() : Fragment() {
 
         var view=inflater.inflate(R.layout.fragment_home,container,false)
 
-        var btnDating:Button=view.findViewById(R.id.btn_dating)
+        var btnDating=view.findViewById<Button>(R.id.btn_dating)
 
         var contentBtnClick=View.OnClickListener {
             var intent= Intent(activity,DatingActivity::class.java)
@@ -31,7 +31,7 @@ class HomeFragment() : Fragment() {
         btnDating.setOnClickListener(contentBtnClick)
 
 
-        var btnOpen:Button = view.findViewById(R.id.btn_open)
+        var btnOpen = view.findViewById<Button>(R.id.btn_open)
         var btnopenclick = View.OnClickListener{
             val intent = Intent(activity,ChatRoomListActivity::class.java)
             startActivity(intent)

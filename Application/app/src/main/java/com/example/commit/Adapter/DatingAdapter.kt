@@ -36,8 +36,8 @@ class DatingAdapter : BaseAdapter() {
         }
 
         var textNickname=view?.findViewById(R.id.text_nickname) as TextView
-        var textDepartment=view?.findViewById(R.id.text_department) as TextView
-        var textAge=view?.findViewById(R.id.text_age) as TextView
+        var textDepartment=view.findViewById(R.id.text_department) as TextView
+        var textAge=view.findViewById(R.id.text_age) as TextView
 
         var item=datingList[position]
 
