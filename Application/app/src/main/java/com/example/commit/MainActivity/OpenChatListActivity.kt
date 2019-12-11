@@ -26,11 +26,11 @@ class OpenChatListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_open_chat_list)
 
-        var chatRoomAdapter= ChatAdapter()
+        var chatRoomAdapter= ChatRoomListAdapter()
         var chatRoomArray: JSONArray?=null
 
 
-rv_category.layoutManager = LinearLayoutManager(this, LinearLayout.HORIZONTAL, false)
+rv_category.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rv_category.adapter = CategoryAdapter(this)
         rv_category.setHasFixedSize(true)
 
