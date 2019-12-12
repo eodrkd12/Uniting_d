@@ -6,12 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import com.example.commit.Class.UserInfo
 import com.example.commit.ListItem.ChatItem
 import com.example.commit.R
 
 class ChatAdapter:BaseAdapter() {
     private var chatList = ArrayList<ChatItem>()
-
+    var isMyChat:Boolean=false;
     override fun getCount(): Int {
         return chatList.size
     }
@@ -31,16 +32,20 @@ class ChatAdapter:BaseAdapter() {
         // "listview_item" Layout을 inflate하여 convertView 참조 획득.
         if (view == null) {
             val inflater = context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            view = inflater.inflate(R.layout.item_chat, parent, false)
+            if(isMyChat)
+                view = inflater.inflate(R.layout.item_my_chat, parent, false)
+            else
+                view = inflater.inflate(R.layout.item_chat, parent, false)
         }
 
-        var textSpeaker=view?.findViewById(R.id.text_speaker) as TextView
-        var textContent=view?.findViewById(R.id.text_content) as TextView
-        var textTime=view?.findViewById(R.id.text_time) as TextView
-
         var item=chatList[position]
+        if(!isMyChat) {
+            var textSpeaker = view?.findViewById(R.id.text_speaker) as TextView
+            textSpeaker.text=item.speaker
+        }
+        var textContent=view!!.findViewById(R.id.text_content) as TextView
+        var textTime=view.findViewById(R.id.text_time) as TextView
 
-        textSpeaker.text=item.speaker
         textContent.text=item.content
         textTime.text=item.time
 
@@ -48,14 +53,17 @@ class ChatAdapter:BaseAdapter() {
     }
 
     fun addItem(roomId:String, speaker: String, content: String, time:String){
+        if(speaker==UserInfo.NICKNAME)
+            isMyChat=true;
+        else
+            isMyChat=false;
+
         val item= ChatItem()
 
         item.roomId=roomId
         item.speaker=speaker
         item.content=content
         item.time=time
-
-
         chatList.add(item)
     }
 
