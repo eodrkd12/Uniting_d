@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import com.example.commit.MainActivity.DatingActivity
 import com.example.commit.MainActivity.OpenChatListActivity
 import com.example.commit.R
-import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment() : Fragment() {
 
@@ -23,26 +22,18 @@ class HomeFragment() : Fragment() {
         var view=inflater.inflate(R.layout.fragment_home,container,false)
 
         var btnDating:Button=view.findViewById(R.id.btn_dating)
-
-
-
-        var contentBtnClick=View.OnClickListener {
+        var btnDatingClick=View.OnClickListener {
             var intent= Intent(activity,DatingActivity::class.java)
             startActivity(intent)
         }
+        btnDating.setOnClickListener(btnDatingClick)
 
-
-
-
-        btnDating.setOnClickListener(contentBtnClick)
-
-
-        var btnOpen:Button = view.findViewById(R.id.btn_open)
-        var btnopenclick = View.OnClickListener{
+        var btnOpen:Button=view.findViewById(R.id.btn_open)
+        var btnOpenClick = View.OnClickListener{
             val intent = Intent(activity,OpenChatListActivity::class.java)
             startActivity(intent)
         }
-        btnOpen.setOnClickListener(btnopenclick)
+        btnOpen.setOnClickListener(btnOpenClick)
 
 
         // Inflate the layout for this fragment
