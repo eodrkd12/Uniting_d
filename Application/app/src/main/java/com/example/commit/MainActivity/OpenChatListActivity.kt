@@ -1,7 +1,9 @@
 package com.example.commit.MainActivity
 
 import android.app.Application
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 
 import android.widget.LinearLayout
 import android.widget.ListView
@@ -13,6 +15,7 @@ import com.example.commit.Adapter.CategoryAdapter
 import com.example.commit.Adapter.ChatRoomListAdapter
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
+import kotlinx.android.synthetic.main.activity_makeroom.*
 import kotlinx.android.synthetic.main.activity_open_chat_list.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -29,6 +32,17 @@ class OpenChatListActivity : AppCompatActivity() {
         var chatRoomAdapter = ChatRoomListAdapter()
         var chatRoomArray: JSONArray? = null
 
+
+       btn_make.setOnClickListener(View.OnClickListener(){
+           var intent=Intent(this,MakeRoomActivity::class.java)
+           startActivity(intent)
+       }
+       )
+        btn_search.setOnClickListener(View.OnClickListener {
+            var intent=Intent(this,SearchActivity::class.java)
+            startActivity(intent)
+
+       })
 
         rv_category.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rv_category.adapter = CategoryAdapter(this)
@@ -71,4 +85,6 @@ class OpenChatListActivity : AppCompatActivity() {
             var CATEGORY:String =""
         }
     }
+
+
 }

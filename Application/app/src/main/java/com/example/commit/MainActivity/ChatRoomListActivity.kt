@@ -14,8 +14,7 @@ import com.example.commit.Adapter.ChatRoomListAdapter
 import com.example.commit.ListItem.ChatRoomListItem
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
-import kotlinx.android.synthetic.main.activity_chat_room_list.*
-import kotlinx.android.synthetic.main.activity_chat_room_list.list_chat_room
+import kotlinx.android.synthetic.main.activity_open_chat_list.*
 import kotlinx.android.synthetic.main.fragment_chat.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -26,7 +25,7 @@ class ChatRoomListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chat_room_list)
+        setContentView(R.layout.activity_open_chat_list)
 
         val listChatRoom=findViewById<ListView>(R.id.list_chat_room)
 
