@@ -1,5 +1,6 @@
 package com.example.commit.MainActivity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -15,6 +16,7 @@ import com.example.commit.ListItem.ChatRoomListItem
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
 import kotlinx.android.synthetic.main.activity_open_chat_list.*
+import kotlinx.android.synthetic.main.activity_open_chat_list.list_chat_room
 import kotlinx.android.synthetic.main.fragment_chat.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -23,6 +25,7 @@ class ChatRoomListActivity : AppCompatActivity() {
 
     lateinit var rvCategory: RecyclerView
 
+    @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_open_chat_list)
