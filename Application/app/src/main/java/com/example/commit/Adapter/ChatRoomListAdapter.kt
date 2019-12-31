@@ -64,6 +64,10 @@ class ChatRoomListAdapter:BaseAdapter() {
         return chatRoomList[position].roomId!!
     }
 
+    fun getCategory(position: Int):String {
+        return chatRoomList[position].cateName!!
+    }
+
     fun clear(){
         chatRoomList.clear()
     }

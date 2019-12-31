@@ -279,12 +279,12 @@ object VolleyService {
     }
 
     //데이팅 채팅방 생성
-    fun createDatingReq(maker:String,user:String,universityName: String,context: Context,success:(JSONObject?)->Unit){
+    fun createDatingReq(maker:String,user:String,category:String,universityName: String,context: Context,success:(JSONObject?)->Unit){
         val url="${ip}/join_room"
 
         var jsonObject=JSONObject()
 
-        jsonObject.put("cate_name","데이팅")
+        jsonObject.put("cate_name",category)
         jsonObject.put("maker",maker)
         jsonObject.put("user",user)
         jsonObject.put("univ_name",universityName)
@@ -346,6 +346,48 @@ object VolleyService {
 
             }){
 
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun exitReq(nickname: String, roomId: String, context: Context,success: (Int?)->Unit){
+        var url="${ip}/join_room/exit"
+
+        var jsonObject=JSONObject()
+        jsonObject.put("nickname",nickname)
+        jsonObject.put("room_id",roomId)
+
+        var request=object : JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonObject,
+            Response.Listener {
+
+            },
+            Response.ErrorListener {
+
+            }){
+
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun datingExitReq(nickname: String,context: Context) {
+        var url="${ip}/join_room/exit/dating"
+
+        var jsonObject=JSONObject()
+        jsonObject.put("nickname",nickname)
+
+        var request=object : JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonObject,
+            Response.Listener {
+
+            },
+            Response.ErrorListener {
+
+            }) {
         }
         Volley.newRequestQueue(context).add(request)
     }
