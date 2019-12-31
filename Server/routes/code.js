@@ -8,7 +8,7 @@ function generateCode(){
         var num=Math.floor(Math.random()*10)
         code+=num
     }
-    console.log(code)
+    console.log("코드 생성 : "+code)
     return code;
 }
 
