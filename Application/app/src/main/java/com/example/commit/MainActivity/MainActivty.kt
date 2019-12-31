@@ -31,17 +31,17 @@
 */
 package com.example.commit.MainActivity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
-import android.support.v7.app.AppCompatActivity
 import com.example.commit.R
 import kotlinx.android.synthetic.main.activity_main.*
-import android.support.v4.app.FragmentPagerAdapter
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.example.commit.Adapter.MyPagerAdapter
 import com.example.commit.Fragment.*
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.fragment_home.*
 
 var staticId:String?=null
@@ -66,11 +66,15 @@ class MainActivity : AppCompatActivity() {
         staticId=intent.getStringExtra("id")
         staticPw=intent.getStringExtra("pw")
 
+        btn_search.setOnClickListener {
+            var pref=this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
+            var editor=pref.edit()
 
+            editor.clear()
+            editor.commit()
 
-
-        //var getIntent:Intent=getIntent()
-        // Log.d("test","id : ${getIntent.getStringExtra("id")} 로그인")
+            Log.d("test",pref.getString("ID",""))
+        }
     }
 
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener {

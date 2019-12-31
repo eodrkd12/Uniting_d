@@ -104,11 +104,13 @@ object VolleyService {
     }
 
     //로그인 요청
-    fun loginReq(id: String, pw: String, context: Context, success: (Int) -> Unit) {
+    fun loginReq(id: String, pw: String, context: Context, success: (JSONObject) -> Unit) {
         val url = "${ip}/user/login"//요청 URL
 
         val json = JSONObject() // 서버로 전송할 json 객체
         json.put("id", id) // json 객체에 데이터 삽입, 첫번째 파라미터가 키, 두번째 파라미터가 값
+
+        var result=JSONObject()
 
         // Request객체를 생성하여야 함 종류는 다양하지만 여기선 JsonObjectRequest객체를 생성
         // 객체 생성 파라미터(메소드타입(GET,POST,PUT,DELETE) / URL / 보낼 데이터(json) / 통신 성공 리스너 / 통신 실패 리스너
@@ -116,21 +118,24 @@ object VolleyService {
             , url
             , json
             , Response.Listener {
+                result.put("user",it)
                 // 통신 성공 리스너 : 통신 성공 시에 호출
-                if (pw != it.getString("PW"))
-                    success(2)
-                else if (pw == it.getString("PW"))
-                    success(3)
+                if (pw != it.getString("user_pw"))
+                    result.put("code",2)
+                else if (pw == it.getString("user_pw"))
+                    result.put("code",3)
+                success(result)
             }
             , Response.ErrorListener {
                 // 통신 실패 리스너 : 통신 실패 시에 호출
                 if (it is com.android.volley.TimeoutError) {
                     Log.d("test", "TimeoutError")
-                    success(0)
+                    result.put("code",0)
                 } else if (it is com.android.volley.ParseError) {
                     Log.d("test", "ParserError")
-                    success(1)
+                    result.put("code",1)
                 }
+                success(result)
             }
         ) {
             //객체 생성 괄호(소괄호)를 닫은 후에 추가하는 요청 Body 부분(비어있어도 됨)
@@ -144,11 +149,10 @@ object VolleyService {
     }
 
     //회원가입 요청
-    //
     fun joinReq(
         id: String, pw: String, name: String, birthday: String, gender: String
         , nickname: String, webMail: String, universityName: String, departmentName: String, enterYear: String
-        , context: Context, success: (Int) -> Unit
+        , context: Context, success: (String) -> Unit
     ) {
         val url = "${ip}/user"//요청 URL
 
@@ -171,7 +175,7 @@ object VolleyService {
             , json
             , Response.Listener {
                 // 통신 성공 리스너 : 통신 성공 시에 호출
-                success(1)
+                success(it.getString("result"))
             }
             , Response.ErrorListener {
                 // 통신 실패 리스너 : 통신 실패 시에 호출
@@ -198,6 +202,8 @@ object VolleyService {
         var jsonArray: JSONArray = JSONArray()
         jsonArray.put(jsonObject)
 
+        Log.d("test","name : ${jsonObject.getString("name")}")
+
         var request = object : JsonArrayRequest(Method.POST
             , url
             , jsonArray
@@ -222,8 +228,8 @@ object VolleyService {
         val url = "${ip}/department"
 
         var jsonObject = JSONObject()
-        jsonObject.put("university_name", universityName)
-        jsonObject.put("department_name", departmentName)
+        jsonObject.put("univ_name", universityName)
+        jsonObject.put("dept_name", departmentName)
 
         var jsonArray: JSONArray = JSONArray()
         jsonArray.put(jsonObject)
@@ -235,7 +241,7 @@ object VolleyService {
                 success(it)
             }
             , Response.ErrorListener {
-                Log.d("test", it.toString())
+                Log.d("test", "학과검색 에러 : ${it.toString()}")
             }) {
 
         }
@@ -243,18 +249,52 @@ object VolleyService {
     }
 
     //데이팅 유저 불러오기
-    //현재 : 모든 유저 불러오기(임시)
-    //계획 : 데이팅 ON 유저만 불러오기
-    fun datingUserReq(context:Context,success:(JSONArray?)->Unit){
+    fun datingUserReq(nickname: String,gender: String,universityName: String,context:Context,success:(JSONArray?)->Unit){
         val url="${ip}/user/dating"
 
         var jsonArray=JSONArray()
 
+        var jsonObject=JSONObject()
+        jsonObject.put("nickname",nickname)
+        jsonObject.put("gender",gender)
+        jsonObject.put("univ_name",universityName)
+
+
+        jsonArray.put(jsonObject)
+
         var request=object:JsonArrayRequest(
-            Method.GET,
+            Method.POST,
             url,
             jsonArray,
             Response.Listener{
+                success(it)
+            },
+            Response.ErrorListener{
+                Log.d("test",it.toString())
+            }){
+        }
+
+
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    //데이팅 채팅방 생성
+    fun createDatingReq(maker:String,user:String,universityName: String,context: Context,success:(JSONObject?)->Unit){
+        val url="${ip}/join_room"
+
+        var jsonObject=JSONObject()
+
+        jsonObject.put("cate_name","데이팅")
+        jsonObject.put("maker",maker)
+        jsonObject.put("user",user)
+        jsonObject.put("univ_name",universityName)
+
+        var request=object:JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonObject,
+            Response.Listener{
+                Log.d("test",it.toString())
                 success(it)
             },
             Response.ErrorListener{
@@ -280,6 +320,30 @@ object VolleyService {
             },
             Response.ErrorListener{
                 Log.d("test",it.toString())
+            }){
+
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun chatRoomListReq(nickname: String, context: Context,success: (JSONArray?)->Unit) {
+        var url="${ip}/join_room/chat_room"
+
+        var jsonArray=JSONArray()
+
+        var jsonObject=JSONObject()
+        jsonObject.put("nickname",nickname)
+
+        jsonArray.put(jsonObject)
+        var request=object : JsonArrayRequest(
+            Method.POST,
+            url,
+            jsonArray,
+            Response.Listener{
+                success(it)
+            },
+            Response.ErrorListener {
+
             }){
 
         }
@@ -415,6 +479,4 @@ object VolleyService {
             }
         }
     }
-
-
 }

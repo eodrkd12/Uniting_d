@@ -2,12 +2,12 @@ package com.example.commit.IntroActivity
 
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.DatePicker
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
 import kotlinx.android.synthetic.main.activity_join4.*
@@ -27,9 +27,9 @@ class Join4Activity : AppCompatActivity() {
 
         var getIntent=intent
 
-        var universityName=getIntent.getStringExtra("university_name")
-        var departmentName=getIntent.getStringExtra("department_name")
-        var webMail=getIntent.getStringExtra("web_mail")
+        var universityName=getIntent.getStringExtra("univ_name")
+        var departmentName=getIntent.getStringExtra("dept_name")
+        var webMail=getIntent.getStringExtra("univ_mail")
         var birthday:String?=null
 
         text_webmail_edited.text=webMail
@@ -110,9 +110,9 @@ class Join4Activity : AppCompatActivity() {
                     intent.putExtra("gender", "W")
                     Log.d("test","여자")
                 }
-                intent.putExtra("university_name",universityName)
-                intent.putExtra("department_name",departmentName)
-                intent.putExtra("web_mail",webMail)
+                intent.putExtra("univ_name",universityName)
+                intent.putExtra("dept_name",departmentName)
+                intent.putExtra("univ_mail",webMail)
                 intent.putExtra("enter_year",enterYear)
                 startActivity(intent)
             }

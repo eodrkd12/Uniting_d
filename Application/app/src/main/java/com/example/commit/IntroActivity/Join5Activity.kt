@@ -3,9 +3,9 @@ package com.example.commit.IntroActivity
 //프사 설정은 나중에 ..
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
 
@@ -23,9 +23,9 @@ class Join5Activity : AppCompatActivity() {
         var birthday=getIntent.getStringExtra("birthday")
         var gender=getIntent.getStringExtra("gender")
         var nickname=getIntent.getStringExtra("nickname")
-        var webMail=getIntent.getStringExtra("web_mail")
-        var universityName=getIntent.getStringExtra("university_name")
-        var departmentName=getIntent.getStringExtra("department_name")
+        var webMail=getIntent.getStringExtra("univ_mail")
+        var universityName=getIntent.getStringExtra("univ_name")
+        var departmentName=getIntent.getStringExtra("dept_name")
         var enterYear=getIntent.getStringExtra("enter_year")
 
         Log.d("test",id)
@@ -40,8 +40,10 @@ class Join5Activity : AppCompatActivity() {
         Log.d("test",enterYear)
 
         VolleyService.joinReq(id,pw,name,birthday,gender,nickname,webMail,universityName,departmentName,enterYear,this,{success->
-            var intent= Intent(this,LoginActivity::class.java)
-            startActivity(intent)
+            if(success.equals("success")) {
+                var intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }
         })
     }
 }
