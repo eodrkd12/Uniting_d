@@ -14,20 +14,20 @@ class MakeRoomActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_makeroom)
 
-      /*btn_room.setOnClickListener {
+      btn_room.setOnClickListener {
             var name = text_room_name.text.toString()
             var about= text_room_intro.text.toString()
 
             Log.d("test",name)
             Log.d("test",about)
 
-            VolleyService.joinReq(name,about,this,{ success->
+          /* VolleyService.roomReq(name,about,this,{ success->
                 if(success.equals("success")) {
                     var intent = Intent(this,OpenChatListActivity::class.java)
                     startActivity(intent)
                 }
              }
-        })
-     }*/
+        })*/
+     }
     }
 }
