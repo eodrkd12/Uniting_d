@@ -1,19 +1,12 @@
 package com.example.commit.MainActivity
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.os.Debug
-import android.util.Log
 import android.view.ContextThemeWrapper
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.commit.Adapter.DatingAdapter
-import com.example.commit.Adapter.MarketAdapter
-import com.example.commit.Adapter.StudyAdapter
 import com.example.commit.Class.UserInfo
-import com.example.commit.IntroActivity.SplashActivity
-import com.example.commit.ListItem.DatingItem
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
 import kotlinx.android.synthetic.main.activity_dating.*
@@ -68,10 +61,11 @@ class DatingActivity : AppCompatActivity() {
                 builder.setMessage("시작하시겠습니까?")
 
                 builder.setPositiveButton("확인") { _, _ ->
-                    VolleyService.createDatingReq(UserInfo.ID, userNickname!!, UserInfo.UNIV, this, { success ->
+                    VolleyService.createChatRoomReq(UserInfo.ID, userNickname!!,"데이팅", UserInfo.UNIV, this, { success ->
                         var roomId = success!!.getString("room_id")
                         var intent = Intent(this, ChatActivity::class.java)
                         intent.putExtra("room_id", roomId)
+                        intent.putExtra("category","데이팅")
                         startActivity(intent)
                     })
                 }
