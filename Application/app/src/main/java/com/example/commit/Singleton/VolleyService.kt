@@ -278,8 +278,8 @@ object VolleyService {
         Volley.newRequestQueue(context).add(request)
     }
 
-    //데이팅 채팅방 생성
-    fun createDatingReq(maker:String,user:String,category:String,universityName: String,context: Context,success:(JSONObject?)->Unit){
+    //채팅방 생성
+    fun createChatRoomReq(maker:String, user:String, category:String, universityName: String, context: Context, success:(JSONObject?)->Unit){
         val url="${ip}/join_room"
 
         var jsonObject=JSONObject()
