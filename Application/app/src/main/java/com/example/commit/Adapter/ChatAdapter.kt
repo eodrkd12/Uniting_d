@@ -1,6 +1,7 @@
 package com.example.commit.Adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,6 @@ import com.example.commit.R
 
 class ChatAdapter:BaseAdapter() {
     private var chatList = ArrayList<ChatItem>()
-    var isMyChat:Boolean=false;
     override fun getCount(): Int {
         return chatList.size
     }
@@ -29,17 +29,18 @@ class ChatAdapter:BaseAdapter() {
         var view = convertView
         val context: Context? = parent?.context
 
+        var item=chatList[position]
+
         // "listview_item" Layout을 inflate하여 convertView 참조 획득.
         if (view == null) {
             val inflater = context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            if(isMyChat)
+            if(item.isMyChat!!)
                 view = inflater.inflate(R.layout.item_my_chat, parent, false)
             else
                 view = inflater.inflate(R.layout.item_chat, parent, false)
         }
 
-        var item=chatList[position]
-        if(!isMyChat) {
+        if(!item.isMyChat!!) {
             var textSpeaker = view!!.findViewById(R.id.text_speaker) as TextView
             textSpeaker.text=item.speaker
         }
@@ -53,12 +54,14 @@ class ChatAdapter:BaseAdapter() {
     }
 
     fun addItem(roomId:String, speaker: String, content: String, time:String){
-        if(speaker==UserInfo.NICKNAME)
-            isMyChat=true;
-        else
-            isMyChat=false;
-
         val item= ChatItem()
+
+        if(speaker==UserInfo.NICKNAME)
+            item.isMyChat = true
+        else
+            item.isMyChat=false
+
+
 
         item.roomId=roomId
         item.speaker=speaker
