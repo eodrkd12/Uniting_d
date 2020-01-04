@@ -278,16 +278,40 @@ object VolleyService {
         Volley.newRequestQueue(context).add(request)
     }
 
-    //데이팅 채팅방 생성
-    fun createDatingReq(maker:String,user:String,universityName: String,context: Context,success:(JSONObject?)->Unit){
+    //채팅방 생성
+    fun createChatRoomReq(maker:String, user:String,roomTitle:String, category:String, universityName: String, context: Context, success:(JSONObject?)->Unit){
         val url="${ip}/join_room"
 
         var jsonObject=JSONObject()
 
-        jsonObject.put("cate_name","데이팅")
+        jsonObject.put("cate_name",category)
         jsonObject.put("maker",maker)
         jsonObject.put("user",user)
         jsonObject.put("univ_name",universityName)
+        jsonObject.put("room_title",roomTitle)
+
+        var request=object:JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonObject,
+            Response.Listener{
+                Log.d("test",it.toString())
+                success(it)
+            },
+            Response.ErrorListener{
+                Log.d("test",it.toString())
+            }){
+
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun createOpenChatReq(maker:String,roomTitle:String, category:String, universityName: String,maxNum:Int, context: Context, success:(JSONObject?)->Unit){
+        val url="${ip}/join_room/open_chat"
+
+        var jsonObject=JSONObject()
+
+        //카테고리, 방만든사람, 대학교,
 
         var request=object:JsonObjectRequest(
             Method.POST,
@@ -346,6 +370,48 @@ object VolleyService {
 
             }){
 
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun exitReq(nickname: String, roomId: String, context: Context,success: (Int?)->Unit){
+        var url="${ip}/join_room/exit"
+
+        var jsonObject=JSONObject()
+        jsonObject.put("nickname",nickname)
+        jsonObject.put("room_id",roomId)
+
+        var request=object : JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonObject,
+            Response.Listener {
+
+            },
+            Response.ErrorListener {
+
+            }){
+
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun datingExitReq(nickname: String,context: Context) {
+        var url="${ip}/join_room/exit/dating"
+
+        var jsonObject=JSONObject()
+        jsonObject.put("nickname",nickname)
+
+        var request=object : JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonObject,
+            Response.Listener {
+
+            },
+            Response.ErrorListener {
+
+            }) {
         }
         Volley.newRequestQueue(context).add(request)
     }

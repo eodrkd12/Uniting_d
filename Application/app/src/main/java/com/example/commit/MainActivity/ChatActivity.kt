@@ -1,11 +1,17 @@
 package com.example.commit.MainActivity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.commit.Adapter.ChatAdapter
 import com.example.commit.Class.UserInfo
+import com.example.commit.IntroActivity.LoginActivity
 import com.example.commit.R
+import com.example.commit.Singleton.VolleyService
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_chat.*
 import java.time.ZoneId
@@ -16,6 +22,8 @@ import kotlin.collections.HashMap
 class ChatActivity : AppCompatActivity() {
 
     var chatAdapter=ChatAdapter()
+    var roomId:String?=null
+    var category:String?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +31,8 @@ class ChatActivity : AppCompatActivity() {
 
         var intent= intent
 
-        var roomId=intent.getStringExtra("room_id")
+        roomId=intent.getStringExtra("room_id")
+        category=intent.getStringExtra("category")
 
         val ref = FirebaseDatabase.getInstance().reference.child("chat")
         val query=ref.orderByChild("room_id").equalTo(roomId)
@@ -38,7 +47,6 @@ class ChatActivity : AppCompatActivity() {
                 chatConversation(p0)
             }
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
-                Log.d("test","tt")
                 chatConversation(p0)
             }
             override fun onChildRemoved(p0: DataSnapshot) {
@@ -91,5 +99,33 @@ class ChatActivity : AppCompatActivity() {
         }
 
         chatAdapter.notifyDataSetChanged()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        var inflater=getMenuInflater()
+        inflater.inflate(R.menu.menu_chat,menu)
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        var title=item!!.title.toString()
+        when(title){
+            "나가기" -> {
+                VolleyService.exitReq(UserInfo.NICKNAME,roomId!!,this,{success ->
+
+                })
+
+                if(category=="데이팅") {
+                    VolleyService.datingExitReq(UserInfo.NICKNAME,this)
+                }
+
+                var intent=Intent(this,MainActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }
