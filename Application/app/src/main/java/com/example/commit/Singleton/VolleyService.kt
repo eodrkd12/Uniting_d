@@ -350,8 +350,8 @@ object VolleyService {
         Volley.newRequestQueue(context).add(request)
     }
 
-    fun chatRoomListReq(nickname: String, context: Context,success: (JSONArray?)->Unit) {
-        var url="${ip}/join_room/chat_room"
+    fun myChatRoomListReq(nickname: String, context: Context,success: (JSONArray?)->Unit) {
+        var url="${ip}/join_room/my_chat_room"
 
         var jsonArray=JSONArray()
 
@@ -373,6 +373,33 @@ object VolleyService {
         }
         Volley.newRequestQueue(context).add(request)
     }
+
+    fun openChatRoomListReq(universityName: String,category:String, context: Context,success: (JSONArray?)->Unit) {
+        var url="${ip}/join_room/open_chat_room"
+
+        var jsonArray=JSONArray()
+
+        var jsonObject=JSONObject()
+        jsonObject.put("univ_name",universityName)
+        jsonObject.put("category",category)
+
+        jsonArray.put(jsonObject)
+        var request=object : JsonArrayRequest(
+            Method.POST,
+            url,
+            jsonArray,
+            Response.Listener{
+                success(it)
+            },
+            Response.ErrorListener {
+
+            }){
+
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+
 
     fun exitReq(nickname: String, roomId: String, context: Context,success: (Int?)->Unit){
         var url="${ip}/join_room/exit"

@@ -61,8 +61,6 @@ class ChatAdapter:BaseAdapter() {
         else
             item.isMyChat=false
 
-
-
         item.roomId=roomId
         item.speaker=speaker
         item.content=content

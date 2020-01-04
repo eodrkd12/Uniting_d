@@ -8,10 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.commit.Class.UserInfo
 import com.example.commit.ListItem.Categoryitem
 import com.example.commit.MainActivity.OpenChatListActivity
 import com.example.commit.R
+import com.example.commit.Singleton.VolleyService
 import kotlinx.android.synthetic.main.rvitem_chat_category.view.*
+import org.json.JSONArray
+import java.util.logging.Handler
 
 class CategoryAdapter(val context: Context) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
@@ -39,9 +43,10 @@ class CategoryAdapter(val context: Context) : RecyclerView.Adapter<CategoryAdapt
             itemView.btn_category.text = data.categoryname
 
             itemView.btn_category.setOnClickListener {
-                OpenChatListActivity.CategorySave.CATEGORY=data.categoryname!!
-                Log.d("test","카테고리 불러오기 : ${OpenChatListActivity.CategorySave.CATEGORY}")
+                OpenChatListActivity.CATEGORY=data.categoryname!!
+
             }
         }
     }
+
 }

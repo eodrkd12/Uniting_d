@@ -68,6 +68,14 @@ class ChatRoomListAdapter:BaseAdapter() {
         return chatRoomList[position].cateName!!
     }
 
+    fun isFull(position: Int):Boolean{
+        var curNum=chatRoomList[position].curNum
+        var maxNum=chatRoomList[position].limitNum
+
+        if(maxNum==curNum) return true;
+        else return false;
+    }
+
     fun clear(){
         chatRoomList.clear()
     }

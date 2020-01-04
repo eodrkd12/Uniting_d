@@ -30,7 +30,7 @@ class ChatFragment() : Fragment() {
         var chatRoomArray: JSONArray?=null
         var listChatRoom:ListView=view.findViewById(R.id.list_chat_room)
 
-        VolleyService.chatRoomListReq(UserInfo.NICKNAME,context!!,{ success ->
+        VolleyService.myChatRoomListReq(UserInfo.NICKNAME,context!!,{ success ->
             listChatRoom.adapter=chatRoomAdapter
             chatRoomAdapter.clear()
 
