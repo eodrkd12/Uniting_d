@@ -40,7 +40,7 @@ class ChatAdapter:BaseAdapter() {
 
         var item=chatList[position]
         if(!isMyChat) {
-            var textSpeaker = view?.findViewById(R.id.text_speaker) as TextView
+            var textSpeaker = view!!.findViewById(R.id.text_speaker) as TextView
             textSpeaker.text=item.speaker
         }
         var textContent=view!!.findViewById(R.id.text_content) as TextView
