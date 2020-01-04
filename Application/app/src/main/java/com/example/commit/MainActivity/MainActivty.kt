@@ -34,15 +34,17 @@ package com.example.commit.MainActivity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
-import android.support.v7.app.AppCompatActivity
 import com.example.commit.R
 import kotlinx.android.synthetic.main.activity_main.*
-import android.support.v4.app.FragmentPagerAdapter
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.example.commit.Adapter.MyPagerAdapter
 import com.example.commit.Fragment.*
+import com.example.commit.IntroActivity.LoginActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.fragment_home.*
 
 var staticId:String?=null
@@ -63,18 +65,8 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
         }
 
-        var intent=intent
-        staticId=intent.getStringExtra("id")
-        staticPw=intent.getStringExtra("pw")
-
         btn_search.setOnClickListener {
-            var pref=this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
-            var editor=pref.edit()
-
-            editor.clear()
-            editor.commit()
-
-            Log.d("test",pref.getString("ID",""))
+            //검색
         }
     }
 
@@ -112,5 +104,32 @@ class MainActivity : AppCompatActivity() {
             }
         }
         false
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        var inflater=getMenuInflater()
+        inflater.inflate(R.menu.menu_main,menu)
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        var title=item!!.title.toString()
+        when(title){
+            "로그아웃" -> {
+                var pref=this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
+                var editor=pref.edit()
+
+                editor.clear()
+                editor.commit()
+
+                var intent=Intent(this,LoginActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

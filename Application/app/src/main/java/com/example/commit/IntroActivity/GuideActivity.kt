@@ -7,7 +7,7 @@ Guide Activity
 package com.example.commit.IntroActivity
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 
 class GuideActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

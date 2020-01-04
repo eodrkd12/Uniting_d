@@ -36,7 +36,7 @@ class ChatRoomListAdapter:BaseAdapter() {
         }
 
         var textTitle=view?.findViewById(R.id.text_title) as TextView
-        var textJoinNum=view?.findViewById(R.id.text_join_num) as TextView
+        var textJoinNum=view.findViewById(R.id.text_join_num) as TextView
 
         var item=chatRoomList[position]
 
@@ -58,6 +58,14 @@ class ChatRoomListAdapter:BaseAdapter() {
         item.curNum=curNum
 
         chatRoomList.add(item)
+    }
+
+    fun getRoomId(position: Int):String{
+        return chatRoomList[position].roomId!!
+    }
+
+    fun getCategory(position: Int):String {
+        return chatRoomList[position].cateName!!
     }
 
     fun clear(){

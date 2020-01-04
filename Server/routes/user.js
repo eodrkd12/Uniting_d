@@ -10,8 +10,9 @@ router.get('/', function(req, res, next) {
   })
 });
 
-router.get('/dating', function(req, res, next) {
-  db_user.get_user(function(err,result){
+router.post('/dating', function(req, res, next) {
+	console.log(req.body[0].nickname)
+  db_user.get_dating(req.body[0].nickname,req.body[0].gender,req.body[0].univ_name,function(err,result){
     if(err) console.log(err);
     else res.send(result);
   })
@@ -43,8 +44,23 @@ router.post('/check/nickname', function(req,res,next){
 })
 
 router.post('/', function(req,res,next){
-  db_user.join(req.body.id,req.body.pw,req.body.name,req.body.birthday,req.body.gender,req.body.nickname,req.body.email,req.body.verified,req.body.university,req.body.grade,req.body.department,req.body.profile_image)
-  res.send("success")
+	var id=req.body.id
+	var pw=req.body.pw
+	var name=req.body.name
+	var birthday=req.body.birthday
+	var gender=req.body.gender
+	var nickname=req.body.nickname
+	var webMail=req.body.web_mail
+	var universityName=req.body.university_name
+	var departmentName=req.body.department_name
+	var enterYear=req.body.enter_year
+
+	db_user.join(id,pw,name,birthday,gender,nickname,webMail,universityName,enterYear,departmentName,null)
+	db_user.insert_dating(id,nickname,universityName,departmentName,birthday,gender)
+
+	var json=new Object()
+	json.result="success"
+	res.send(json)
 })
 
 router.put('/',function(req,res,next){ // 상원 회원정보수정 (최신화)

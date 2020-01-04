@@ -4,8 +4,6 @@ import android.app.Application
 import android.graphics.Bitmap
 
 class UserInfo :Application() {
-
-
     companion object{
         var ID : String=""
         var PW : String=""

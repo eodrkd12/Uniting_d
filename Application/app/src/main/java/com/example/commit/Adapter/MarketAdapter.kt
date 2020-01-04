@@ -35,7 +35,7 @@ class MarketAdapter:BaseAdapter() {
         }
 
         var textTitle=view?.findViewById(R.id.text_title) as TextView
-        var textWriter=view?.findViewById(R.id.text_writer) as TextView
+        var textWriter=view.findViewById(R.id.text_writer) as TextView
 
         var item=marketList[position]
 
