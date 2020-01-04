@@ -5,4 +5,5 @@ class ChatItem {
     var speaker : String? = null
     var content : String? = null
     var time : String? = null
+    var isMyChat:Boolean?=null
 }
