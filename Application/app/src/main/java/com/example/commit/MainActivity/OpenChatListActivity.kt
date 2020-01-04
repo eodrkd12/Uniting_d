@@ -77,6 +77,8 @@ class OpenChatListActivity : AppCompatActivity() {
 
             chatRoomAdapter.notifyDataSetChanged()
         })
+
+
     }
 
 

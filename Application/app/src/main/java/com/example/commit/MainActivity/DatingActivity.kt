@@ -61,7 +61,7 @@ class DatingActivity : AppCompatActivity() {
                 builder.setMessage("시작하시겠습니까?")
 
                 builder.setPositiveButton("확인") { _, _ ->
-                    VolleyService.createChatRoomReq(UserInfo.ID, userNickname!!,"데이팅", UserInfo.UNIV, this, { success ->
+                    VolleyService.createChatRoomReq(UserInfo.NICKNAME, userNickname!!,"","데이팅", UserInfo.UNIV, this, { success ->
                         var roomId = success!!.getString("room_id")
                         var intent = Intent(this, ChatActivity::class.java)
                         intent.putExtra("room_id", roomId)
