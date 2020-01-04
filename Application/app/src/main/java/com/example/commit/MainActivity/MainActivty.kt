@@ -45,6 +45,11 @@ import com.example.commit.Adapter.MyPagerAdapter
 import com.example.commit.Fragment.*
 import com.example.commit.IntroActivity.LoginActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.fragment_home.*
 
 var staticId:String?=null
@@ -68,6 +73,7 @@ class MainActivity : AppCompatActivity() {
         btn_search.setOnClickListener {
             //검색
         }
+        pushToServer()
     }
 
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener {
@@ -132,4 +138,17 @@ class MainActivity : AppCompatActivity() {
 
         return super.onOptionsItemSelected(item)
     }
+
+    fun pushToServer():Unit {
+        var uid:String= FirebaseAuth.getInstance().currentUser.toString()
+        var token:String=FirebaseInstanceId.getInstance().token.toString()
+        var map=HashMap<String,Any>()
+        map.put("pushToken",token)
+
+
+        FirebaseDatabase.getInstance().getReference().child("chat").child(uid).updateChildren(map)
+
+
+    }
+
 }
