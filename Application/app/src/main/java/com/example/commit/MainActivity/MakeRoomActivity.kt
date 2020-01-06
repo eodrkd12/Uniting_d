@@ -15,11 +15,13 @@ class MakeRoomActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_makeroom)
 
+
+
       btn_room.setOnClickListener {
             var roomTitle = text_room_name.text.toString()
             var about= text_room_intro.text.toString()
-           var category = ""
-          var  maxrange = ""
+            var category = " "                              //카테고리 체크시 text 받아오기
+          var  maxrange = text_max.text.toString()
 
             Log.d("test",roomTitle)
             Log.d("test",about)

@@ -20,13 +20,69 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="18sp" />
 
-    <EditText
-            android:id="@+id/text_room_name"
-            android:layout_width="wrap_content"
-            android:layout_height="90dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textSize="18sp" />
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="79dp"
+            android:orientation="horizontal">
+
+        <EditText
+                android:id="@+id/text_room_name"
+                android:layout_width="231dp"
+                android:layout_height="90dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textSize="18sp" />
+
+        <EditText
+                android:id="@+id/text_max"
+                android:layout_width="wrap_content"
+                android:layout_height="58dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName" />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+        <RadioButton
+                android:id="@+id/r_btn_category1"
+                android:layout_width="493dp"
+                android:layout_height="150dp"
+                android:layout_weight="1"
+                android:text="취미" />
+
+        <RadioButton
+                android:id="@+id/r_btn_category2"
+                android:layout_width="493dp"
+                android:layout_height="150dp"
+                android:layout_weight="1"
+                android:text="스터디" />
+
+        <RadioButton
+                android:id="@+id/r_btn_category3"
+                android:layout_width="493dp"
+                android:layout_height="150dp"
+                android:layout_weight="1"
+                android:text="취창업" />
+
+        <RadioButton
+                android:id="@+id/r_btn_category4"
+                android:layout_width="493dp"
+                android:layout_height="150dp"
+                android:layout_weight="1"
+                android:text="고민상담" />
+
+        <RadioButton
+                android:id="@+id/r_btn_category5"
+                android:layout_width="493dp"
+                android:layout_height="150dp"
+                android:layout_weight="1"
+                android:text="아무말" />
+    </LinearLayout>
 
     <TextView
             android:id="@+id/text_lable"
@@ -50,4 +106,5 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Button" />
+
 </LinearLayout>
