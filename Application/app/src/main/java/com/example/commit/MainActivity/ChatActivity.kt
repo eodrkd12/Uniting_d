@@ -56,32 +56,35 @@ class ChatActivity : AppCompatActivity() {
         query.addChildEventListener(childEventListener)
 
         btn_send.setOnClickListener {
-            var map= HashMap<String,Any>()
+            if(edit_chat.text.toString()!="") {
 
-            val key:String?=ref.push().key
+                var map = HashMap<String, Any>()
 
-            ref.updateChildren(map)
+                val key: String? = ref.push().key
 
-            var root=ref.child(key!!)
-            var objectMap= HashMap<String,Any>()
+                ref.updateChildren(map)
+
+                var root = ref.child(key!!)
+                var objectMap = HashMap<String, Any>()
 
 
-            val current = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
-            val noon=current.format(DateTimeFormatter.ofPattern("a"))
-            var formatter:DateTimeFormatter?=null
-            if(noon=="PM")
-                formatter = DateTimeFormatter.ofPattern("오후 hh:mm")
-            else
-                formatter = DateTimeFormatter.ofPattern("오전 hh:mm")
-            val formatted = current.format(formatter)
+                val current = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
+                val noon = current.format(DateTimeFormatter.ofPattern("a"))
+                var formatter: DateTimeFormatter? = null
+                if (noon == "PM")
+                    formatter = DateTimeFormatter.ofPattern("오후 hh:mm")
+                else
+                    formatter = DateTimeFormatter.ofPattern("오전 hh:mm")
+                val formatted = current.format(formatter)
 
-            objectMap.put("room_id",roomId!!)
-            objectMap.put("speaker",UserInfo.NICKNAME)
-            objectMap.put("content",edit_chat.text.toString())
-            objectMap.put("time",formatted)
+                objectMap.put("room_id", roomId!!)
+                objectMap.put("speaker", UserInfo.NICKNAME)
+                objectMap.put("content", edit_chat.text.toString())
+                objectMap.put("time", formatted)
 
-            root.updateChildren(objectMap)
-            edit_chat!!.setText("")
+                root.updateChildren(objectMap)
+                edit_chat!!.setText("")
+            }
         }
     }
 

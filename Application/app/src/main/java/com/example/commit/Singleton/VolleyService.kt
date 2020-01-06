@@ -276,7 +276,7 @@ object VolleyService {
     }
 
     //채팅방 생성
-    fun createChatRoomReq(maker:String, user:String, category:String, universityName: String, context: Context, success:(JSONObject?)->Unit){
+    fun createChatRoomReq(maker:String, user:String,roomTitle:String, category:String, universityName: String, context: Context, success:(JSONObject?)->Unit){
         val url="${ip}/join_room"
 
         var jsonObject=JSONObject()
@@ -285,6 +285,30 @@ object VolleyService {
         jsonObject.put("maker",maker)
         jsonObject.put("user",user)
         jsonObject.put("univ_name",universityName)
+        jsonObject.put("room_title",roomTitle)
+
+        var request=object:JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonObject,
+            Response.Listener{
+                Log.d("test",it.toString())
+                success(it)
+            },
+            Response.ErrorListener{
+                Log.d("test",it.toString())
+            }){
+
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun createOpenChatReq(maker:String,roomTitle:String, category:String, universityName: String,maxNum:Int, context: Context, success:(JSONObject?)->Unit){
+        val url="${ip}/join_room/open_chat"
+
+        var jsonObject=JSONObject()
+
+        //카테고리, 방만든사람, 대학교,
 
         var request=object:JsonObjectRequest(
             Method.POST,

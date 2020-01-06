@@ -40,7 +40,7 @@ class CategoryAdapter(val context: Context) : RecyclerView.Adapter<CategoryAdapt
 
             itemView.btn_category.setOnClickListener {
                 OpenChatListActivity.CategorySave.CATEGORY=data.categoryname!!
-                Log.d("test","CategoryAdapter : ${OpenChatListActivity.CategorySave.CATEGORY}")
+                Log.d("test","카테고리 불러오기 : ${OpenChatListActivity.CategorySave.CATEGORY}")
             }
         }
     }
