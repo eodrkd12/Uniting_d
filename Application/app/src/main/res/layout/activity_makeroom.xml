@@ -33,20 +33,21 @@
                 android:inputType="textPersonName"
                 android:textSize="18sp" />
 
-        <EditText
-                android:id="@+id/text_max"
-                android:layout_width="wrap_content"
-                android:layout_height="58dp"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="textPersonName" />
-
     </LinearLayout>
 
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+    <EditText
+            android:id="@+id/text_max"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+    <RadioGroup
+            android:id="@+id/rdgroup"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
 
         <RadioButton
                 android:id="@+id/r_btn_category1"
@@ -82,7 +83,7 @@
                 android:layout_height="150dp"
                 android:layout_weight="1"
                 android:text="아무말" />
-    </LinearLayout>
+        </RadioGroup>
 
     <TextView
             android:id="@+id/text_lable"
