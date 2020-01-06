@@ -3,14 +3,11 @@ package com.example.commit.Singleton
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
-import com.android.volley.ParseError
-import com.android.volley.RequestQueue
 import com.android.volley.Response
-import com.android.volley.ResponseDelivery
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.commit.MainActivity.MakeRoomActivity
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -520,5 +517,17 @@ object VolleyService {
                 return "application/json_ch"
             }
         }
+    }
+
+    fun rcreateOpenChatReq(
+        nickname: Any,
+        roomTitle: Any,
+        category: String,
+        univ: Any,
+        최대인원: Any,
+        makeRoomActivity: MakeRoomActivity,
+        function: (Nothing) -> Unit
+    ) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
