@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.View
+import android.widget.ListView
 
 import androidx.appcompat.app.AlertDialog
 
@@ -22,8 +24,9 @@ import org.json.JSONObject
 
 class OpenChatListActivity : AppCompatActivity() {
 
-    var chatRoomAdapter= ChatRoomListAdapter()
-    var listChatRoom=list_chat_room
+    /*var chatRoomAdapter:ChatRoomListAdapter?=null
+    var listChatRoom:ListView?=null*/
+
 
     init {
         INSTANCE=this
@@ -32,9 +35,11 @@ class OpenChatListActivity : AppCompatActivity() {
     companion object{
         var CATEGORY:String="전체"
         var INSTANCE:OpenChatListActivity?=null
+        var HANDLER:Handler?=null
     }
 
     lateinit var rvCategory: RecyclerView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,8 +60,8 @@ class OpenChatListActivity : AppCompatActivity() {
         rv_category.adapter = CategoryAdapter(this)
         rv_category.setHasFixedSize(true)
 
-        /*var chatRoomAdapter= ChatRoomListAdapter()
-        var listChatRoom=list_chat_room*/
+        var chatRoomAdapter= ChatRoomListAdapter()
+        var listChatRoom=list_chat_room
 
 
         VolleyService.openChatRoomListReq(UserInfo.UNIV, CATEGORY, this, { success ->
@@ -106,12 +111,13 @@ class OpenChatListActivity : AppCompatActivity() {
             chatRoomAdapter.notifyDataSetChanged()
         })
 
-        var handler = object : Handler(){
+        HANDLER = object : Handler(){
             override fun handleMessage(msg: Message?) {
+                Log.d("test","카테고리 메시지 도착 : ${msg!!.what}")
                 when(msg!!.what){
                     0 -> {
                         //카테고리 방 갱신
-                        VolleyService.openChatRoomListReq(UserInfo.UNIV,CATEGORY, INSTANCE!!.applicationContext,{ success ->
+                        VolleyService.openChatRoomListReq(UserInfo.UNIV,CATEGORY, INSTANCE!!,{ success ->
                             listChatRoom.adapter = chatRoomAdapter
                             chatRoomAdapter.clear()
 

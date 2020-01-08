@@ -1,6 +1,7 @@
 package com.example.commit.Adapter
 
 import android.content.Context
+import android.os.Message
 import android.util.Log
 //import android.support.v7.app.AppCompatActivity
 //import android.support.v7.widget.RecyclerView
@@ -44,7 +45,10 @@ class CategoryAdapter(val context: Context) : RecyclerView.Adapter<CategoryAdapt
 
             itemView.btn_category.setOnClickListener {
                 OpenChatListActivity.CATEGORY=data.categoryname!!
-
+                var handler=OpenChatListActivity.HANDLER
+                var msg:Message=handler!!.obtainMessage()
+                msg.what=0
+                handler.sendMessage(msg)
             }
         }
     }
