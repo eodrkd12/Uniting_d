@@ -101,10 +101,17 @@ class OpenChatListActivity : AppCompatActivity() {
                 } else {
                     var roomId = chatRoomAdapter.getRoomId(position)
                     var category = chatRoomAdapter.getCategory(position)
-                    var intent = Intent(this, ChatActivity::class.java)
-                    intent.putExtra("room_id", roomId)
-                    intent.putExtra("category", category)
-                    startActivity(intent)
+                    VolleyService.joinChatRoomReq(roomId,UserInfo.NICKNAME,this,{success ->
+                        if(success==1) {
+                            var intent = Intent(this, ChatActivity::class.java)
+                            intent.putExtra("room_id", roomId)
+                            intent.putExtra("category", category)
+                            startActivity(intent)
+                        }
+                        else{
+
+                        }
+                    })
                 }
             }
 
