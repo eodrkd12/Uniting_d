@@ -41,7 +41,7 @@ class MakeRoomActivity : AppCompatActivity() {
             Log.d("test", category)
 
 
-          /*  VolleyService.createOpenChatReq(UserInfo.NICKNAME,roomTitle,category,UserInfo.UNIV,maxrange,this,{ success ->
+           /* VolleyService.createOpenChatReq(UserInfo.NICKNAME,roomTitle,category,UserInfo.UNIV,maxrange,this,{ success ->
                   if(success.equals("success")) {
                       var intent = Intent(this,OpenChatListActivity::class.java)
                       startActivity(intent)
