@@ -24,22 +24,15 @@ import org.json.JSONObject
 
 class OpenChatListActivity : AppCompatActivity() {
 
-    /*var chatRoomAdapter:ChatRoomListAdapter?=null
-    var listChatRoom:ListView?=null*/
-
-
     init {
-        INSTANCE=this
+        INSTANCE = this
     }
 
-    companion object{
-        var CATEGORY:String="전체"
-        var INSTANCE:OpenChatListActivity?=null
-        var HANDLER:Handler?=null
+    companion object {
+        var CATEGORY: String = "전체"
+        var INSTANCE: OpenChatListActivity? = null
+        var HANDLER: Handler? = null
     }
-
-    lateinit var rvCategory: RecyclerView
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,12 +53,11 @@ class OpenChatListActivity : AppCompatActivity() {
         rv_category.adapter = CategoryAdapter(this)
         rv_category.setHasFixedSize(true)
 
-        var chatRoomAdapter= ChatRoomListAdapter()
-        var listChatRoom=list_chat_room
-
+        var chatRoomAdapter = ChatRoomListAdapter()
+        var listChatRoom = list_chat_room
+        listChatRoom.adapter = chatRoomAdapter
 
         VolleyService.openChatRoomListReq(UserInfo.UNIV, CATEGORY, this, { success ->
-            listChatRoom.adapter = chatRoomAdapter
             chatRoomAdapter.clear()
 
             var chatRoomArray = success
@@ -81,50 +73,86 @@ class OpenChatListActivity : AppCompatActivity() {
                     var limitNum = json.getInt("limit_num")
                     var universityName = json.getString("univ_name")
                     var curNum = json.getInt("cur_num")
+                    var introduce = json.getString("introduce")
 
-                    chatRoomAdapter.addItem(roomId, category, maker, roomTitle, limitNum, universityName, curNum)
+                    chatRoomAdapter.addItem(
+                        roomId,
+                        category,
+                        maker,
+                        roomTitle,
+                        limitNum,
+                        universityName,
+                        curNum,
+                        introduce
+                    )
                 }
             }
 
             listChatRoom.setOnItemClickListener { parent, view, position, id ->
-                var isFull = chatRoomAdapter.isFull(position)
 
-                if (isFull) {
-                    val builder =
-                        AlertDialog.Builder(ContextThemeWrapper(this, R.style.Theme_AppCompat_Light_Dialog))
-                    builder.setTitle("입장할 수 없습니다.")
+                var roomId = chatRoomAdapter.getRoomId(position)
+                var category = chatRoomAdapter.getCategory(position)
+                var introduce=chatRoomAdapter.getIntroduce(position)
 
-                    builder.setPositiveButton("확인") { _, _ ->
+                VolleyService.checkJoinReq(roomId, UserInfo.NICKNAME, this, { success ->
+                    if (success == "true") {
+                        val builder =
+                            AlertDialog.Builder(ContextThemeWrapper(this, R.style.Theme_AppCompat_Light_Dialog))
+                        builder.setTitle("참여 중인 방입니다.")
 
-                    }
-                    builder.show()
-                } else {
-                    var roomId = chatRoomAdapter.getRoomId(position)
-                    var category = chatRoomAdapter.getCategory(position)
-                    VolleyService.joinChatRoomReq(roomId,UserInfo.NICKNAME,this,{success ->
-                        if(success==1) {
+                        builder.setPositiveButton("입장") { _, _ ->
                             var intent = Intent(this, ChatActivity::class.java)
                             intent.putExtra("room_id", roomId)
                             intent.putExtra("category", category)
                             startActivity(intent)
                         }
-                        else{
+                        builder.setNegativeButton("취소") { _, _ ->
 
                         }
-                    })
-                }
+                        builder.show()
+                    } else {
+                        var builder=AlertDialog.Builder(ContextThemeWrapper(this, R.style.Theme_AppCompat_Light_Dialog))
+                        builder.setTitle("방에 입장하시겠습니까?")
+                        builder.setMessage(introduce)
+                        builder.setPositiveButton("입장"){_,_ ->
+                            VolleyService.joinChatRoomReq(roomId, UserInfo.NICKNAME, this, { success ->
+                                if (success == 1) {
+                                    var isFull = chatRoomAdapter.isFull(position)
+
+                                    if (isFull) {
+                                        val builder =
+                                            AlertDialog.Builder(ContextThemeWrapper(this, R.style.Theme_AppCompat_Light_Dialog))
+                                        builder.setTitle("입장할 수 없습니다.")
+                                        builder.setPositiveButton("확인") { _, _ ->
+
+                                        }
+                                        builder.show()
+                                    }
+
+                                    var intent = Intent(this, ChatActivity::class.java)
+                                    intent.putExtra("room_id", roomId)
+                                    intent.putExtra("category", category)
+                                    startActivity(intent)
+                                }
+                            })
+                        }
+                        builder.setNegativeButton("취소"){_,_ ->
+
+                        }
+                        builder.show()
+                    }
+                })
             }
 
             chatRoomAdapter.notifyDataSetChanged()
         })
-
-        HANDLER = object : Handler(){
+        HANDLER = object : Handler() {
             override fun handleMessage(msg: Message?) {
-                Log.d("test","카테고리 메시지 도착 : ${msg!!.what}")
-                when(msg!!.what){
+                Log.d("test", "카테고리 메시지 도착 : ${msg!!.what}")
+                when (msg!!.what) {
                     0 -> {
                         //카테고리 방 갱신
-                        VolleyService.openChatRoomListReq(UserInfo.UNIV,CATEGORY, INSTANCE!!,{ success ->
+                        VolleyService.openChatRoomListReq(UserInfo.UNIV, CATEGORY, INSTANCE!!, { success ->
                             listChatRoom.adapter = chatRoomAdapter
                             chatRoomAdapter.clear()
 
@@ -141,8 +169,17 @@ class OpenChatListActivity : AppCompatActivity() {
                                     var limitNum = json.getInt("limit_num")
                                     var universityName = json.getString("univ_name")
                                     var curNum = json.getInt("cur_num")
-
-                                    chatRoomAdapter.addItem(roomId, category, maker, roomTitle, limitNum, universityName, curNum)
+                                    var introduce=json.getString("introduce")
+                                    chatRoomAdapter.addItem(
+                                        roomId,
+                                        category,
+                                        maker,
+                                        roomTitle,
+                                        limitNum,
+                                        universityName,
+                                        curNum,
+                                        introduce
+                                    )
                                 }
                             }
                         })

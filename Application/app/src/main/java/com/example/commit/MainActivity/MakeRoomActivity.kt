@@ -24,19 +24,16 @@ class MakeRoomActivity : AppCompatActivity() {
             var clicked_rbtn = findViewById<RadioButton>(rdgroup.checkedRadioButtonId)
 
             var roomTitle = text_room_name.text.toString()
-            var about = text_room_intro.text.toString()
             var category = clicked_rbtn.text.toString()
+            var introduce=text_introduce.text.toString()
             var maxNum = Integer.parseInt(text_max.text.toString())
-
-            Log.d("test", roomTitle)
-            Log.d("test", about)
-            Log.d("test", category)
 
             VolleyService.createOpenChatReq(
                 UserInfo.NICKNAME,
                 roomTitle,
                 category,
                 UserInfo.UNIV,
+                introduce,
                 maxNum,
                 this,
                 { success ->

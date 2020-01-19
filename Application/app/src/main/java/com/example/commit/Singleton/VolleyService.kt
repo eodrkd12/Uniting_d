@@ -8,8 +8,13 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.commit.MainActivity.MakeRoomActivity
+import com.google.gson.JsonObject
 import org.json.JSONArray
 import org.json.JSONObject
+import java.sql.Date
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 //VolleyService를 사용하기위한 싱글톤
 
@@ -322,6 +327,7 @@ object VolleyService {
         roomTitle: String,
         category: String,
         universityName: String,
+        introduce: String,
         maxNum: Int,
         context: Context,
         success: (JSONObject?) -> Unit
@@ -330,7 +336,12 @@ object VolleyService {
 
         var jsonObject = JSONObject()
 
-        Log.d("test", "${maker} ${roomTitle} ${category} ${universityName} ${maxNum}")
+        jsonObject.put("category",category)
+        jsonObject.put("maker",maker)
+        jsonObject.put("univ_name",universityName)
+        jsonObject.put("room_title",roomTitle)
+        jsonObject.put("max_num",maxNum)
+        jsonObject.put("introduce",introduce)
 
         var request = object : JsonObjectRequest(
             Method.POST,
@@ -376,6 +387,29 @@ object VolleyService {
         }
         Volley.newRequestQueue(context).add(request)
 
+    }
+
+    fun getJoinTimeReq(roomId: String,nickname: String,context: Context,success:(String)->Unit){
+        val url="${ip}/join_room/get_join_time"
+
+        var jsonObject=JSONObject()
+
+        jsonObject.put("room_id",roomId)
+        jsonObject.put("nickname",nickname)
+
+        var request = object : JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonObject,
+            Response.Listener {
+                var time=it.getString("enter_date")
+                success(time)
+            },
+            Response.ErrorListener {
+            }) {
+
+        }
+        Volley.newRequestQueue(context).add(request)
     }
 
     //게시글 불러오기 : 태그 이용
@@ -493,6 +527,54 @@ object VolleyService {
         }
         Volley.newRequestQueue(context).add(request)
     }
+
+    fun checkJoinReq(roomId:String, nickname: String, context: Context, success: (String) -> Unit){
+        var url ="${ip}/join_room/check_join"
+
+        var jsonObject=JSONObject()
+        jsonObject.put("room_id",roomId)
+        jsonObject.put("nickname",nickname)
+
+        var request=object :JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonObject,
+            Response.Listener {
+                success(it.getString("result"))
+            },
+            Response.ErrorListener {
+
+            }){
+
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun getUserInRoom(roomId: String, nickname: String, context: Context, success: (JSONArray?) -> Unit){
+        var url="${ip}/join_room/user_in_room"
+
+        var jsonArray=JSONArray()
+
+        var jsonObject=JSONObject()
+        jsonObject.put("room_id",roomId)
+        jsonObject.put("nickname",nickname)
+
+        jsonArray.put(jsonObject)
+
+        var request=object :JsonArrayRequest(
+            Method.POST,
+            url,
+            jsonArray,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+
+            }){
+
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
     //==========세현==========
 
 
@@ -525,7 +607,6 @@ object VolleyService {
                 return "applycation/json_search"
             }
         }
-
     } //ID만 찾을떄쓰는 함수
 
     fun findReq2(id: String, email: String, context: Context, success: (Int) -> Unit) {

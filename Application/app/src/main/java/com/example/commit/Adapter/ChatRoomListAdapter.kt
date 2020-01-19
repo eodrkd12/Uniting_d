@@ -1,7 +1,6 @@
 package com.example.commit.Adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,7 +45,7 @@ class ChatRoomListAdapter:BaseAdapter() {
         return view
     }
 
-    fun addItem(roomId: String, cateName: String, maker:String,roomTitle:String,limitNum:Int,universityName:String,curNum:Int){
+    fun addItem(roomId: String, cateName: String, maker:String,roomTitle:String,limitNum:Int,universityName:String,curNum:Int,introduce:String){
         val item= ChatRoomListItem()
 
         item.roomId=roomId
@@ -56,6 +55,7 @@ class ChatRoomListAdapter:BaseAdapter() {
         item.limitNum=limitNum
         item.universityName=universityName
         item.curNum=curNum
+        item.introduce=introduce
 
         chatRoomList.add(item)
     }
@@ -66,6 +66,10 @@ class ChatRoomListAdapter:BaseAdapter() {
 
     fun getCategory(position: Int):String {
         return chatRoomList[position].cateName!!
+    }
+
+    fun getIntroduce(position: Int):String{
+        return chatRoomList[position].introduce!!
     }
 
     fun isFull(position: Int):Boolean{

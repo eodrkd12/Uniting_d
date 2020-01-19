@@ -15,13 +15,29 @@
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true"
             tools:replace="android:appComponentFactory">
+        
+        <provider
+                android:authorities="${applicationId}.provider"
+                android:name="androidx.core.content.FileProvider"
+                android:exported="false"
+                android:grantUriPermissions="true">
+                <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/provider_paths"/>
+        </provider>
+
+        <activity android:name=".MainActivity.ReportActivity">
+        </activity>
+        <activity
+                android:name=".Popup.ReportPopup"
+                android:theme="@style/Theme.AppCompat.Dialog">
+        </activity>
         <activity android:name=".MainActivity.SearchActivity">
         </activity>
         <activity android:name=".MainActivity.OpenChatListActivity">
         </activity>
         <activity android:name=".MainActivity.ChatActivity">
         </activity>
-        <activity android:name=".MainActivity.ChatRoomListActivity"/>
         <activity android:name=".MainActivity.DatingActivity"/>
         <activity android:name=".IntroActivity.Join3Activity"/>
         <activity android:name=".IntroActivity.Join1Activity"/>
