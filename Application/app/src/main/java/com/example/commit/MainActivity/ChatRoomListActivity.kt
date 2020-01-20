@@ -1,3 +1,4 @@
+/*
 package com.example.commit.MainActivity
 
 import android.annotation.SuppressLint
@@ -72,3 +73,4 @@ class ChatRoomListActivity : AppCompatActivity() {
         }
     }
 }
+*/

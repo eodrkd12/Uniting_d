@@ -8,4 +8,5 @@ class ChatRoomListItem {
     var limitNum:Int?=null
     var universityName:String?=null
     var curNum:Int?=null
+    var introduce:String?=null
 }
