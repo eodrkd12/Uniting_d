@@ -479,4 +479,60 @@ object VolleyService {
             }
         }
     }
+
+    fun insertReviewReq(nickname: String,cafeName: String,universityName: String,point:Int,content:String,context: Context,success:(String)->Unit){
+
+    }
+
+    fun getReviewReq(cafeName: String, universityName: String, context:Context, success: (JSONArray?) -> Unit) {
+        var url="${ip}/review/get"
+
+        var jsonArray=JSONArray()
+
+        var jsonObject=JSONObject()
+        jsonObject.put("cafe_name", cafeName)
+        jsonObject.put("univ_name", universityName)
+
+        jsonArray.put(jsonObject)
+
+        var request=object : JsonArrayRequest(
+            Method.POST,
+            url,
+            jsonArray,
+            Response.Listener{
+                success(it)
+            },
+            Response.ErrorListener {
+
+            }){
+
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun getSearchReq(universityName: String?, searchText: String?, context: Context, success:(JSONArray?)-> Unit) {
+        var url="${ip}/아직모름"
+
+        var jsonArray=JSONArray()
+
+        var jsonObject=JSONObject()
+        jsonObject.put("search_text", searchText)
+        jsonObject.put("univ_name", universityName)
+
+        jsonArray.put(jsonObject)
+
+        var request=object : JsonArrayRequest(
+            Method.POST,
+            url,
+            jsonArray,
+            Response.Listener{
+                success(it)
+            },
+            Response.ErrorListener {
+
+            }){
+
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
 }

@@ -65,6 +65,9 @@ class ChatFragment() : Fragment() {
             chatRoomAdapter.notifyDataSetChanged()
         })
 
+
+
+
         return view
     }
 }
