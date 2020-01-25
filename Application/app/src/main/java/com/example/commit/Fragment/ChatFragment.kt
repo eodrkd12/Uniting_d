@@ -1,7 +1,6 @@
 package com.example.commit.Fragment
 
-import android.annotation.SuppressLint
-import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,15 +9,12 @@ import android.view.ViewGroup
 import android.widget.ListView
 import androidx.fragment.app.Fragment
 import com.example.commit.Adapter.ChatRoomListAdapter
-import com.example.commit.Adapter.DatingAdapter
 import com.example.commit.Class.UserInfo
+import com.example.commit.MainActivity.ChatActivity
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
-import kotlinx.android.synthetic.main.activity_dating.*
-import kotlinx.android.synthetic.main.fragment_chat.*
 import org.json.JSONArray
 import org.json.JSONObject
-import java.util.*
 
 class ChatFragment() : Fragment() {
 
@@ -34,32 +30,38 @@ class ChatFragment() : Fragment() {
         var chatRoomAdapter= ChatRoomListAdapter()
         var chatRoomArray: JSONArray?=null
         var listChatRoom:ListView=view.findViewById(R.id.list_chat_room)
-        VolleyService.chatRoomListReq(UserInfo.NICKNAME,context!!,{ success ->
+
+        VolleyService.myChatRoomListReq(UserInfo.NICKNAME,context!!,{ success ->
             listChatRoom.adapter=chatRoomAdapter
             chatRoomAdapter.clear()
 
-            chatRoomArray=success
+            var chatRoomArray=success
             if(chatRoomArray!!.length()==0){
 
             }
             else{
-                for(i in 0..chatRoomArray!!.length()-1){
-                    var json= JSONObject()
-                    json=chatRoomArray!![i] as JSONObject
+                for(i in 0..chatRoomArray.length()-1){
+                    var json=chatRoomArray[i] as JSONObject
                     var roomId=json.getString("room_id")
-                    var cateName=json.getString("cate_name")
+                    var category=json.getString("cate_name")
                     var maker=json.getString("maker")
                     var roomTitle=json.getString("room_title")
                     var limitNum=json.getInt("limit_num")
                     var universityName=json.getString("univ_name")
                     var curNum=json.getInt("cur_num")
+                    var introduce=json.getString("introduce")
 
-                    chatRoomAdapter.addItem(roomId,cateName,maker,roomTitle,limitNum,universityName,curNum)
+                    chatRoomAdapter.addItem(roomId,category,maker,roomTitle,limitNum,universityName,curNum,introduce)
                 }
             }
 
             listChatRoom.setOnItemClickListener { parent, view, position, id ->
-
+                var roomId=chatRoomAdapter.getRoomId(position)
+                var category=chatRoomAdapter.getCategory(position)
+                var intent= Intent(activity, ChatActivity::class.java)
+                intent.putExtra("room_id",roomId)
+                intent.putExtra("category",category)
+                startActivity(intent)
             }
 
             chatRoomAdapter.notifyDataSetChanged()

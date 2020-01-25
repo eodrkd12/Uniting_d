@@ -17,7 +17,9 @@
     <ListView
             android:id="@+id/list_chat"
             android:layout_width="0dp" android:layout_height="0dp"
-            android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/edit_chat"
+            android:layout_marginBottom="8dp" android:clickable="false"
+            android:transcriptMode="alwaysScroll"
+            android:divider="#00000000" app:layout_constraintBottom_toTopOf="@+id/edit_chat"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/text_logo">
     </ListView>
@@ -30,12 +32,12 @@
             android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp" android:ems="10"
             android:inputType="textPersonName"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@+id/btn_chat"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@+id/btn_send"
             app:layout_constraintStart_toStartOf="parent"/>
     <Button
-            android:id="@+id/btn_chat"
+            android:id="@+id/btn_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp" android:text="Button"
+            android:layout_marginRight="8dp" android:text="보내기"
             app:layout_constraintBaseline_toBaselineOf="@+id/edit_chat" app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,6 @@
 package com.example.commit.Adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +35,7 @@ class ChatRoomListAdapter:BaseAdapter() {
         }
 
         var textTitle=view?.findViewById(R.id.text_title) as TextView
-        var textJoinNum=view?.findViewById(R.id.text_join_num) as TextView
+        var textJoinNum=view.findViewById(R.id.text_join_num) as TextView
 
         var item=chatRoomList[position]
 
@@ -46,7 +45,7 @@ class ChatRoomListAdapter:BaseAdapter() {
         return view
     }
 
-    fun addItem(roomId: String, cateName: String, maker:String,roomTitle:String,limitNum:Int,universityName:String,curNum:Int){
+    fun addItem(roomId: String, cateName: String, maker:String,roomTitle:String,limitNum:Int,universityName:String,curNum:Int,introduce:String){
         val item= ChatRoomListItem()
 
         item.roomId=roomId
@@ -56,8 +55,29 @@ class ChatRoomListAdapter:BaseAdapter() {
         item.limitNum=limitNum
         item.universityName=universityName
         item.curNum=curNum
+        item.introduce=introduce
 
         chatRoomList.add(item)
+    }
+
+    fun getRoomId(position: Int):String{
+        return chatRoomList[position].roomId!!
+    }
+
+    fun getCategory(position: Int):String {
+        return chatRoomList[position].cateName!!
+    }
+
+    fun getIntroduce(position: Int):String{
+        return chatRoomList[position].introduce!!
+    }
+
+    fun isFull(position: Int):Boolean{
+        var curNum=chatRoomList[position].curNum
+        var maxNum=chatRoomList[position].limitNum
+
+        if(maxNum==curNum) return true;
+        else return false;
     }
 
     fun clear(){

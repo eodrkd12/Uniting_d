@@ -54,11 +54,8 @@ class CafeHorizontalAdapter(val context: Context, val homefeed: Homefeed) : Recy
 
             context.startActivity(intent)
         }
-
     }
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view){
     }
-
-
 }

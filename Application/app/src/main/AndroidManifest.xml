@@ -3,6 +3,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         package="com.example.commit">
 
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.DIAL_PHONE" />
@@ -21,30 +22,45 @@
         <meta-data
             android:name = "com.naver.maps.map.CLIENT_ID"
             android:value = "4fk2n2jfrm" />
+        
+        <provider
+                android:authorities="${applicationId}.provider"
+                android:name="androidx.core.content.FileProvider"
+                android:exported="false"
+                android:grantUriPermissions="true">
+                <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/provider_paths"/>
+        </provider>
 
-        <activity android:name=".MainActivity.InformActivity"></activity>
-        <activity android:name=".MainActivity.ChatRoomListActivity"></activity>
-        <activity android:name=".MainActivity.ChatActivity"></activity>
-        <activity android:name=".ListItem.CafeHorizontalItem" />
-        <activity android:name=".Adapter.CategoryAdapter" />
-        <activity android:name=".Adapter.CafeVerticalAdapter" />
-        <activity android:name=".Fragment.CafeteriaFragment" />
-        <activity android:name=".MainActivity.MainActivty" />
-        <activity android:name=".MainActivity.DatingActivity" />
-        <activity android:name=".IntroActivity.Join3Activity" />
-        <activity android:name=".IntroActivity.Join1Activity" />
-        <activity android:name=".IntroActivity.Join5Activity" />
-        <activity android:name=".IntroActivity.Join4Activity" />
-        <activity android:name=".IntroActivity.Join2Activity" />
-        <activity android:name=".MainActivity.NoticeActivity" />
-        <activity android:name=".MainActivity.PolicyActivity" />
-        <activity android:name=".MainActivity.RuleActivity" />
-        <activity android:name=".MainActivity.QuestionActivity" />
-        <activity android:name=".MainActivity.AlarmActivity" />
-        <activity android:name=".MainActivity.WriteActivity" />
-        <activity android:name=".MainActivity.PostAcitivity" />
-        <activity android:name=".MainActivity.MyPostActivity" />
-        <activity android:name=".MainActivity.ProfileActivity" />
+        <activity android:name=".MainActivity.ReportActivity">
+        </activity>
+        <activity
+                android:name=".Popup.ReportPopup"
+                android:theme="@style/Theme.AppCompat.Dialog">
+        </activity>
+        <activity android:name=".MainActivity.SearchActivity">
+        </activity>
+        <activity android:name=".MainActivity.OpenChatListActivity">
+        </activity>
+        <activity android:name=".MainActivity.ChatActivity">
+        </activity>
+        <activity android:name=".MainActivity.DatingActivity"/>
+        <activity android:name=".IntroActivity.Join3Activity"/>
+        <activity android:name=".IntroActivity.Join1Activity"/>
+        <activity android:name=".IntroActivity.Join5Activity"/>
+        <activity android:name=".IntroActivity.Join4Activity"/>
+        <activity android:name=".IntroActivity.Join2Activity"/>
+        <activity android:name=".MainActivity.NoticeActivity"/>
+        <activity android:name=".MainActivity.PolicyActivity"/>
+        <activity android:name=".MainActivity.RuleActivity"/>
+        <activity android:name=".MainActivity.QuestionActivity"/>
+        <activity android:name=".MainActivity.AlarmActivity"/>
+        <activity android:name=".MainActivity.WriteActivity"/>
+        <activity android:name=".MainActivity.PostAcitivity"/>
+        <activity android:name=".MainActivity.MyPostActivity"/>
+        <activity android:name=".MainActivity.ProfileActivity"/>
+        <activity android:name=".MainActivity.MakeRoomActivity"/>
         <activity android:name=".IntroActivity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
