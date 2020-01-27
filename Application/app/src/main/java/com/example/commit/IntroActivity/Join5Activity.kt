@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.ContextThemeWrapper
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
 import com.example.commit.Class.UserInfo
 import com.example.commit.MainActivity.ChatActivity
 import com.example.commit.R
@@ -58,7 +59,8 @@ class Join5Activity : AppCompatActivity() {
                 var cameraIntent=Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                 var url="tmp_${System.currentTimeMillis()}.jpg"
 
-                imageCaptureUri= Uri.fromFile(File(Environment.getExternalStorageDirectory(),url))
+                var file=File(Environment.getExternalStorageDirectory(),url)
+                imageCaptureUri=FileProvider.getUriForFile(this,"com.example.commit.Uniting.provider",file)
                 startActivityForResult(cameraIntent,PICK_FROM_CAMERA)
             }
             builder.setNeutralButton("취소"){_,_->

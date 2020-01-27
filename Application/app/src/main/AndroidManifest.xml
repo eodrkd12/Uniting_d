@@ -17,13 +17,13 @@
             tools:replace="android:appComponentFactory">
         
         <provider
-                android:authorities="${applicationId}.provider"
+                android:authorities="com.example.commit.Uniting.provider"
                 android:name="androidx.core.content.FileProvider"
                 android:exported="false"
                 android:grantUriPermissions="true">
                 <meta-data
                     android:name="android.support.FILE_PROVIDER_PATHS"
-                    android:resource="@xml/provider_paths"/>
+                    android:resource="@xml/filepahts"/>
         </provider>
 
         <activity android:name=".MainActivity.ReportActivity">
