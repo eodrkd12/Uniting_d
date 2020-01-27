@@ -25,7 +25,8 @@ class ReportPopup : AppCompatActivity() {
             builder.setTitle("${nickname}님을 신고하시겠습니까?")
 
             builder.setPositiveButton("신고하기") { _, _ ->
-                var intent = Intent(this, ReportActivity::class.java)
+                var intent = Intent(this,ReportActivity::class.java)
+                intent.putExtra("nickname",nickname)
                 startActivity(intent)
             }
             builder.setNegativeButton("취소") { _, _ ->
