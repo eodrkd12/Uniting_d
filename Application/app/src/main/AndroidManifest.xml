@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="com.example.commit">
+        xmlns:tools="http://schemas.android.com/tools"
+        package="com.example.commit">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
             android:allowBackup="true"
@@ -40,6 +40,7 @@
         </activity>
         <activity android:name=".MainActivity.ChatActivity">
         </activity>
+         <activity android:name=".MainActivity.SettingActivity"></activity>
         <activity android:name=".MainActivity.DatingActivity"/>
         <activity android:name=".IntroActivity.Join3Activity"/>
         <activity android:name=".IntroActivity.Join1Activity"/>
@@ -58,16 +59,16 @@
         <activity android:name=".MainActivity.MakeRoomActivity"/>
         <activity android:name=".IntroActivity.SplashActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".IntroActivity.GuideActivity"/>
-        <activity android:name=".IntroActivity.LoginActivity"/>
-        <activity android:name=".IntroActivity.AcFindActivity"/>
-        <activity android:name=".IntroActivity.IntroActivity"/>
-        <activity android:name=".MainActivity.MainActivity"/>
+        <activity android:name=".IntroActivity.GuideActivity" />
+        <activity android:name=".IntroActivity.LoginActivity" />
+        <activity android:name=".IntroActivity.AcFindActivity" />
+        <activity android:name=".IntroActivity.IntroActivity" />
+        <activity android:name=".MainActivity.MainActivity" />
     </application>
 
 </manifest>

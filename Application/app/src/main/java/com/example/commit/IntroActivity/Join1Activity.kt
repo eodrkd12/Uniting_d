@@ -46,17 +46,17 @@ class Join1Activity : AppCompatActivity() {
         }
 
         list_university.setOnItemClickListener(AdapterView.OnItemClickListener { parent, view, position, id ->
-            var item=UniversityItem()
-            item=universityAdapter.getItem(position) as UniversityItem
-            if(item.enable) {
-                var university = universityArray!![position] as JSONObject
-                var webMail=university.getString("univ_mail")
-                var universityName=university.getString("univ_name")
-                var intent= Intent(this,Join2Activity::class.java)
-                intent.putExtra("univ_mail",webMail)
-                intent.putExtra("univ_name",universityName)
-                startActivity(intent)
-            }
+                    var item=UniversityItem()
+                    item=universityAdapter.getItem(position) as UniversityItem
+                    if(item.enable) {
+                        var university = universityArray!![position] as JSONObject
+                        var webMail=university.getString("univ_mail")
+                        var universityName=university.getString("univ_name")
+                        var intent= Intent(this,Join2Activity::class.java)
+                        intent.putExtra("univ_mail",webMail)
+                        intent.putExtra("univ_name",universityName)
+                        startActivity(intent)
+                    }
         })
     }
 }

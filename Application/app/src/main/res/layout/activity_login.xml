@@ -1,82 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#49A6EE">
 
-    <TextView
-            android:id="@+id/text_logo"
+    <ImageView
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="LOGO" android:textSize="30dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline16"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
+            tools:layout_editor_absoluteX="143dp"
+            tools:layout_editor_absoluteY="16dp"
+            tools:srcCompat="@drawable/ico" />
 
     <TextView
             android:id="@+id/text_아이디"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp" android:layout_marginTop="120dp"
-            android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
+            android:layout_marginTop="156dp"
+            android:layout_marginEnd="8dp"
             android:text="ID"
-            android:textAlignment="center" app:layout_constraintEnd_toStartOf="@+id/guideline15"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="@+id/guideline16"/>
+            android:textAlignment="center"
+            app:layout_constraintEnd_toStartOf="@+id/guideline15"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline16" />
 
     <EditText
             android:id="@+id/edit_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
-            android:ems="8" app:layout_constraintBaseline_toBaselineOf="@+id/text_아이디"
-            app:layout_constraintStart_toStartOf="@+id/guideline15"/>
+            android:layout_width="263dp"
+            android:layout_height="70dp"
+            android:ems="8"
+            app:layout_constraintBaseline_toBaselineOf="@+id/text_아이디"
+
+            app:layout_constraintStart_toStartOf="@+id/guideline15" />
 
     <TextView
             android:id="@+id/text_pw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp" android:layout_marginLeft="32dp"
-            android:layout_marginTop="120dp" android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp" android:text="PW"
-            android:textAlignment="center" app:layout_constraintEnd_toStartOf="@+id/guideline15"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/text_아이디"/>
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="8dp"
+            android:text="PW"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toStartOf="@+id/guideline15"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_아이디" />
 
     <EditText
             android:id="@+id/edit_pw"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp" android:layout_marginLeft="32dp"
+            android:layout_width="263dp"
+            android:layout_height="70dp"
             android:ems="8"
-            android:inputType="textPassword" app:layout_constraintBaseline_toBaselineOf="@+id/text_pw"
-            app:layout_constraintStart_toStartOf="@+id/guideline15"/>
+            android:inputType="textPassword"
+            app:layout_constraintBaseline_toBaselineOf="@+id/text_pw"
+            app:layout_constraintStart_toStartOf="@+id/guideline15" />
 
     <Button
             android:id="@+id/btn_login"
-            android:layout_width="89dp"
-            android:layout_height="53dp"
-            android:layout_marginTop="52dp"
-            android:text="로그인"
+            android:layout_width="263dp"
+            android:layout_height="65dp"
+            android:backgroundTint="#124F80"
+            android:fontFamily="sans-serif-medium"
+            android:text="LOGIN"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            app:layout_constraintHorizontal_bias="0.54"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_pw"/>
+            app:layout_constraintTop_toBottomOf="@+id/edit_pw" />
+
     <TextView
             android:id="@+id/text_find"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="12dp"
             android:text="아이디/비밀번호 찾기"
             android:textAlignment="center"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_login"/>
+            app:layout_constraintTop_toBottomOf="@id/btn_login" />
+
     <TextView
             android:id="@+id/text_guide"
             android:layout_width="wrap_content"
@@ -84,15 +92,26 @@
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="24dp"
-            android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:text="도움말"
-            android:textAlignment="center" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/text_find"/>
-    <androidx.constraintlayout.widget.Guideline android:id="@+id/guideline15" android:layout_width="wrap_content"
-                                          android:layout_height="wrap_content" android:orientation="vertical"
-                                          app:layout_constraintGuide_begin="97dp"/>
-    <androidx.constraintlayout.widget.Guideline android:id="@+id/guideline16" android:layout_width="wrap_content"
-                                          android:layout_height="wrap_content" android:orientation="horizontal"
-                                          app:layout_constraintGuide_begin="122dp"/>
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_find" />
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="79dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="122dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
