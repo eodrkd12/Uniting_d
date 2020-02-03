@@ -14,21 +14,32 @@
             android:inputType="textPersonName"
 
             android:singleLine="false"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/btn_report"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_id"
-            app:layout_constraintVertical_bias="0.485" />
+            app:layout_constraintTop_toTopOf="@+id/guideline23" />
 
-    <EditText
-            android:id="@+id/text_id"
+    <Button
+            android:id="@+id/btn_report"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
+            android:text="Button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-            android:ems="10"
-
-            android:inputType="textPersonName"
+    <TextView
+            android:id="@+id/text_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            app:layout_constraintBottom_toTopOf="@+id/guideline23"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="163dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,10 +39,6 @@
         <activity android:name=".MainActivity.ChatActivity">
         </activity>
          <activity android:name=".MainActivity.SettingActivity"></activity>
-        <activity android:name=".MainActivity.SearchActivity"></activity>
-        <activity android:name=".MainActivity.OpenChatListActivity"></activity>
-        <activity android:name=".MainActivity.ChatActivity"></activity>
-        <activity android:name=".MainActivity.ChatRoomListActivity" />
         <activity android:name=".MainActivity.DatingActivity"/>
         <activity android:name=".IntroActivity.Join3Activity"/>
         <activity android:name=".IntroActivity.Join1Activity"/>

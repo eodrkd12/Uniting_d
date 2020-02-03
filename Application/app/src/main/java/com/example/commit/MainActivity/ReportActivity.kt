@@ -14,9 +14,8 @@ import kotlinx.android.synthetic.main.activity_report.*
 class ReportActivity : AppCompatActivity() {
 
     //var webMail:String?=null;
-    var code:String=""
     var nickname= ""
-    var reason=text_reason.text.toString()
+    var reason=""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,24 +24,21 @@ class ReportActivity : AppCompatActivity() {
 
         nickname=intent.getStringExtra("nickname")
 
-        btn_webmail.setOnClickListener {
+        text_nickname.text="${nickname}님의 신고사유를 입력해주세요."
+        btn_report.setOnClickListener {
           // webMail = edit_webmail.text.toString() + text_address.text.toString()
 
-           if (edit_webmail.text.toString() != "") {
-
-                var mailSender: GMailSender = GMailSender("eodrkd12@gmail.com", "ioioko123!",code)
+            reason=text_reason.text.toString()
+                var mailSender: GMailSender = GMailSender("eodrkd12@gmail.com", "ioioko123!","")
                 mailSender.sendMail(
                     "채팅방신고"
                     , "신고한 아이디:" + nickname+
-                            "신고사유:"+reason
+                            "\n신고사유:"+reason
 
                    , "eodrkd12@gmail.com"
                 )
 
 
-            } else {
-                Toast.makeText(this, "올바른 이메일을 입력해주세요.", Toast.LENGTH_SHORT).show()
-            }
 
             //Log.d("test", "메일전송 : ${webMail}")
         }
