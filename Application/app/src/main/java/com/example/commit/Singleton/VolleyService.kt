@@ -718,3 +718,7 @@ object VolleyService {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
+
+fun delectuser(pw: String, context: Context, success: (Int) -> Unit){
+    val url = "${VolleyService.ip}/user"
+}
