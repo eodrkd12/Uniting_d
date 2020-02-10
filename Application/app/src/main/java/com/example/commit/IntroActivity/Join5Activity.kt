@@ -7,34 +7,41 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.os.Parcelable
 import android.provider.MediaStore
-import android.util.Log
-import android.view.ContextThemeWrapper
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.example.commit.Class.UserInfo
-import com.example.commit.MainActivity.ChatActivity
-import com.example.commit.R
-import com.example.commit.Singleton.VolleyService
 import kotlinx.android.synthetic.main.activity_join5.*
-import java.io.BufferedOutputStream
-import java.io.File
-import java.io.FileOutputStream
 import java.lang.Exception
+import android.provider.MediaStore.Images
+import java.io.*
+import android.widget.Toast
+import com.example.commit.R
+import java.sql.Date
+import java.text.SimpleDateFormat
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+import android.R.attr.data
+import android.graphics.drawable.BitmapDrawable
+import android.util.Log
+import androidx.core.app.NotificationCompat.getExtras
+import androidx.core.content.FileProvider
+import com.example.commit.Singleton.VolleyService
+
 
 class Join5Activity : AppCompatActivity() {
 
-    final val PICK_FROM_CAMERA=0
-    final val PICK_FROM_ALBUM=1
-    final val CROP_FROM_IMAGE=2
+    val PICK_FROM_CAMERA=0
+    val PICK_FROM_ALBUM=1
+    val CROP_FROM_CAMERA=2
+    val CROP_FROM_ALBUM=3
 
     var imageCaptureUri:Uri?=null
-    var absolutePath:String?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_join5)
+
 
         var getIntent=intent
 
@@ -49,100 +56,83 @@ class Join5Activity : AppCompatActivity() {
         var departmentName=getIntent.getStringExtra("dept_name")
         var enterYear=getIntent.getStringExtra("enter_year")
 
+
         image_profile.setOnClickListener {
             val builder =
-                AlertDialog.Builder(ContextThemeWrapper(this, R.style.Theme_AppCompat_Light_Dialog))
+                AlertDialog.Builder(this)
             builder.setTitle("프로필 사진 선택")
 
             builder.setPositiveButton("사진 촬영") { _, _ ->
-                var cameraIntent=Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                var url="tmp_${System.currentTimeMillis()}.jpg"
-
-                imageCaptureUri= Uri.fromFile(File(Environment.getExternalStorageDirectory(),url))
-                startActivityForResult(cameraIntent,PICK_FROM_CAMERA)
-            }
-            builder.setNeutralButton("취소"){_,_->
-
+                getImageFromCamera()
             }
             builder.setNegativeButton("앨범에서 선택") { _, _ ->
-                var albumIntent=Intent(Intent.ACTION_PICK)
-                albumIntent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE)
-                startActivityForResult(albumIntent,PICK_FROM_ALBUM)
+                getImageFromAlbum()
             }
+
+            builder.setNeutralButton("취소"){_,_-> }
+
+
             builder.show()
         }
 
         btn_complete.setOnClickListener {
-            VolleyService.joinReq(id,pw,name,birthday,gender,nickname,webMail,universityName,departmentName,enterYear,this,{success->
+            var bitmap=(image_profile.drawable as BitmapDrawable).bitmap
+
+            VolleyService.joinReq(id,pw,name,birthday,gender,nickname,webMail,universityName,departmentName,enterYear,bitmap,this,{ success->
                 if(success.equals("success")) {
                     var intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
                 }
             })
+
+
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        if(data==null) return
 
         when(requestCode){
             PICK_FROM_CAMERA -> {
-                var intent=Intent("com.android.camera.action.CROP")
-                intent.setDataAndType(imageCaptureUri,"image/")
-
-                intent.putExtra("outputX",200)
-                intent.putExtra("outputY",200)
-                intent.putExtra("aspectX",1)
-                intent.putExtra("aspectY",2)
-                intent.putExtra("scale",true)
-                intent.putExtra("return-data",true)
-                startActivityForResult(intent, CROP_FROM_IMAGE)
+                val imageBitmap = data!!.extras.get("data") as Bitmap
+                image_profile.setImageBitmap(imageBitmap)
             }
             PICK_FROM_ALBUM -> {
                 imageCaptureUri=data!!.data
+
+                var bitmap: Bitmap? = null
+                try {
+                    bitmap=Images.Media.getBitmap(this.contentResolver,imageCaptureUri)
+                } catch (e: FileNotFoundException) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace()
+                } catch (e: IOException) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace()
+                }
+
+                image_profile.setImageBitmap(bitmap)
             }
-            CROP_FROM_IMAGE -> {
-                var extras=data!!.getExtras()
+            CROP_FROM_CAMERA -> {
 
-                var filePath="${Environment.getExternalStorageDirectory().absolutePath}/Uniting/System.currentTimeMillis().jpg"
+            }
+            CROP_FROM_ALBUM -> {
 
-                if(extras!=null){
-                    var photo=extras.getParcelable<Bitmap>("data")
-                    image_profile.setImageBitmap(photo)
-
-                    storeCropImage(photo,filePath)
-                    absolutePath=filePath
-                }
-
-                var file=File(imageCaptureUri!!.path)
-                if(file.exists()){
-                    file.delete()
-                }
             }
         }
     }
 
-    fun storeCropImage(bitmap:Bitmap, filePath:String):Unit{
-        var dirPath="${Environment.getExternalStorageDirectory().absolutePath}/Uniting"
-        var dirUniting=File(dirPath)
-        if(!dirUniting.exists()){
-            dirUniting.mkdir()
-        }
-
-        var copyFile=File(filePath)
-        var out:BufferedOutputStream?=null
-
-        try{
-            copyFile.createNewFile()
-            out= BufferedOutputStream(FileOutputStream(copyFile))
-            bitmap.compress(Bitmap.CompressFormat.JPEG,100,out)
-
-            sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,Uri.fromFile(copyFile)))
-
-            out.flush()
-            out.close()
-        }catch (e:Exception){
-            e.printStackTrace()
-        }
+    fun getImageFromCamera():Unit{
+        var cameraIntent=Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(cameraIntent,PICK_FROM_CAMERA)
     }
+
+    fun getImageFromAlbum():Unit{
+        var albumIntent=Intent(Intent.ACTION_PICK)
+        albumIntent.setType(Images.Media.CONTENT_TYPE)
+        startActivityForResult(albumIntent,PICK_FROM_ALBUM)
+    }
+
+
 }

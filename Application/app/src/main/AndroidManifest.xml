@@ -15,15 +15,17 @@
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true"
             tools:replace="android:appComponentFactory">
-        
+        <activity android:name=".MainActivity.ImageTestActivity">
+        </activity>
+
         <provider
-                android:authorities="${applicationId}.provider"
                 android:name="androidx.core.content.FileProvider"
+                android:authorities="com.example.commit.Uniting.provider"
                 android:exported="false"
                 android:grantUriPermissions="true">
-                <meta-data
+            <meta-data
                     android:name="android.support.FILE_PROVIDER_PATHS"
-                    android:resource="@xml/provider_paths"/>
+                    android:resource="@xml/filepahts"/>
         </provider>
 
         <activity android:name=".MainActivity.ReportActivity">
