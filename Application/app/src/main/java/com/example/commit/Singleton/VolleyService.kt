@@ -7,7 +7,9 @@ import android.util.Log
 import android.widget.Toast
 import com.android.volley.Response
 import com.android.volley.toolbox.*
+import com.example.commit.Class.UserInfo
 import com.example.commit.MainActivity.MakeRoomActivity
+import kotlinx.android.synthetic.main.activity_image_test.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
@@ -175,13 +177,6 @@ object VolleyService {
         Volley.newRequestQueue(context).add(request)
     }*/
 
-    fun getStringImage(bmp: Bitmap): String {
-        val baos = ByteArrayOutputStream()
-        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-        val imageBytes = baos.toByteArray()
-        return Base64.encodeToString(imageBytes, Base64.DEFAULT)
-    }
-
     //회원가입 요청
     fun joinReq(
         id: String, pw: String, name: String, birthday: String, gender: String
@@ -190,9 +185,7 @@ object VolleyService {
     ) {
         val url = "${ip}/user"//요청 URL
 
-        var stringImage= getStringImage(bitmap)
-
-        Log.d("test","${stringImage.length} : ${stringImage}")
+        var stringImage= ImageManager.BitmapToString(bitmap)
 
         val json = JSONObject() // 서버로 전송할 json 객체
         json.put("id", id) // json 객체에 데이터 삽입, 첫번째 파라미터가 키, 두번째 파라미터가 값
@@ -742,15 +735,26 @@ object VolleyService {
         }
     }
 
-    fun rcreateOpenChatReq(
-        nickname: Any,
-        roomTitle: Any,
-        category: String,
-        univ: Any,
-        최대인원: Any,
-        makeRoomActivity: MakeRoomActivity,
-        function: (Nothing) -> Unit
-    ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    fun getImageReq(nickname: String, context: Context, success: (String?) -> Unit){
+        var url="http://52.78.27.41:1901/user/getImage"
+
+        var json= JSONObject()
+
+        json.put("id", nickname)
+
+        var request=object : JsonObjectRequest(Method.POST,
+            url,
+            json,
+            Response.Listener {
+                var stringImage=it.getString("user_image")
+                success(stringImage)
+            },
+            Response.ErrorListener {
+
+            }){
+
+        }
+
+        Volley.newRequestQueue(context).add(request)
     }
 }

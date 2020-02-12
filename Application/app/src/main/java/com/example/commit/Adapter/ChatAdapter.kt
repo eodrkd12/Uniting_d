@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.ImageView
 import android.widget.TextView
 import com.example.commit.Class.UserInfo
 import com.example.commit.ListItem.ChatItem
 import com.example.commit.R
+import com.example.commit.Singleton.ImageManager
 
 class ChatAdapter : BaseAdapter() {
     private var chatList = ArrayList<ChatItem>()
@@ -43,6 +45,8 @@ class ChatAdapter : BaseAdapter() {
         if (!item.isMyChat!!) {
             var textSpeaker = view!!.findViewById(R.id.text_speaker) as TextView
             textSpeaker!!.text = item.speaker
+            var imgSpeaker=view.findViewById(R.id.img_speaker) as ImageView
+            imgSpeaker!!.setImageBitmap(ImageManager.StringToBitmap(item.stringImage!!))
         }
         var textContent = view!!.findViewById(R.id.text_content) as TextView
         var textTime = view.findViewById(R.id.text_time) as TextView
@@ -53,7 +57,7 @@ class ChatAdapter : BaseAdapter() {
         return view
     }
 
-    fun addItem(roomId: String, speaker: String, content: String, time: String, fulltime: String) {
+    fun addItem(roomId: String, speaker: String, content: String, time: String, fulltime: String,stringImage:String) {
         val item = ChatItem()
 
         if (speaker == UserInfo.NICKNAME)
@@ -66,7 +70,7 @@ class ChatAdapter : BaseAdapter() {
         item.content = content
         item.time = time
         item.fulltime = fulltime
-
+        item.stringImage=stringImage
 
         chatList.add(item)
     }

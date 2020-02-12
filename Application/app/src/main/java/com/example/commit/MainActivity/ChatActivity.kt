@@ -107,7 +107,13 @@ class ChatActivity : AppCompatActivity() {
             var speaker=((i.next() as DataSnapshot).getValue()) as String
             var time=((i.next() as DataSnapshot).getValue()) as String
 
-            chatAdapter.addItem(roomId,speaker, content, time, fulltime)
+            var stringImage:String?=null
+
+            VolleyService.getImageReq(speaker,this,{success ->
+                stringImage=success
+            })
+
+            chatAdapter.addItem(roomId,speaker, content, time, fulltime,stringImage!!)
         }
 
         chatAdapter.notifyDataSetChanged()

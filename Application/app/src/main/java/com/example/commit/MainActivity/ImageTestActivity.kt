@@ -52,7 +52,6 @@ class ImageTestActivity : AppCompatActivity() {
             e.message
             return null
         }
-
     }
 
 }
