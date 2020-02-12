@@ -56,6 +56,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        text_logo.setOnClickListener {
+            var intent=Intent(this,ImageTestActivity::class.java)
+            startActivity(intent)
+        }
+
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bnv_main)
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener)
 

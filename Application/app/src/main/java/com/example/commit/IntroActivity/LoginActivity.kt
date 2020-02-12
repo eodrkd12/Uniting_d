@@ -44,6 +44,11 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        text_join.setOnClickListener {
+            var intent:Intent=Intent(this,Join1Activity::class.java)
+            startActivity(intent)
+        }
+
         btn_login.setOnClickListener  {
             //editText뷰로부터 값을 가져오는 과정
             //xml파일에서 선언한 뷰의 id를 입력해야 함(* xml파일마다 중복된 id가 있으니 안헷갈리게 주의)

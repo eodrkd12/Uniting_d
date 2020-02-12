@@ -56,7 +56,7 @@ class DatingActivity : AppCompatActivity() {
             list_content.setOnItemClickListener { parent, view, position, id ->
                 var userNickname = datingAdapter.getNickname(position)
                 val builder =
-                    AlertDialog.Builder(ContextThemeWrapper(this@DatingActivity, R.style.Theme_AppCompat_Light_Dialog))
+                    AlertDialog.Builder(this)
                 builder.setTitle("${userNickname}님과의 대화")
                 builder.setMessage("시작하시겠습니까?")
 

@@ -1,20 +1,19 @@
 package com.example.commit.Singleton
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.util.Base64
 import android.util.Log
 import android.widget.Toast
 import com.android.volley.Response
-import com.android.volley.toolbox.JsonArrayRequest
-import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.Volley
+import com.android.volley.toolbox.*
+import com.example.commit.Class.UserInfo
 import com.example.commit.MainActivity.MakeRoomActivity
-import com.google.gson.JsonObject
+import kotlinx.android.synthetic.main.activity_image_test.*
 import org.json.JSONArray
 import org.json.JSONObject
-import java.sql.Date
-import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import java.io.ByteArrayOutputStream
+
 
 //VolleyService를 사용하기위한 싱글톤
 
@@ -150,13 +149,43 @@ object VolleyService {
         Volley.newRequestQueue(context).add(request)
     }
 
+    /*fun imageReq(id:String, bitmap: Bitmap, context: Context){
+        var url="${ip}/user/image"
+
+        var request = object : StringRequest(
+            Method.POST,
+            url,
+            Response.Listener {
+
+            },
+            Response.ErrorListener {
+
+            }){
+            override fun getParams(): MutableMap<String, String> {
+                var params=HashMap<String,String>()
+
+                var image= getStringImage(bitmap)
+                var id=id
+
+                params.put("id",id)
+                params.put("image",image)
+
+                return params
+            }
+        }
+
+        Volley.newRequestQueue(context).add(request)
+    }*/
+
     //회원가입 요청
     fun joinReq(
         id: String, pw: String, name: String, birthday: String, gender: String
-        , nickname: String, webMail: String, universityName: String, departmentName: String, enterYear: String
+        , nickname: String, webMail: String, universityName: String, departmentName: String, enterYear: String, bitmap: Bitmap
         , context: Context, success: (String) -> Unit
     ) {
         val url = "${ip}/user"//요청 URL
+
+        var stringImage= ImageManager.BitmapToString(bitmap)
 
         val json = JSONObject() // 서버로 전송할 json 객체
         json.put("id", id) // json 객체에 데이터 삽입, 첫번째 파라미터가 키, 두번째 파라미터가 값
@@ -169,6 +198,7 @@ object VolleyService {
         json.put("university_name", universityName)
         json.put("department_name", departmentName)
         json.put("enter_year", enterYear)
+        json.put("image",stringImage)
 
         // Request객체를 생성하여야 함 종류는 다양하지만 여기선 JsonObjectRequest객체를 생성
         // 객체 생성 파라미터(메소드타입(GET,POST,PUT,DELETE) / URL / 보낼 데이터(json) / 통신 성공 리스너 / 통신 실패 리스너
@@ -794,6 +824,19 @@ object VolleyService {
             jsonObject,
             Response.Listener{
                 success(it.getString("result"))
+    fun getImageReq(nickname: String, context: Context, success: (String?) -> Unit){
+        var url="http://52.78.27.41:1901/user/getImage"
+
+        var json= JSONObject()
+
+        json.put("id", nickname)
+
+        var request=object : JsonObjectRequest(Method.POST,
+            url,
+            json,
+            Response.Listener {
+                var stringImage=it.getString("user_image")
+                success(stringImage)
             },
             Response.ErrorListener {
 
@@ -813,5 +856,7 @@ object VolleyService {
         function: (Nothing) -> Unit
     ) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+        Volley.newRequestQueue(context).add(request)
     }
 }
