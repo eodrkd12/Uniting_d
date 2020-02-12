@@ -1,4 +1,3 @@
-
 package com.example.commit.MainActivity
 
 import android.annotation.SuppressLint
@@ -41,7 +40,7 @@ class ChatRoomListActivity : AppCompatActivity() {
         rv_category.adapter = CategoryAdapter(this)
         rv_category.setHasFixedSize(true)
 
-        VolleyService.chatRoomListReq("uniting", this, { success ->
+        /*VolleyService.chatRoomListReq("uniting", this, { success ->
             chatRoomAdapter.clear()
 
             var chatRoomArray = success
@@ -62,7 +61,7 @@ class ChatRoomListActivity : AppCompatActivity() {
                 }
             }
             chatRoomAdapter.notifyDataSetChanged()
-        })
+        })*/
 
 
         listChatRoom.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
@@ -73,4 +72,3 @@ class ChatRoomListActivity : AppCompatActivity() {
         }
     }
 }
-

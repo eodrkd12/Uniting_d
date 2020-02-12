@@ -11,10 +11,15 @@ package com.example.commit.IntroActivity
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.ContextThemeWrapper
 import com.example.commit.Class.UserInfo
+import com.example.commit.MainActivity.InformActivity
 import com.example.commit.MainActivity.OpenChatListActivity
 import com.example.commit.MainActivity.MainActivity
 import com.example.commit.R
@@ -100,7 +105,24 @@ class LoginActivity : AppCompatActivity() {
                         startActivity(intent)
                     }
                 }
+
             })
         }
+    }
+
+    override fun onBackPressed() {
+        val builder = AlertDialog.Builder(ContextThemeWrapper(this@LoginActivity, R.style.Theme_AppCompat_Light_Dialog))
+        //builder.setTitle(InformActivity.name)
+        builder.setMessage("앱을 종료하시겠습니까?")
+
+        builder.setNegativeButton("확인") { dialog, id->
+            moveTaskToBack(true);
+            finish();
+            android.os.Process.killProcess(android.os.Process.myPid());
+        }
+        builder.setPositiveButton("취소") { dialog, id ->
+
+        }
+        builder.show()
     }
 }

@@ -22,7 +22,7 @@ import com.example.commit.Fragment.MenuFragment
 import com.example.commit.Fragment.ReviewFragment
 import com.example.commit.Fragment.SummaryFragment
 import com.example.commit.ListItem.Homefeed
-import com.example.commit.ListItem.Image
+import com.example.commit.ListItem.Menu
 import com.example.commit.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.GsonBuilder
@@ -31,6 +31,8 @@ import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.Marker
 import kotlinx.android.synthetic.main.activity_inform.*
+import kotlinx.android.synthetic.main.fragment_menu.*
+import kotlinx.android.synthetic.main.fragment_summary.*
 import okhttp3.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.intentFor
@@ -50,6 +52,9 @@ class InformActivity : AppCompatActivity(), OnMapReadyCallback {
         var mapy: Double? = null
         var phone: String? = null
         var name: String? = null
+        var id:String? = null
+        var menu:ArrayList<Menu> = arrayListOf()
+        var roadAddr:String? = null
     }
 
     /*fun fetchJson(vararg p0: String) {
@@ -96,19 +101,52 @@ class InformActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_inform)
 
-        //fetchJson(" ")
+        var intent=intent
+        name =intent.getStringExtra("name")
+        mapx = intent.getStringExtra("x").toDouble()
+        mapy = intent.getStringExtra("y").toDouble()
+        phone = intent.getStringExtra("phone")
+        id = intent.getStringExtra("id")
+        roadAddr = intent.getStringExtra("roadAddr")
+
+        if (savedInstanceState == null) {
+            val fragment = SummaryFragment(roadAddr as String)
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.frame_inform, fragment, fragment.javaClass.simpleName).commit()
+        }
+
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bnv_inform)
+        bottomNavigationView.setOnNavigationItemSelectedListener(navListener)
+
+        doAsync {
+            val url = "https://store.naver.com/restaurants/detail?id=$id"
+            try {
+                val doc = Jsoup.connect(url).get()
+                val menuData = doc.select("ul[class=list_menu]").select("li")
+
+                menuData.forEachIndexed { index, element ->
+                    val menuName = element.select("li span[class=name]").text()
+                    val menuPrice = element.select("li em[class=price]").text()
+                    menu.add(Menu(menuName, menuPrice))
+                    //runOnUiThread {
+                    //}
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
+
+
+        //Toast.makeText(this, menu.size.toString(), Toast.LENGTH_LONG).show();
+
+
         val fm = supportFragmentManager
         val mapFragment = fm.findFragmentById(R.id.map) as MapFragment?
             ?: MapFragment.newInstance().also {
                 fm.beginTransaction().add(R.id.map, it).commit()
             }
         mapFragment.getMapAsync(this)
-
-        var intent=intent
-        name =intent.getStringExtra("name")
-        mapx = intent.getStringExtra("x").toDouble()
-        mapy = intent.getStringExtra("y").toDouble()
-        phone = intent.getStringExtra("phone")
 
         text_cafeteria_title.text = name
 
@@ -127,7 +165,6 @@ class InformActivity : AppCompatActivity(), OnMapReadyCallback {
                     e.printStackTrace()
                 }
             }
-
             builder.setPositiveButton("취소") { dialog, id ->
 
             }
@@ -138,8 +175,7 @@ class InformActivity : AppCompatActivity(), OnMapReadyCallback {
 
         }
 
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bnv_inform)
-        bottomNavigationView.setOnNavigationItemSelectedListener(navListener)
+
     }
 
     override fun onMapReady(naverMap: NaverMap) {
@@ -156,13 +192,13 @@ class InformActivity : AppCompatActivity(), OnMapReadyCallback {
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener {
         when (it.itemId) {
             R.id.summary -> {
-                val fragment = SummaryFragment()
+                val fragment = SummaryFragment(roadAddr as String)
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frame_inform, fragment, fragment.javaClass.simpleName).commit()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.menu -> {
-                val fragment = MenuFragment()
+                val fragment = MenuFragment(menu)
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frame_inform, fragment, fragment.javaClass.simpleName).commit()
                 return@OnNavigationItemSelectedListener true

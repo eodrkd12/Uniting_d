@@ -7,16 +7,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import com.example.commit.ListItem.Menu
 
 import com.example.commit.R
+import kotlinx.android.synthetic.main.fragment_menu.*
 
 
-class MenuFragment : Fragment() {
+class MenuFragment(val menu:ArrayList<Menu>) : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_menu, container, false)
+        var rootView = inflater.inflate(R.layout.fragment_menu, container, false)
+
+        var textMenu: TextView = rootView.findViewById(R.id.text_menu)
+        textMenu.text = menu.get(0).name + " " + menu.get(0).price
+
+        return rootView
     }
 }

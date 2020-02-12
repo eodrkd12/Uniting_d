@@ -2,6 +2,8 @@ package com.example.commit.Adapter
 
 import android.app.Activity
 import android.content.ContentValues.TAG
+import android.content.Context
+import android.content.Intent
 import android.os.AsyncTask
 import android.util.Log
 //import android.support.v7.app.AppCompatActivity
@@ -15,7 +17,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.commit.ListItem.Homefeed
-import com.example.commit.ListItem.Image
+import com.example.commit.ListItem.Type
+import com.example.commit.MainActivity.CafeteriaActivity
 import com.example.commit.R
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.cafeteria_horizontal.view.*
@@ -32,7 +35,7 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 
-class CafeVerticalAdapter(activity: Activity) : RecyclerView.Adapter<CafeVerticalAdapter.ViewHolder>() {
+class CafeVerticalAdapter(activity: Activity,val cafetype: ArrayList<Type>) : RecyclerView.Adapter<CafeVerticalAdapter.ViewHolder>() {
     val clientId:String = "zjmsxbzZatZyy90LhgRy"
     val clientSecret:String = "tUYfairJPI"
 
@@ -43,7 +46,7 @@ class CafeVerticalAdapter(activity: Activity) : RecyclerView.Adapter<CafeVertica
 
 
     override fun getItemCount():Int{
-        return 3
+        return cafetype.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CafeVerticalAdapter.ViewHolder {
@@ -53,7 +56,8 @@ class CafeVerticalAdapter(activity: Activity) : RecyclerView.Adapter<CafeVertica
 
     override fun onBindViewHolder(holder: CafeVerticalAdapter.ViewHolder, position: Int) {
         fun fetchJson(vararg p0: String) {
-            val text:String = URLEncoder.encode("계명대 맛집", "UTF-8")
+            val searchtext = "성서계명대" + cafetype.get(position).title
+            val text:String = URLEncoder.encode(searchtext, "UTF-8")
             val apiURL = "https://store.naver.com/sogum/api/businesses?start=1&display=10&query=$text&sortingOrder=reviewCount"
 
             val url = URL(apiURL)
@@ -88,8 +92,16 @@ class CafeVerticalAdapter(activity: Activity) : RecyclerView.Adapter<CafeVertica
                 }
             })
         }
-        holder.bindItems()
+        holder.bindItems(cafetype.get(position))
         fetchJson(" ")
+
+        holder.itemView.textView5.setOnClickListener {
+            val intent = Intent(mactivity, CafeteriaActivity::class.java)
+            intent.putExtra("cafetype", cafetype.get(position).title)
+            mactivity.startActivity(intent)
+        }
+
+
 
         /*var url:URL? = null
         var urlConnection: HttpURLConnection? = null
@@ -112,8 +124,8 @@ class CafeVerticalAdapter(activity: Activity) : RecyclerView.Adapter<CafeVertica
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
         val CafeHorizontalRV : RecyclerView = view.findViewById(R.id.CafeHorizontalRV)
-        fun bindItems() {
-            itemView.menutype.text = "테스트용"
+        fun bindItems(data: Type) {
+            itemView.menutype.text = data.title
         }
     }
 
