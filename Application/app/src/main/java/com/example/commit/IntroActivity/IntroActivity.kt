@@ -21,6 +21,10 @@ class IntroActivity : AppCompatActivity() {
         //setContentView : 액티비티와 연결되는 레이아웃파일을 설정
         setContentView(R.layout.activity_intro)
 
+        text_logo.setOnClickListener {
+            var intent=Intent(this,Join5Activity::class.java)
+            startActivity(intent)
+        }
 
         //버튼에 클릭리스너를 연결해주는 코드
         btn_join.setOnClickListener{

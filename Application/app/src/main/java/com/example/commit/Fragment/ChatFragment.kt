@@ -2,6 +2,7 @@ package com.example.commit.Fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +31,7 @@ class ChatFragment() : Fragment() {
         var chatRoomArray: JSONArray?=null
         var listChatRoom:ListView=view.findViewById(R.id.list_chat_room)
 
-        VolleyService.chatRoomListReq(UserInfo.NICKNAME,context!!,{ success ->
+        VolleyService.myChatRoomListReq(UserInfo.NICKNAME,context!!,{ success ->
             listChatRoom.adapter=chatRoomAdapter
             chatRoomAdapter.clear()
 
@@ -48,8 +49,9 @@ class ChatFragment() : Fragment() {
                     var limitNum=json.getInt("limit_num")
                     var universityName=json.getString("univ_name")
                     var curNum=json.getInt("cur_num")
+                    var introduce=json.getString("introduce")
 
-                    chatRoomAdapter.addItem(roomId,category,maker,roomTitle,limitNum,universityName,curNum)
+                    chatRoomAdapter.addItem(roomId,category,maker,roomTitle,limitNum,universityName,curNum,introduce)
                 }
             }
 

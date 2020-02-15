@@ -54,7 +54,7 @@ class SplashActivity: AppCompatActivity() {
         }
         else {
             Handler().postDelayed({
-                var intent: Intent = Intent(this, IntroActivity::class.java)
+                var intent: Intent = Intent(this, LoginActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)  //액티비티 전환시 애니메이션을 무시
                 startActivity(intent)
                 finish()
