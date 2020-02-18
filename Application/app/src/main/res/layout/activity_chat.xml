@@ -14,7 +14,7 @@
             android:transcriptMode="alwaysScroll"
             android:divider="#00000000" app:layout_constraintBottom_toTopOf="@+id/edit_chat"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/text_logo">
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
     </ListView>
     <EditText
             android:id="@+id/edit_chat"

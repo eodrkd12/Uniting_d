@@ -36,6 +36,9 @@ class ChatActivity : AppCompatActivity() {
         roomId=intent.getStringExtra("room_id")
         category=intent.getStringExtra("category")
 
+        var listChat=list_chat
+        listChat.adapter=chatAdapter
+
         VolleyService.getJoinTimeReq(roomId!!,UserInfo.NICKNAME,this,{success ->
             val ref = FirebaseDatabase.getInstance().reference.child("chat").child(roomId!!)
             val query=ref.orderByChild("fulltime").startAt(success,"fulltime")
@@ -57,9 +60,6 @@ class ChatActivity : AppCompatActivity() {
 
             query.addChildEventListener(childEventListener)
 
-            list_chat.adapter=chatAdapter
-            list_chat.setSelection(chatAdapter.count-1)
-
             btn_send.setOnClickListener {
                 if(edit_chat.text.toString()!="") {
 
@@ -67,7 +67,7 @@ class ChatActivity : AppCompatActivity() {
 
                     val key: String? = ref.push().key
 
-                    //ref.updateChildren(map)
+                    ref.updateChildren(map)
 
                     var root = ref.child(key!!)
                     var objectMap = HashMap<String, Any>()
@@ -94,6 +94,7 @@ class ChatActivity : AppCompatActivity() {
                 }
             }
         })
+        list_chat.setSelection(chatAdapter.count-1)
     }
 
     fun chatConversation(dataSnapshot: DataSnapshot){
@@ -107,15 +108,14 @@ class ChatActivity : AppCompatActivity() {
             var speaker=((i.next() as DataSnapshot).getValue()) as String
             var time=((i.next() as DataSnapshot).getValue()) as String
 
-            var stringImage:String?=null
+            /*var stringImage:String?=null
 
             VolleyService.getImageReq(speaker,this,{success ->
                 stringImage=success
-            })
-
-            chatAdapter.addItem(roomId,speaker, content, time, fulltime,stringImage!!)
+            })*/
+            //chatAdapter.addItem(roomId,speaker, content, time, fulltime,stringImage!!)
+            chatAdapter.addItem(roomId,speaker, content, time, fulltime)
         }
-
         chatAdapter.notifyDataSetChanged()
     }
 
