@@ -55,7 +55,7 @@
             app:layout_constraintTop_toBottomOf="@+id/rv_category"/>
 
     <EditText
-            android:id="@+id/text_search"
+            android:id="@+id/text_search_open_chat"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
 

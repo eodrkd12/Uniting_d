@@ -9,6 +9,7 @@ Login Activity
  */
 package com.example.commit.IntroActivity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -122,8 +123,8 @@ class LoginActivity : AppCompatActivity() {
 
         builder.setNegativeButton("확인") { dialog, id->
             moveTaskToBack(true);
-            finish();
-            android.os.Process.killProcess(android.os.Process.myPid());
+            /*finish();
+            android.os.Process.killProcess(android.os.Process.myPid());*/
         }
         builder.setPositiveButton("취소") { dialog, id ->
 

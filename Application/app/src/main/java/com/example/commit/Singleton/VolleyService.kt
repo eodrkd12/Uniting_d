@@ -822,8 +822,17 @@ object VolleyService {
             Method.POST,
             url,
             jsonObject,
-            Response.Listener{
+            Response.Listener {
                 success(it.getString("result"))
+            },
+            Response.ErrorListener {
+                Log.d("test",it.toString())
+            }){
+
+        }
+
+        Volley.newRequestQueue(context).add(request)
+    }
     fun getImageReq(nickname: String, context: Context, success: (String?) -> Unit){
         var url="http://52.78.27.41:1901/user/getImage"
 
@@ -843,20 +852,6 @@ object VolleyService {
             }){
 
         }
-        Volley.newRequestQueue(context).add(request)
-    }
-
-    fun rcreateOpenChatReq(
-        nickname: Any,
-        roomTitle: Any,
-        category: String,
-        univ: Any,
-        최대인원: Any,
-        makeRoomActivity: MakeRoomActivity,
-        function: (Nothing) -> Unit
-    ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-
         Volley.newRequestQueue(context).add(request)
     }
 }
