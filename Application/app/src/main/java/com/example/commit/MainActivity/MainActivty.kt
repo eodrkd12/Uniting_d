@@ -40,6 +40,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import com.example.commit.Adapter.MyPagerAdapter
 import com.example.commit.Fragment.*
@@ -47,19 +48,12 @@ import com.example.commit.IntroActivity.LoginActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.fragment_home.*
 
-var staticId:String?=null
-var staticPw:String?=null
-
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        text_logo.setOnClickListener {
-            var intent=Intent(this,ImageTestActivity::class.java)
-            startActivity(intent)
-        }
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bnv_main)
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener)
@@ -69,10 +63,6 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
         }
-
-        btn_search.setOnClickListener {
-            //검색
-        }
     }
 
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener {
@@ -81,16 +71,11 @@ class MainActivity : AppCompatActivity() {
                 val fragment = HomeFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
+
                 return@OnNavigationItemSelectedListener true
             }
             R.id.chat -> {
                 val fragment = ChatFragment()
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.alarm -> {
-                val fragment = AlamFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
                 return@OnNavigationItemSelectedListener true

@@ -1,10 +1,9 @@
 package com.example.commit.MainActivity
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.ContextThemeWrapper
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.commit.Adapter.ChatAdapter
 import com.example.commit.Adapter.DatingAdapter
 import com.example.commit.Class.UserInfo
 import com.example.commit.R
@@ -16,16 +15,19 @@ import java.util.*
 
 class DatingActivity : AppCompatActivity() {
 
-    var datingAdapter = DatingAdapter()
+    var datingAdapter = DatingAdapter(this)
     var datingArray: JSONArray? = null
+
+    var layoutManager=LinearLayoutManager(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dating)
 
-
         VolleyService.datingUserReq(UserInfo.NICKNAME, UserInfo.GENDER, UserInfo.UNIV, this, { success ->
-            list_content.adapter = datingAdapter
+            rv_dating.adapter = datingAdapter
+            rv_dating.layoutManager=layoutManager
+            rv_dating.setHasFixedSize(true)
             datingAdapter.clear()
 
             datingArray = success
@@ -45,15 +47,17 @@ class DatingActivity : AppCompatActivity() {
                     var birthday = json.getString("user_birthday")
                     birthday = birthday.substring(0, 4)
 
+                    var hobby=json.getString("user_hobby")
+                    var personality=json.getString("user_personality")
                     //이용자 나이 계산
                     var age = year - Integer.parseInt(birthday) + 1
-                    datingAdapter.addItem(nickname, department, age)
+                    datingAdapter.addItem(nickname, department, age, hobby, personality)
                 }
             }
 
             datingAdapter.notifyDataSetChanged()
 
-            list_content.setOnItemClickListener { parent, view, position, id ->
+            /*list_content.setOnItemClickListener { parent, view, position, id ->
                 var userNickname = datingAdapter.getNickname(position)
                 val builder =
                     AlertDialog.Builder(this)
@@ -73,41 +77,7 @@ class DatingActivity : AppCompatActivity() {
 
                 }
                 builder.show()
-            }
+            }*/
         })
     }
 }
-/*
-//마켓 OR STUDY 게시글 리스트 표시
-            else -> {
-                VolleyService.postReq(tag,this,{success ->
-                    if(tag=="MARKET") {
-                        list_content.adapter = marketAdapter
-                        marketAdapter.clear()
-                    }
-                    else{
-                        list_content.adapter = studyAdapter
-                        studyAdapter.clear()
-                    }
-                    contentArray=success
-
-                    if(contentArray!!.length()==0){
-
-                    }
-                    else{
-                        for(i in 0..contentArray!!.length()-1){
-                            var json=JSONObject()
-                            json=contentArray!![i] as JSONObject
-                            var title=json.getString("title")
-                            var writer=json.getString("writer")
-
-                            if(tag=="MARKET") marketAdapter.addItem(title,writer)
-                            else studyAdapter.addItem(title,writer)
-                        }
-                    }
-
-                    if(tag=="MARKET") marketAdapter.notifyDataSetChanged()
-                    else studyAdapter.notifyDataSetChanged()
-                })
-            }
- */

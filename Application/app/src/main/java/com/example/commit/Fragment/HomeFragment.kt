@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 
 import com.example.commit.MainActivity.DatingActivity
@@ -34,6 +35,12 @@ class HomeFragment() : Fragment() {
         }
         viewOpen.setOnClickListener(viewOpenClick)
 
+
+        var textDating: TextView=view.findViewById(R.id.text_dating)
+        var textOpen: TextView=view.findViewById(R.id.text_open)
+
+        textDating.bringToFront()
+        textOpen.bringToFront()
 
         // Inflate the layout for this fragment
         return view

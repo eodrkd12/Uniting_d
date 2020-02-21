@@ -7,13 +7,31 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+    <!--<TextView
+            android:id="@+id/text_my_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:textSize="20dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/text_speaker"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+            android:id="@+id/text_my_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:textSize="10dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/text_my_content"
+            app:layout_constraintEnd_toStartOf="@+id/text_my_content" />-->
+
     <TextView
             android:id="@+id/text_speaker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="TextView"
+            android:text="test"
             android:textSize="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -23,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="TextView"
+            android:text="test"
             android:textSize="20dp"
             app:layout_constraintStart_toStartOf="@+id/text_speaker"
             app:layout_constraintTop_toBottomOf="@id/text_speaker" />
@@ -33,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:text="TextView"
+            android:text="test"
             android:textSize="10dp"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_content"
             app:layout_constraintLeft_toRightOf="@id/text_content" />

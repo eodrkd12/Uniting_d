@@ -53,9 +53,12 @@ class OpenChatListActivity : AppCompatActivity() {
         rv_category.adapter = CategoryAdapter(this)
         rv_category.setHasFixedSize(true)
 
-        var chatRoomAdapter = ChatRoomListAdapter()
-        var listChatRoom = list_chat_room
-        listChatRoom.adapter = chatRoomAdapter
+        var chatRoomAdapter = ChatRoomListAdapter(this)
+        rv_open.adapter=chatRoomAdapter
+
+        var layoutManager=LinearLayoutManager(this)
+        rv_open.layoutManager=layoutManager
+        rv_open.setHasFixedSize(true)
 
         VolleyService.openChatRoomListReq(UserInfo.UNIV, CATEGORY, this, { success ->
             chatRoomAdapter.clear()
@@ -86,9 +89,11 @@ class OpenChatListActivity : AppCompatActivity() {
                         introduce
                     )
                 }
+                chatRoomAdapter.notifyDataSetChanged()
+
             }
 
-            listChatRoom.setOnItemClickListener { parent, view, position, id ->
+            /*listChatRoom.setOnItemClickListener { parent, view, position, id ->
 
                 var roomId = chatRoomAdapter.getRoomId(position)
                 var category = chatRoomAdapter.getCategory(position)
@@ -145,49 +150,54 @@ class OpenChatListActivity : AppCompatActivity() {
             }
 
             chatRoomAdapter.notifyDataSetChanged()
-        })
-        HANDLER = object : Handler() {
-            override fun handleMessage(msg: Message?) {
-                Log.d("test", "카테고리 메시지 도착 : ${msg!!.what}")
-                when (msg!!.what) {
-                    0 -> {
-                        //카테고리 방 갱신
-                        VolleyService.openChatRoomListReq(UserInfo.UNIV, CATEGORY, INSTANCE!!, { success ->
-                            listChatRoom.adapter = chatRoomAdapter
-                            chatRoomAdapter.clear()
+        })*/
+            HANDLER = object : Handler() {
+                override fun handleMessage(msg: Message?) {
+                    Log.d("test", "카테고리 메시지 도착 : ${msg!!.what}")
+                    when (msg!!.what) {
+                        0 -> {
+                            //카테고리 방 갱신
+                            VolleyService.openChatRoomListReq(
+                                UserInfo.UNIV,
+                                CATEGORY,
+                                INSTANCE!!,
+                                { success ->
+                                    //rv_open.adapter = chatRoomAdapter
+                                    chatRoomAdapter.clear()
 
-                            var chatRoomArray = success
-                            if (chatRoomArray!!.length() == 0) {
+                                    var chatRoomArray = success
+                                    if (chatRoomArray!!.length() == 0) {
 
-                            } else {
-                                for (i in 0..chatRoomArray.length() - 1) {
-                                    var json = chatRoomArray[i] as JSONObject
-                                    var roomId = json.getString("room_id")
-                                    var category = json.getString("cate_name")
-                                    var maker = json.getString("maker")
-                                    var roomTitle = json.getString("room_title")
-                                    var limitNum = json.getInt("limit_num")
-                                    var universityName = json.getString("univ_name")
-                                    var curNum = json.getInt("cur_num")
-                                    var introduce=json.getString("introduce")
-                                    chatRoomAdapter.addItem(
-                                        roomId,
-                                        category,
-                                        maker,
-                                        roomTitle,
-                                        limitNum,
-                                        universityName,
-                                        curNum,
-                                        introduce
-                                    )
-                                }
-                            }
-                        })
+                                    } else {
+                                        for (i in 0..chatRoomArray.length() - 1) {
+                                            var json = chatRoomArray[i] as JSONObject
+                                            var roomId = json.getString("room_id")
+                                            var category = json.getString("cate_name")
+                                            var maker = json.getString("maker")
+                                            var roomTitle = json.getString("room_title")
+                                            var limitNum = json.getInt("limit_num")
+                                            var universityName = json.getString("univ_name")
+                                            var curNum = json.getInt("cur_num")
+                                            var introduce = json.getString("introduce")
+                                            chatRoomAdapter.addItem(
+                                                roomId,
+                                                category,
+                                                maker,
+                                                roomTitle,
+                                                limitNum,
+                                                universityName,
+                                                curNum,
+                                                introduce
+                                            )
+                                        }
+                                    }
+                                })
 
-                        chatRoomAdapter.notifyDataSetChanged()
+                            chatRoomAdapter.notifyDataSetChanged()
+                        }
                     }
                 }
             }
-        }
+        })
     }
 }

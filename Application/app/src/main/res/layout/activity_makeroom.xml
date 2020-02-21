@@ -71,7 +71,7 @@
                 android:layout_width="493dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="취창업" />
+                android:text="취/창업" />
 
         <RadioButton
                 android:id="@+id/r_btn_category4"
