@@ -756,6 +756,25 @@ object VolleyService {
     }
 }
 
-fun delectuser(pw: String, context: Context, success: (Int) -> Unit){
-    val url = "${VolleyService.ip}/user"
+fun delectuser(id: String, context: Context, success: (String?) -> Unit){
+    var url = "${id}/user/"
+
+    var jsonObject = JSONObject()
+    jsonObject.put("id", id)
+
+    var request = object : JsonObjectRequest(
+        Method.POST,
+        url,
+        jsonObject,
+        Response.Listener {
+
+        },
+        Response.ErrorListener {
+
+        }) {
+    }
+    Volley.newRequestQueue(context).add(request)
+
+
+
 }
