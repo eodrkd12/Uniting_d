@@ -9,19 +9,14 @@
             android:icon="@drawable/ic_home_black_24dp"
             android:title="Chat"
             />
-    <item
-            android:id="@+id/alarm"
-            android:icon="@drawable/ic_home_black_24dp"
-            android:title="Alarm"/>
-    <item
-            android:id="@+id/option"
-            android:icon="@drawable/ic_home_black_24dp"
-            android:title="Option"
-            />
 
     <item
             android:id="@+id/cafeteria"
             android:icon="@drawable/ic_home_black_24dp"
             android:title="Cafeteria"
             />
+    <item
+            android:id="@+id/option"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="Option" />
 </menu>

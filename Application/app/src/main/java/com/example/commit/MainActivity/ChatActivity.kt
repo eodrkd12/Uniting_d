@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.toolbox.Volley
 import com.example.commit.Adapter.ChatAdapter
 import com.example.commit.Class.UserInfo
@@ -35,6 +36,15 @@ class ChatActivity : AppCompatActivity() {
 
         roomId=intent.getStringExtra("room_id")
         category=intent.getStringExtra("category")
+        title=intent.getStringExtra("title")
+
+        text_title.text=title
+
+        /*rv_chat.adapter=chatAdapter
+        rv_chat.setHasFixedSize(true)
+        var layoutManager=LinearLayoutManager(this)
+        rv_chat.layoutManager=layoutManager*/
+        list_chat.adapter=chatAdapter
 
         VolleyService.getJoinTimeReq(roomId!!,UserInfo.NICKNAME,this,{success ->
             val ref = FirebaseDatabase.getInstance().reference.child("chat").child(roomId!!)
@@ -57,9 +67,6 @@ class ChatActivity : AppCompatActivity() {
 
             query.addChildEventListener(childEventListener)
 
-            list_chat.adapter=chatAdapter
-            list_chat.setSelection(chatAdapter.count-1)
-
             btn_send.setOnClickListener {
                 if(edit_chat.text.toString()!="") {
 
@@ -67,7 +74,7 @@ class ChatActivity : AppCompatActivity() {
 
                     val key: String? = ref.push().key
 
-                    //ref.updateChildren(map)
+                    ref.updateChildren(map)
 
                     var root = ref.child(key!!)
                     var objectMap = HashMap<String, Any>()
@@ -91,6 +98,8 @@ class ChatActivity : AppCompatActivity() {
 
                     root.updateChildren(objectMap)
                     edit_chat!!.setText("")
+                    //rv_chat.scrollToPosition(rv_chat.getAdapter()!!.getItemCount()-1)
+                    list_chat.setSelection(chatAdapter.count-1)
                 }
             }
         })
@@ -107,10 +116,16 @@ class ChatActivity : AppCompatActivity() {
             var speaker=((i.next() as DataSnapshot).getValue()) as String
             var time=((i.next() as DataSnapshot).getValue()) as String
 
+            /*var stringImage:String?=null
+
+            VolleyService.getImageReq(speaker,this,{success ->
+                stringImage=success
+            })
+            chatAdapter.addItem(roomId,speaker, content, time, fulltime,stringImage!!)*/
             chatAdapter.addItem(roomId,speaker, content, time, fulltime)
         }
-
         chatAdapter.notifyDataSetChanged()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

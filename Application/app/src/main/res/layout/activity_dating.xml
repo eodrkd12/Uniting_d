@@ -7,31 +7,22 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity.DatingActivity">
 
-    <TextView
-            android:text="LOGO"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/text_logo"
-            app:layout_constraintBaseline_toBaselineOf="@+id/text_university"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"/>
-    <TextView
-            android:text="KMU"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/text_university" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline14" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="32dp" android:layout_marginStart="32dp"/>
-    <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                          android:id="@+id/guideline14"
-                                          android:orientation="horizontal"
-                                          app:layout_constraintGuide_percent="0.1"/>
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_dating"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#FFC0CB"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <!--<ListView
+            android:id="@+id/list_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@+id/guideline14" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/list_content"/>
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="73dp" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>
