@@ -199,5 +199,6 @@ class OpenChatListActivity : AppCompatActivity() {
                 }
             }
         })
+
     }
 }

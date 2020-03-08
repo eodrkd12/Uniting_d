@@ -720,6 +720,9 @@ object VolleyService {
                     success(3)
                 }
             }
+
+
+
             , Response.ErrorListener {
                 if (it is com.android.volley.TimeoutError) {
                     Log.d("test", "TimeoutError")
@@ -735,7 +738,7 @@ object VolleyService {
         }
     }
 
-<<<<<<< HEAD
+
 
     fun rcreateOpenChatReq(
         nickname: Any,
@@ -747,7 +750,7 @@ object VolleyService {
         function: (Nothing) -> Unit
     ) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-=======
+    }
     fun getImageReq(nickname: String, context: Context, success: (String?) -> Unit){
         var url="http://52.78.27.41:1901/user/getImage"
 
@@ -769,7 +772,7 @@ object VolleyService {
         }
 
         Volley.newRequestQueue(context).add(request)
->>>>>>> master
+
     }
 }
 
