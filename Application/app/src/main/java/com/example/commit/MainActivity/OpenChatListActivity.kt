@@ -1,5 +1,6 @@
 package com.example.commit.MainActivity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -7,6 +8,7 @@ import android.os.Message
 import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.ListView
 
 import androidx.appcompat.app.AlertDialog
@@ -162,7 +164,7 @@ class OpenChatListActivity : AppCompatActivity() {
                                 CATEGORY,
                                 INSTANCE!!,
                                 { success ->
-                                    //rv_open.adapter = chatRoomAdapter
+                                    rv_open.adapter = chatRoomAdapter
                                     chatRoomAdapter.clear()
 
                                     var chatRoomArray = success
@@ -199,6 +201,39 @@ class OpenChatListActivity : AppCompatActivity() {
                 }
             }
         })
+        VolleyService.getSearchReq(UserInfo.UNIV, text_search.text.toString(), this, { success ->
+            var imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(text_search.windowToken,0)
 
+            //  chatRoomAdapter.clear()
+            var searchArray = success
+
+            if (searchArray!!.length() == 0) {
+
+            } else {
+                for (i in 0..searchArray!!.length() - 1) {
+                    var json = searchArray[i] as JSONObject
+                    var roomId = json.getString("room_id")
+                    var category = json.getString("cate_name")
+                    var maker = json.getString("maker")
+                    var roomTitle = json.getString("room_title")
+                    var limitNum = json.getInt("limit_num")
+                    var universityName = json.getString("univ_name")
+                    var curNum = json.getInt("cur_num")
+                    var introduce = json.getString("introduce")
+
+                    /* chatRoomAdapter.addItem(
+                         roomId,
+                         category,
+                         maker,
+                         roomTitle,
+                         limitNum,
+                         universityName,
+                         curNum,
+                         introduce
+                     )*/
+                }
+            }
+        })
     }
 }

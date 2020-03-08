@@ -8,7 +8,7 @@
         tools:context=".MainActivity.SearchActivity">
 
     <EditText
-            android:id="@+id/text_search"
+            android:id="@+id/text_search1"
             android:layout_width="281dp"
             android:layout_height="87dp"
             android:layout_marginTop="16dp"

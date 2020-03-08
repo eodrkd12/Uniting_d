@@ -16,7 +16,7 @@
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rv_category"/>-->
 
-    <Button
+   <!-- <Button
             android:id="@+id/btn_make"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,14 +31,14 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/text_search"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="1.0" />-->
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_category"
             android:layout_width="407dp"
-            android:layout_height="66dp"
+            android:layout_height="82dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/color_background2"
+
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -62,13 +62,29 @@
     <EditText
 
             android:id="@+id/text_search"
-            android:layout_width="250dp"
-            android:layout_height="46dp"
+            android:layout_width="353dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/light_gray_background"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="검색"
+
+            android:hint="@string/hint_search"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.13"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_make"
+            android:layout_width="500dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.954"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/add_icon" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

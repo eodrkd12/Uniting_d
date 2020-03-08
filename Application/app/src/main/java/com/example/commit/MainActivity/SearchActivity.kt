@@ -30,15 +30,15 @@ class SearchActivity : AppCompatActivity() {
             }
             else
             {
-                var chatRoomAdapter = ChatRoomListAdapter()
+              //  var chatRoomAdapter = ChatRoomListAdapter()
                 var listChatRoom = search_chat_room
-                listChatRoom.adapter = chatRoomAdapter
+               // listChatRoom.adapter = chatRoomAdapter
 
                 VolleyService.getSearchReq(UserInfo.UNIV, text_search.text.toString(), this, { success ->
                     var imm:InputMethodManager= getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                     imm.hideSoftInputFromWindow(text_search.windowToken,0)
 
-                    chatRoomAdapter.clear()
+                  //  chatRoomAdapter.clear()
                     var searchArray = success
 
                     if (searchArray!!.length() == 0) {
@@ -55,7 +55,7 @@ class SearchActivity : AppCompatActivity() {
                             var curNum = json.getInt("cur_num")
                             var introduce = json.getString("introduce")
 
-                            chatRoomAdapter.addItem(
+                           /* chatRoomAdapter.addItem(
                                 roomId,
                                 category,
                                 maker,
@@ -64,7 +64,7 @@ class SearchActivity : AppCompatActivity() {
                                 universityName,
                                 curNum,
                                 introduce
-                            )
+                            )*/
                         }
                     }
                 })

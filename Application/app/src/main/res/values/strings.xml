@@ -1,5 +1,7 @@
 <resources>
 
     <string name="app_name">Uniting</string>
+    <string name="hint_search"> 검색</string>
+
 
 </resources>

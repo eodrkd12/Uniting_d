@@ -16,12 +16,11 @@ import com.example.commit.ListItem.ChatRoomListItem
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
 import kotlinx.android.synthetic.main.activity_open_chat_list.*
-import kotlinx.android.synthetic.main.activity_open_chat_list.list_chat_room
 import kotlinx.android.synthetic.main.fragment_chat.*
 import org.json.JSONArray
 import org.json.JSONObject
 
-class ChatRoomListActivity : AppCompatActivity() {
+/*class ChatRoomListActivity : AppCompatActivity() {
 
     lateinit var rvCategory: RecyclerView
 
@@ -30,11 +29,11 @@ class ChatRoomListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_open_chat_list)
 
-        val listChatRoom=findViewById<ListView>(R.id.list_chat_room)
+        //val listChatRoom=findViewById<ListView>(R.id.list_chat_room)
 
         var chatRoomAdapter = ChatRoomListAdapter()
 
-        listChatRoom.adapter=chatRoomAdapter
+     //   listChatRoom.adapter=chatRoomAdapter
 
         rv_category.layoutManager = LinearLayoutManager(this, LinearLayout.HORIZONTAL, false)
         rv_category.adapter = CategoryAdapter(this)
@@ -64,11 +63,11 @@ class ChatRoomListActivity : AppCompatActivity() {
         })*/
 
 
-        listChatRoom.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+       /* listChatRoom.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
             var roomId=chatRoomAdapter.getRoomId(position)
             var intent= Intent(this,ChatActivity::class.java)
             intent.putExtra("room_id",roomId)
             startActivity(intent)
-        }
+        }*/
     }
-}
+}*/
