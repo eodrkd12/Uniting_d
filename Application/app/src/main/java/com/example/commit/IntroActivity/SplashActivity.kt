@@ -12,9 +12,6 @@ import com.example.commit.MainActivity.MainActivity
 import com.example.commit.R
 
 class SplashActivity: AppCompatActivity() {
-
-
-
     val Duration:Long = 2000
     //onCreate : 액티비티가 생성될 때 실행되는 메소드
     override fun onCreate(savedInstanceState: Bundle?) {

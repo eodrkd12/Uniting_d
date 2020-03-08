@@ -750,6 +750,103 @@ object VolleyService {
         function: (Nothing) -> Unit
     ) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    fun insertReviewReq(nickname: String,cafeName: String,universityName: String,point:Int,content:String,context: Context,success:(String)->Unit){
+        val url = "${ip}/review/insert"
+
+        val json_insertreview = JSONObject()
+        json_insertreview.put("nickname", nickname)
+        json_insertreview.put("cafe_name", cafeName)
+        json_insertreview.put("univ_name", universityName)
+        json_insertreview.put("point", point)
+        json_insertreview.put("content", content)
+
+        var request = object : JsonObjectRequest(
+            Method.POST,
+            url,
+            json_insertreview,
+            Response.Listener {
+
+            },
+            Response.ErrorListener {
+            }) {
+
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun getReviewReq(cafeName: String, universityName: String, context:Context, success: (JSONArray?) -> Unit) {
+        var url="${ip}/review/get"
+
+        var jsonArray=JSONArray()
+
+        var jsonObject=JSONObject()
+        jsonObject.put("cafe_name", cafeName)
+        jsonObject.put("univ_name", universityName)
+
+        jsonArray.put(jsonObject)
+
+        var request=object : JsonArrayRequest(
+            Method.POST,
+            url,
+            jsonArray,
+            Response.Listener{
+                success(it)
+            },
+            Response.ErrorListener {
+
+            }){
+
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun getSearchReq(universityName: String?, searchText: String?, context: Context, success:(JSONArray?)-> Unit) {
+        var url = "${ip}/join_room/search"
+
+        var jsonArray = JSONArray()
+        var jsonObject = JSONObject()
+
+        jsonObject.put("search_text", searchText)
+        jsonObject.put("univ_name", universityName)
+
+        jsonArray.put(jsonObject)
+
+        var request = object : JsonArrayRequest(
+            Method.POST,
+            url,
+            jsonArray,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+
+            }) {
+
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun getReviewsScoreReq(cafeName: String, universityName: String, context:Context, success: (String?) -> Unit) {
+        var url="${ip}/review/get"
+
+        var jsonObject=JSONObject()
+        jsonObject.put("cafe_name", cafeName)
+        jsonObject.put("univ_name", universityName)
+
+        var request=object : JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonObject,
+            Response.Listener {
+                success(it.getString("result"))
+            },
+            Response.ErrorListener {
+                Log.d("test",it.toString())
+            }){
+
+        }
+
+        Volley.newRequestQueue(context).add(request)
     }
     fun getImageReq(nickname: String, context: Context, success: (String?) -> Unit){
         var url="http://52.78.27.41:1901/user/getImage"
@@ -770,7 +867,6 @@ object VolleyService {
             }){
 
         }
-
         Volley.newRequestQueue(context).add(request)
 
     }
