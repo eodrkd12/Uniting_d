@@ -23,6 +23,15 @@ import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
 import kotlinx.android.synthetic.main.activity_open_chat_list.*
 import org.json.JSONObject
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.EditText
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.widget.SearchView
+import org.jetbrains.anko.searchView
+
 
 class OpenChatListActivity : AppCompatActivity() {
 
@@ -39,6 +48,7 @@ class OpenChatListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_open_chat_list)
+
 
         btn_make.setOnClickListener(View.OnClickListener() {
             var intent = Intent(this, MakeRoomActivity::class.java)
@@ -201,11 +211,13 @@ class OpenChatListActivity : AppCompatActivity() {
                 }
             }
         })
-        VolleyService.getSearchReq(UserInfo.UNIV, text_search.text.toString(), this, { success ->
+
+
+        VolleyService.getSearchReq(UserInfo.UNIV,"", this, { success ->
             var imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(text_search.windowToken,0)
 
-            //  chatRoomAdapter.clear()
+             chatRoomAdapter.clear()
             var searchArray = success
 
             if (searchArray!!.length() == 0) {
@@ -222,7 +234,7 @@ class OpenChatListActivity : AppCompatActivity() {
                     var curNum = json.getInt("cur_num")
                     var introduce = json.getString("introduce")
 
-                    /* chatRoomAdapter.addItem(
+                     chatRoomAdapter.addItem(
                          roomId,
                          category,
                          maker,
@@ -231,9 +243,12 @@ class OpenChatListActivity : AppCompatActivity() {
                          universityName,
                          curNum,
                          introduce
-                     )*/
+                     )
                 }
+                chatRoomAdapter.notifyDataSetChanged()
             }
+
+
         })
     }
 }

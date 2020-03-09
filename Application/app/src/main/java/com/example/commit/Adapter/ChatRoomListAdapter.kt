@@ -23,6 +23,7 @@ class ChatRoomListAdapter(val context:Context) : RecyclerView.Adapter<ChatRoomLi
 
     private var chatRoomList = ArrayList<ChatRoomListItem>()
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_chat_room_list, parent, false)
         return Holder(view)
@@ -123,6 +124,7 @@ class ChatRoomListAdapter(val context:Context) : RecyclerView.Adapter<ChatRoomLi
         chatRoomList.clear()
     }
 }
+
 
 /*
 class ChatRoomListAdapter:BaseAdapter() {

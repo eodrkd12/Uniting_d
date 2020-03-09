@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_search.btn_search
 import org.json.JSONArray
 import org.json.JSONObject
 
-class SearchActivity : AppCompatActivity() {
+/*class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
@@ -71,4 +71,4 @@ class SearchActivity : AppCompatActivity() {
             }
         }
     }
-}
+}*/

@@ -59,7 +59,7 @@
             app:layout_constraintTop_toBottomOf="@+id/rv_category"
             app:layout_constraintVertical_bias="0.0" />
 
-    <EditText
+    <SearchView
 
             android:id="@+id/text_search"
             android:layout_width="353dp"
@@ -68,7 +68,7 @@
             android:background="@drawable/light_gray_background"
             android:ems="10"
 
-            android:hint="@string/hint_search"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.13"
             app:layout_constraintStart_toStartOf="parent"
@@ -85,6 +85,7 @@
             app:layout_constraintHorizontal_bias="0.954"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/add_icon" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
