@@ -83,7 +83,7 @@ class CafeVerticalAdapter(activity: Activity,val cafetype: ArrayList<Type>) : Re
 
                         holder.CafeHorizontalRV.setHasFixedSize(true)
                         holder.CafeHorizontalRV.layoutManager = LinearLayoutManager(mactivity, LinearLayout.HORIZONTAL, false)
-                        holder.CafeHorizontalRV.adapter = CafeHorizontalAdapter(mactivity!!, homefeed)
+                        holder.CafeHorizontalRV.adapter = CafeteriaAdapter(mactivity!!, homefeed)
                     }
                 }
 

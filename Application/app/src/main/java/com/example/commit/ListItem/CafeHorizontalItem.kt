@@ -10,7 +10,9 @@ data class Item (
     val roadAddr:String?,
     val category:String?,
     val tags:ArrayList<String>?,
-    val id:String?
+    val id:String?,
+    val options:String?,
+    val bizHourInfo:String?
 )
 
 data class Type(

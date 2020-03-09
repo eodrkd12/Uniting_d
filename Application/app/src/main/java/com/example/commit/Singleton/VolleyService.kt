@@ -225,16 +225,15 @@ object VolleyService {
     }
 
     //학교 검색
-    fun search_university(name: String, context: Context, success: (JSONArray?) -> Unit) {
+    fun search_university(context: Context, success: (JSONArray?) -> Unit) {
         val url = "${ip}/university"
 
         var jsonObject = JSONObject()
-        jsonObject.put("name", name)
 
         var jsonArray: JSONArray = JSONArray()
         jsonArray.put(jsonObject)
 
-        Log.d("test", "name : ${jsonObject.getString("name")}")
+        //Log.d("test", "name : ${jsonObject.getString("name")}")
 
         var request = object : JsonArrayRequest(Method.POST
             , url
@@ -253,7 +252,6 @@ object VolleyService {
     //학과 검색
     fun search_department(
         universityName: String,
-        departmentName: String,
         context: Context,
         success: (JSONArray?) -> Unit
     ) {
@@ -261,7 +259,6 @@ object VolleyService {
 
         var jsonObject = JSONObject()
         jsonObject.put("univ_name", universityName)
-        jsonObject.put("dept_name", departmentName)
 
         var jsonArray: JSONArray = JSONArray()
         jsonArray.put(jsonObject)
@@ -828,7 +825,7 @@ object VolleyService {
     }
 
     fun getReviewsScoreReq(cafeName: String, universityName: String, context:Context, success: (String?) -> Unit) {
-        var url="${ip}/review/get"
+        var url="${ip}/review/get_average"
 
         var jsonObject=JSONObject()
         jsonObject.put("cafe_name", cafeName)
@@ -839,16 +836,15 @@ object VolleyService {
             url,
             jsonObject,
             Response.Listener {
-                success(it.getString("result"))
+                success(it.getString("average"))
             },
             Response.ErrorListener {
-                Log.d("test",it.toString())
             }){
 
         }
-
         Volley.newRequestQueue(context).add(request)
     }
+
     fun getImageReq(nickname: String, context: Context, success: (String?) -> Unit){
         var url="http://52.78.27.41:1901/user/getImage"
 

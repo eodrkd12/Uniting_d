@@ -8,7 +8,6 @@ import com.example.commit.Class.GMailSender
 import com.example.commit.Popup.ReportPopup
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
-import kotlinx.android.synthetic.main.activity_join2.*
 import kotlinx.android.synthetic.main.activity_report.*
 
 class ReportActivity : AppCompatActivity() {

@@ -17,15 +17,19 @@
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true"
             tools:replace="android:appComponentFactory">
-        <activity android:name=".MainActivity.CafeteriaActivity"></activity>
+        <activity android:name=".IntroActivity.Signup3Activity"></activity>
+        <activity android:name=".IntroActivity.Signup2Activity" />
+        <activity
+                android:name=".IntroActivity.Signup1Activity"
+                android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".MainActivity.CafeteriaActivity" />
         <activity android:name=".MainActivity.InsertReview" />
 
         <meta-data
                 android:name="com.naver.maps.map.CLIENT_ID"
                 android:value="4fk2n2jfrm" />
 
-        <activity android:name=".MainActivity.ImageTestActivity">
-        </activity>
+        <activity android:name=".MainActivity.ImageTestActivity" />
 
         <provider
                 android:name="androidx.core.content.FileProvider"
@@ -34,7 +38,7 @@
                 android:grantUriPermissions="true">
             <meta-data
                     android:name="android.support.FILE_PROVIDER_PATHS"
-                    android:resource="@xml/filepahts"/>
+                    android:resource="@xml/filepahts" />
         </provider>
 
         <activity android:name=".MainActivity.ReportActivity" />
