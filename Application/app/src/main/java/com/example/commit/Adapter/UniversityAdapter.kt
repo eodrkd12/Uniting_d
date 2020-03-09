@@ -8,6 +8,8 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import com.example.commit.ListItem.UniversityItem
 import com.example.commit.R
+import java.util.*
+import kotlin.collections.ArrayList
 
 class UniversityAdapter : BaseAdapter(){
 
@@ -51,4 +53,13 @@ class UniversityAdapter : BaseAdapter(){
     fun clear(){
         universityList.clear()
     }
+
+    /*fun filter(charText:String) {
+        var charText = charText.toLowerCase(Locale.getDefault())
+        universityList.clear()
+        if(charText.length == 0)
+        {
+
+        }
+    }*/
 }

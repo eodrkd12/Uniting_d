@@ -17,32 +17,16 @@
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.342"
+            app:layout_constraintHorizontal_bias="0.558"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.458"
+            app:layout_constraintVertical_bias="0.426"
             app:srcCompat="@android:drawable/ic_menu_call" />
 
-    <ImageButton
-            android:id="@+id/btn_share"
-            android:layout_width="31dp"
-            android:layout_height="33dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.475"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.458"
-            app:srcCompat="@android:drawable/ic_menu_share" />
-
     <TextView
-            android:id="@+id/text_cafeteria_title"
-            android:layout_width="86dp"
-            android:layout_height="46dp"
+            android:id="@+id/text_inform_title"
+            android:layout_width="172dp"
+            android:layout_height="26dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
@@ -50,49 +34,63 @@
             android:text="TextView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.064"
+            app:layout_constraintHorizontal_bias="0.035"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.446" />
+            app:layout_constraintVertical_bias="0.432" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bnv_inform"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimary"
+            app:itemIconTint="@drawable/selector_bottomnav"
+            app:itemTextColor="@drawable/selector_bottomnav"
+            app:labelVisibilityMode="auto"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.548"
-            app:itemIconTint="@drawable/selector_bottomnav"
-            app:itemTextColor="@drawable/selector_bottomnav"
-            app:labelVisibilityMode="auto"
-            app:menu="@menu/bnv_inform"/>
+            app:layout_constraintVertical_bias="0.524"
+            app:menu="@menu/bnv_inform" />
 
-    <FrameLayout
-            android:id = "@+id/frame_inform"
-            android:layout_width="411dp"
-            android:layout_height="305dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bnv_inform">
-
-    </FrameLayout>
-
-    <fragment android:layout_width="378dp"
+    <fragment
+            android:id="@+id/map"
+            android:name="com.naver.maps.map.MapFragment"
+            android:layout_width="378dp"
             android:layout_height="218dp"
-            app:layout_constraintBottom_toBottomOf="@+id/frame_inform"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.484"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.915"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.095"
-            android:id="@+id/map"
-            android:name="com.naver.maps.map.MapFragment" />
+            app:layout_constraintVertical_bias="0.955"
+            app:srcCompat="@android:drawable/ic_dialog_email" />
+
+    <FrameLayout
+            android:id="@+id/frame_inform"
+            android:layout_width="match_parent"
+            android:layout_height="253dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bnv_inform"
+            app:layout_constraintVertical_bias="1.0">
+
+    </FrameLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

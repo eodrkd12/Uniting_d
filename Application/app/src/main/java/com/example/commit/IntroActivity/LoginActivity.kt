@@ -46,7 +46,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         text_join.setOnClickListener {
-            var intent:Intent=Intent(this,Join1Activity::class.java)
+            var intent:Intent=Intent(this,Signup1Activity::class.java)
             startActivity(intent)
         }
 

@@ -3,6 +3,7 @@ package com.example.commit.MainActivity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.LinearLayout
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.commit.Adapter.CafeteriaAdapter
 import com.example.commit.ListItem.Homefeed
@@ -56,7 +57,7 @@ class CafeteriaActivity : AppCompatActivity() {
                     val homefeed = gson.fromJson(body, Homefeed::class.java)
 
                     cafeteriaRV.setHasFixedSize(true)
-                    cafeteriaRV.layoutManager = LinearLayoutManager(this@CafeteriaActivity, LinearLayout.VERTICAL, false)
+                    cafeteriaRV.layoutManager = GridLayoutManager(this@CafeteriaActivity, 2)
                     cafeteriaRV.adapter = CafeteriaAdapter(this@CafeteriaActivity, homefeed)
                 }
             }

@@ -16,6 +16,5 @@ class UserInfo :Application() {
         var ENTER : String=""
         var DEPT : String=""
         var IMG : String=""
-
     }
 }

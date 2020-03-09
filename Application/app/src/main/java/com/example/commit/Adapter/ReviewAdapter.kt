@@ -20,9 +20,10 @@ class ReviewAdapter(val reviewList: ArrayList<ReviewItem>): RecyclerView.Adapter
     }
 
     override fun onBindViewHolder(holder: ReviewAdapter.ViewHolder, position: Int) {
-        holder.itemView.reviewnickname.text = reviewList.get(position).nickname
-        holder.itemView.reviewpoint.text = reviewList.get(position).point.toString()
-        holder.itemView.reviewcontent.text = reviewList.get(position).content
+        holder.itemView.text_reviewnickname.text = reviewList.get(position).nickname
+        holder.itemView.text_reviewpoint.text = reviewList.get(position).starpoint
+        holder.itemView.text_reviewcontent.text = reviewList.get(position).content
+        holder.itemView.text_reviewdate.text = reviewList.get(position).date!!.substring(0, 10)
     }
 
 

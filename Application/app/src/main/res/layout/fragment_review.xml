@@ -5,11 +5,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <Button
-            android:id="@+id/btn_write"
+    <TextView
+            android:id="@+id/text_review"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="리뷰 쓰기"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:text="리뷰가 없어요 ㅠㅠ"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -20,6 +21,7 @@
             android:id="@+id/reviewRV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:layout_editor_absoluteX="171dp"
-            tools:layout_editor_absoluteY="144dp" />
+            tools:layout_editor_absoluteX="167dp"
+            tools:layout_editor_absoluteY="47dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
