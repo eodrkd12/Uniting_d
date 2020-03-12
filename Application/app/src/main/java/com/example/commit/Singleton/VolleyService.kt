@@ -798,14 +798,13 @@ object VolleyService {
         Volley.newRequestQueue(context).add(request)
     }
 
-    fun getSearchReq(universityName: String?, searchText: String?, context: Context, success:(JSONArray?)-> Unit) {
+fun getSearchReq(universityName: String, context: Context, success:(JSONArray?)-> Unit) {
         var url = "${ip}/join_room/search"
 
         var jsonArray = JSONArray()
         var jsonObject = JSONObject()
 
-        jsonObject.put("search_text", searchText)
-        jsonObject.put("univ_name", universityName)
+        jsonObject.put("univ_name",universityName)
 
         jsonArray.put(jsonObject)
 

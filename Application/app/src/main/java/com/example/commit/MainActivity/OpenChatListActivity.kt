@@ -213,42 +213,6 @@ class OpenChatListActivity : AppCompatActivity() {
         })
 
 
-        VolleyService.getSearchReq(UserInfo.UNIV,"", this, { success ->
-            var imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(text_search.windowToken,0)
 
-             chatRoomAdapter.clear()
-            var searchArray = success
-
-            if (searchArray!!.length() == 0) {
-
-            } else {
-                for (i in 0..searchArray!!.length() - 1) {
-                    var json = searchArray[i] as JSONObject
-                    var roomId = json.getString("room_id")
-                    var category = json.getString("cate_name")
-                    var maker = json.getString("maker")
-                    var roomTitle = json.getString("room_title")
-                    var limitNum = json.getInt("limit_num")
-                    var universityName = json.getString("univ_name")
-                    var curNum = json.getInt("cur_num")
-                    var introduce = json.getString("introduce")
-
-                     chatRoomAdapter.addItem(
-                         roomId,
-                         category,
-                         maker,
-                         roomTitle,
-                         limitNum,
-                         universityName,
-                         curNum,
-                         introduce
-                     )
-                }
-                chatRoomAdapter.notifyDataSetChanged()
-            }
-
-
-        })
     }
 }
