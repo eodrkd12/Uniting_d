@@ -2,17 +2,14 @@ package com.example.commit.Singleton
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.util.Base64
 import android.util.Log
 import android.widget.Toast
 import com.android.volley.Response
 import com.android.volley.toolbox.*
-import com.example.commit.Class.UserInfo
 import com.example.commit.MainActivity.MakeRoomActivity
-import kotlinx.android.synthetic.main.activity_image_test.*
+import com.example.commit.MainActivity.OpenChatListActivity
 import org.json.JSONArray
 import org.json.JSONObject
-import java.io.ByteArrayOutputStream
 
 
 //VolleyService를 사용하기위한 싱글톤
@@ -798,14 +795,14 @@ object VolleyService {
         Volley.newRequestQueue(context).add(request)
     }
 
-fun getSearchReq(universityName: String, context: Context, success:(JSONArray?)-> Unit) {
+fun getSearchReq(universityName: String,  context: Context, success:(JSONArray?)-> Unit) {
+
         var url = "${ip}/join_room/search"
 
         var jsonArray = JSONArray()
         var jsonObject = JSONObject()
 
         jsonObject.put("univ_name",universityName)
-
         jsonArray.put(jsonObject)
 
         var request = object : JsonArrayRequest(
@@ -820,7 +817,7 @@ fun getSearchReq(universityName: String, context: Context, success:(JSONArray?)-
             }) {
 
         }
-        Volley.newRequestQueue(context).add(request)
+       // Volley.newRequestQueue(context).add(request)
     }
 
     fun getReviewsScoreReq(cafeName: String, universityName: String, context:Context, success: (String?) -> Unit) {
