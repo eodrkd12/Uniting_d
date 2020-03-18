@@ -37,21 +37,23 @@ import android.os.Bundle
 import com.example.commit.R
 import kotlinx.android.synthetic.main.activity_main.*
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import com.example.commit.Adapter.MyPagerAdapter
 import com.example.commit.Fragment.*
+import com.example.commit.IntroActivity.LoginActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.fragment_home.*
-
-var staticId:String?=null
-var staticPw:String?=null
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bnv_main)
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener)
@@ -61,20 +63,6 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
         }
-
-        var intent=intent
-        staticId=intent.getStringExtra("id")
-        staticPw=intent.getStringExtra("pw")
-
-        btn_search.setOnClickListener {
-            var pref=this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
-            var editor=pref.edit()
-
-            editor.clear()
-            editor.commit()
-
-            Log.d("test",pref.getString("ID",""))
-        }
     }
 
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener {
@@ -83,16 +71,11 @@ class MainActivity : AppCompatActivity() {
                 val fragment = HomeFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
+
                 return@OnNavigationItemSelectedListener true
             }
             R.id.chat -> {
                 val fragment = ChatFragment()
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.alarm -> {
-                val fragment = AlamFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
                 return@OnNavigationItemSelectedListener true
@@ -111,5 +94,32 @@ class MainActivity : AppCompatActivity() {
             }
         }
         false
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        var inflater=getMenuInflater()
+        inflater.inflate(R.menu.menu_main,menu)
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        var title=item!!.title.toString()
+        when(title){
+            "로그아웃" -> {
+                var pref=this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
+                var editor=pref.edit()
+
+                editor.clear()
+                editor.commit()
+
+                var intent=Intent(this,LoginActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

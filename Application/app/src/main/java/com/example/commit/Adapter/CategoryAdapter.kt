@@ -1,6 +1,7 @@
 package com.example.commit.Adapter
 
 import android.content.Context
+import android.os.Message
 import android.util.Log
 //import android.support.v7.app.AppCompatActivity
 //import android.support.v7.widget.RecyclerView
@@ -8,10 +9,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.commit.Class.UserInfo
 import com.example.commit.ListItem.Categoryitem
 import com.example.commit.MainActivity.OpenChatListActivity
 import com.example.commit.R
+import com.example.commit.Singleton.VolleyService
 import kotlinx.android.synthetic.main.rvitem_chat_category.view.*
+import org.json.JSONArray
+import java.util.logging.Handler
 
 class CategoryAdapter(val context: Context) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
@@ -39,9 +44,13 @@ class CategoryAdapter(val context: Context) : RecyclerView.Adapter<CategoryAdapt
             itemView.btn_category.text = data.categoryname
 
             itemView.btn_category.setOnClickListener {
-                OpenChatListActivity.CategorySave.CATEGORY=data.categoryname!!
-                Log.d("test","CategoryAdapter : ${OpenChatListActivity.CategorySave.CATEGORY}")
+                OpenChatListActivity.CATEGORY=data.categoryname!!
+                var handler=OpenChatListActivity.HANDLER
+                var msg:Message=handler!!.obtainMessage()
+                msg.what=0
+                handler.sendMessage(msg)
             }
         }
     }
+
 }
