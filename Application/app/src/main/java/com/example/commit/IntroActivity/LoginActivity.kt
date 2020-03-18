@@ -12,13 +12,17 @@ package com.example.commit.IntroActivity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.commit.Class.UserInfo
 import com.example.commit.MainActivity.OpenChatListActivity
 import com.example.commit.MainActivity.MainActivity
 import com.example.commit.R
+import com.example.commit.Singleton.GoogleAuthService.getAccount
 import com.example.commit.Singleton.VolleyService
+import com.google.android.gms.auth.GoogleAuthUtil
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -80,6 +84,25 @@ class LoginActivity : AppCompatActivity() {
                         UserInfo.DEPT=user.getString("dept_name")
                         UserInfo.IMG=user.getString("user_image")
 
+                        var token=FirebaseInstanceId.getInstance().token
+                        UserInfo.FCM_TOKEN=token!!
+
+                        /*val accountName = getAccount(this)
+                        UserInfo.GOOGLE_ACCOUNT=accountName
+
+                        val scope = "audience:server:client_id:" +
+                                "348791094939-n14jfd8f4epba5ii0m5h39vjedf3647b.apps.googleusercontent.com"
+
+                        var idToken: String? = null
+                        try {
+                            idToken = GoogleAuthUtil.getToken(this, accountName, scope)
+                            UserInfo.GOOGLE_ID_TOKEN=idToken
+                        } catch (e: Exception) {
+                            Log.d("test", "Exception while getting idToken: $e")
+                        }*/
+
+
+
                         var pref=this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
                         var editor=pref.edit()
                         editor.putString("ID",UserInfo.ID)
@@ -93,15 +116,12 @@ class LoginActivity : AppCompatActivity() {
                             .putString("ENTER",UserInfo.ENTER)
                             .putString("DEPT",UserInfo.DEPT)
                             .putString("ING",UserInfo.IMG)
+                            .putString("FCM_TOKEN",UserInfo.FCM_TOKEN)
+                            /*.putString("GOOGLE_ID_TOKEN",UserInfo.GOOGLE_ID_TOKEN)
+                            .putString("GOOGLE_ACCOUNT",UserInfo.GOOGLE_ACCOUNT)*/
                             .apply()
 
-                        //Intent클래스를 이용하여 화면 전환
-                        //첫번째 파라미터는 this, 두번째 파라미터는 전환할 Activity)
                         var intent:Intent=Intent(this,MainActivity::class.java)
-                        //전환하면서 데이터 보내는 구문
-                        intent.putExtra("id",id)
-                        intent.putExtra("pw",pw)
-                        //전환하는 구문
                         startActivity(intent)
                     }
                 }

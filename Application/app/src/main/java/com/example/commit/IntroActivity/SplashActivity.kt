@@ -1,20 +1,24 @@
 package com.example.commit.IntroActivity
 
+import android.accounts.AccountManager
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.StrictMode
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.commit.Class.UserInfo
 import com.example.commit.MainActivity.MainActivity
+import android.app.NotificationManager
+import android.app.NotificationChannel
+import android.os.Build
+import android.app.Notification
+import android.graphics.Color
 import com.example.commit.R
 
+
 class SplashActivity: AppCompatActivity() {
-
-
-
     val Duration:Long = 2000
     //onCreate : 액티비티가 생성될 때 실행되는 메소드
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,21 +34,46 @@ class SplashActivity: AppCompatActivity() {
                 .permitNetwork()
                 .build())
 
-        //프리퍼런스 검사 있으면 Main으로 startActivity 호출하고 return
-        var pref=this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
-        UserInfo.ID=pref.getString("ID","")
-        if(UserInfo.ID!="") {
-            UserInfo.PW=pref.getString("PW","")
-            UserInfo.NAME=pref.getString("NAME","")
-            UserInfo.BIRTH=pref.getString("BIRTH","")
-            UserInfo.GENDER=pref.getString("GENDER","")
-            UserInfo.NICKNAME=pref.getString("NICKNAME","")
-            UserInfo.EMAIL=pref.getString("EMAIL","")
-            UserInfo.UNIV=pref.getString("UNIV","")
-            UserInfo.ENTER=pref.getString("ENTER","")
-            UserInfo.DEPT=pref.getString("DEPT","")
-            UserInfo.IMG=pref.getString("IMG","")
+        //알림 채널 생성
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            var fcmPref=this.getSharedPreferences("FCM", Context.MODE_PRIVATE)
+            if(fcmPref.getString("id","")==""){
+                val notificationManager =
+                    getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                val notificationChannel = NotificationChannel(
+                    "fcm_uniting",
+                    "fcm_uniting",
+                    NotificationManager.IMPORTANCE_DEFAULT
+                )
+                notificationChannel.description = "uniting fcm channel"
+                notificationChannel.enableLights(true)
+                notificationChannel.lightColor = Color.GREEN
+                notificationChannel.enableVibration(true)
+                notificationChannel.vibrationPattern = longArrayOf(100, 200, 100, 200)
+                notificationChannel.lockscreenVisibility = Notification.VISIBILITY_PRIVATE
+                notificationChannel.setShowBadge(true)
+                notificationChannel.enableVibration(true)
+                notificationManager.createNotificationChannel(notificationChannel)
+            }
+        }
 
+        //프리퍼런스 검사 있으면 Main으로 startActivity 호출하고 return
+        var userPref=this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
+        UserInfo.ID=userPref.getString("ID","")
+        if(UserInfo.ID!="") {
+            UserInfo.PW=userPref.getString("PW","")
+            UserInfo.NAME=userPref.getString("NAME","")
+            UserInfo.BIRTH=userPref.getString("BIRTH","")
+            UserInfo.GENDER=userPref.getString("GENDER","")
+            UserInfo.NICKNAME=userPref.getString("NICKNAME","")
+            UserInfo.EMAIL=userPref.getString("EMAIL","")
+            UserInfo.UNIV=userPref.getString("UNIV","")
+            UserInfo.ENTER=userPref.getString("ENTER","")
+            UserInfo.DEPT=userPref.getString("DEPT","")
+            UserInfo.IMG=userPref.getString("IMG","")
+            UserInfo.FCM_TOKEN=userPref.getString("FCM_TOKEN","")
+            /*UserInfo.GOOGLE_ID_TOKEN=userPref.getString("GOOGLE_ID_TOKEN","")
+            UserInfo.GOOGLE_ACCOUNT=userPref.getString("GOOGLE_ACCOUNT","")*/
             Handler().postDelayed({
                 var intent:Intent = Intent(this,MainActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)  //액티비티 전환시 애니메이션을 무시
@@ -54,11 +83,13 @@ class SplashActivity: AppCompatActivity() {
         }
         else {
             Handler().postDelayed({
-                var intent: Intent = Intent(this, LoginActivity::class.java)
+                var intent= Intent(this, LoginActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)  //액티비티 전환시 애니메이션을 무시
                 startActivity(intent)
                 finish()
             }, Duration)
         }
+
+
     }
 }

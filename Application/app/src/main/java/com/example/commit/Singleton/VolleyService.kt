@@ -2,17 +2,12 @@ package com.example.commit.Singleton
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.util.Base64
 import android.util.Log
 import android.widget.Toast
 import com.android.volley.Response
 import com.android.volley.toolbox.*
-import com.example.commit.Class.UserInfo
-import com.example.commit.MainActivity.MakeRoomActivity
-import kotlinx.android.synthetic.main.activity_image_test.*
 import org.json.JSONArray
 import org.json.JSONObject
-import java.io.ByteArrayOutputStream
 
 
 //VolleyService를 사용하기위한 싱글톤
@@ -753,6 +748,103 @@ object VolleyService {
 
             }){
 
+        }
+
+        Volley.newRequestQueue(context).add(request)
+    }
+
+
+
+    fun createFCMGroupReq(token: String, roomId: String, context: Context, success: (String) -> Unit){
+        val url = "${ip}/join_room/fcm/create"
+
+        val json = JSONObject()
+        json.put("notification_key_name", roomId)
+
+        json.put("token",token)
+
+        var request = object : JsonObjectRequest(Method.POST
+            , url
+            , json
+            , Response.Listener {
+                success(it.getString("notification_key"))
+            }
+            , Response.ErrorListener {
+
+            }) {}
+
+        Volley.newRequestQueue(context).add(request)
+    }
+    fun getNotificationKeyReq(roomId:String, context: Context, success: (String) -> Unit){
+        val url = "${ip}/join_room/fcm/get"
+
+        val json = JSONObject()
+        json.put("notification_key_name", roomId)
+
+        var request = object : JsonObjectRequest(Method.POST
+            , url
+            , json
+            , Response.Listener {
+                success(it.getString("notification_key"))
+            }
+            , Response.ErrorListener {
+
+            }) {}
+
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun updateFCMGroupReq(operation:String, key:String, token: String, roomId: String, context: Context){
+        val url = "${ip}/join_room/fcm/${operation}"
+
+        val json = JSONObject()
+        json.put("notification_key_name", roomId)
+        json.put("notification_key",key)
+        json.put("token",token)
+
+        var request = object : JsonObjectRequest(Method.POST
+            , url
+            , json
+            , Response.Listener {
+            }
+            , Response.ErrorListener {
+
+            }) {}
+
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun sendFCMReq(key:String,title: String, content:String, context: Context){
+        var url="https://fcm.googleapis.com/fcm/send"
+
+        var json=JSONObject()
+        json.put("to",key)
+        json.put("priority","high")
+        var notification=JSONObject()
+        notification.put("body",content)
+        notification.put("title",title)
+        json.put("notification",notification)
+        var data=JSONObject()
+        data.put("title",content)
+        data.put("message",title)
+        json.put("data",data)
+
+        var request=object : JsonObjectRequest(Method.POST,
+            url,
+            json,
+            Response.Listener {
+            },
+            Response.ErrorListener {
+
+            }){
+            override fun getHeaders(): MutableMap<String, String> {
+                var map= HashMap<String,String>()
+
+                map.put("Content-Type","application/json")
+                map.put("Authorization","key=AAAAUTWRvps:APA91bHfWoTIhtP8NSwSsv31WVlZJDnHyAgC8ADTjBdnHbufN7o34wE1qjEK5T3yRHOdlHoJUZL_jpy4_EKsTnJX0UgoLZJyDYBPGpPMgoAijgEIwKQllI88d5XPxWC-gSKWUyrQReA0")
+
+                return map
+            }
         }
 
         Volley.newRequestQueue(context).add(request)
