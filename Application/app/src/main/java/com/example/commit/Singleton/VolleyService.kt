@@ -923,20 +923,13 @@ fun getSearchReq(universityName: String,  context: Context, success:(JSONArray?)
         Volley.newRequestQueue(context).add(request)
     }
 
-    fun sendFCMReq(key:String,title: String, content:String, context: Context){
-        var url="https://fcm.googleapis.com/fcm/send"
+    fun sendFCMReq(title: String, content:String,time: String, context: Context){
+        var url="${ip}/join_room/fcm/send"
 
         var json=JSONObject()
-        json.put("to",key)
-        json.put("priority","high")
-        var notification=JSONObject()
-        notification.put("body",content)
-        notification.put("title",title)
-        json.put("notification",notification)
-        var data=JSONObject()
-        data.put("title",content)
-        data.put("message",title)
-        json.put("data",data)
+        json.put("topic",title)
+        json.put("content",content)
+        json.put("time",time)
 
         var request=object : JsonObjectRequest(Method.POST,
             url,
@@ -946,14 +939,6 @@ fun getSearchReq(universityName: String,  context: Context, success:(JSONArray?)
             Response.ErrorListener {
 
             }){
-            override fun getHeaders(): MutableMap<String, String> {
-                var map= HashMap<String,String>()
-
-                map.put("Content-Type","application/json")
-                map.put("Authorization","key=AAAAUTWRvps:APA91bHfWoTIhtP8NSwSsv31WVlZJDnHyAgC8ADTjBdnHbufN7o34wE1qjEK5T3yRHOdlHoJUZL_jpy4_EKsTnJX0UgoLZJyDYBPGpPMgoAijgEIwKQllI88d5XPxWC-gSKWUyrQReA0")
-
-                return map
-            }
         }
 
         Volley.newRequestQueue(context).add(request)
