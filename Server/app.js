@@ -12,6 +12,7 @@ var attachmentRouter=require('./routes/attachment');
 var codeRouter=require('./routes/code');
 var universityRouter=require('./routes/university');
 var departmentRouter=require('./routes/department');
+var reviewRouter=require('./routes/review');
 var app = express();
 
 // view engine setup
@@ -32,6 +33,7 @@ app.use('/attachment',attachmentRouter);
 app.use('/code',codeRouter);
 app.use('/university',universityRouter);
 app.use('/department',departmentRouter);
+app.use('/review',reviewRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

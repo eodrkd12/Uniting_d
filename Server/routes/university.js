@@ -11,7 +11,7 @@ router.get('/',function(req,res,next){
 })
 
 router.post('/',function(req,res,next){
-    db_university.get_university(req.body[0].name,function(err,result){
+    db_university.get_university(function(err,result){
         if(err) console.log(err);
         else res.send(result);
     })

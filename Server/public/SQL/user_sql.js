@@ -25,7 +25,7 @@ module.exports = function () {
 	    ,
         join: function(id,pw,name,birthday,gender,nickname,webMail,universityName,enterYear,departmentName,profileImage){
             pool.getConnection(function(err,con){
-                var sql=`insert into user values('${id}','${pw}','${name}',${birthday},'${gender}','${nickname}','${webMail}','${universityName}',${enterYear},'${departmentName}',${profileImage})`
+                var sql=`insert into user values('${id}','${pw}','${name}',${birthday},'${gender}','${nickname}','${webMail}','${universityName}',${enterYear},'${departmentName}','${profileImage}')`
                 con.query(sql, function(err,result,fields){
                     con.release();
                     if(err) console.log(err);
@@ -89,6 +89,7 @@ module.exports = function () {
             })
         },
 
+
         login: function(id,callback){
             pool.getConnection(function(err,con){
                 var sql=`select * from user where user_id='${id}'`
@@ -98,8 +99,17 @@ module.exports = function () {
                     else callback(null,result);
                 })
             })
-        }
-        ,
+        },
+	get_image:function(nickname,callback){
+		pool.getConnection(function(err,con){
+			var sql=`select user_image from user where user_id='${nickname}'`
+			con.query(sql,function(err,result,fields){
+				con.release()
+				if(err) console.log(err)
+				else callback(null,result)
+			})
+		})
+	},
         pool: pool
     }
 };

@@ -54,13 +54,24 @@ router.post('/', function(req,res,next){
 	var universityName=req.body.university_name
 	var departmentName=req.body.department_name
 	var enterYear=req.body.enter_year
+	var image=req.body.image
 
-	db_user.join(id,pw,name,birthday,gender,nickname,webMail,universityName,enterYear,departmentName,null)
+	console.log(image)
+
+	db_user.join(id,pw,name,birthday,gender,nickname,webMail,universityName,enterYear,departmentName,image)
 	db_user.insert_dating(id,nickname,universityName,departmentName,birthday,gender)
 
 	var json=new Object()
 	json.result="success"
 	res.send(json)
+})
+
+router.post('/image', function(req,res,next){
+	var image=req.body.image
+
+	db_user.image(image)
+
+	res.send("success")
 })
 
 router.put('/',function(req,res,next){ // 상원 회원정보수정 (최신화)
@@ -71,6 +82,22 @@ router.put('/',function(req,res,next){ // 상원 회원정보수정 (최신화)
 router.delete('/',function(req,res,next){ // 상원 회원정보 삭제 (최신화)
   db_user.delete_user(req.body.id)
   res.send('success');
+})
+
+router.post('/getImage',function(req,res,next){
+	var id=req.body.nickname
+
+	db_user.get_image(id,function(err,result){
+		if(err) console.log(err)
+		else{
+			const buf=result[0].user_image
+			var str=buf.toString()
+			
+			var object=new Object()
+			object.user_image=str
+			res.send(object)
+		}
+	})
 })
 
 module.exports = router;

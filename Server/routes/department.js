@@ -5,9 +5,8 @@ var db_department=require('../public/SQL/department_sql')();
 
 router.post('/',function(req,res,next){
 	var univ_name=req.body[0].univ_name
-	var dept_name=req.body[0].dept_name
-	console.log(univ_name+" "+dept_name)
-    db_department.get_department(univ_name,dept_name,function(err,result){
+	console.log(univ_name)
+    db_department.get_department(univ_name,function(err,result){
         if(err) console.log(err);
         else res.send(result);
     })
