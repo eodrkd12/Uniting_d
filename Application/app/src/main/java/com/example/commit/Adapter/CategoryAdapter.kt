@@ -41,7 +41,12 @@ class CategoryAdapter(val context: Context) : RecyclerView.Adapter<CategoryAdapt
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view){
         fun bindItems(data: Categoryitem) {
-            itemView.btn_category.text = data.categoryname
+            itemView.btn_category_lable.text = data.categoryname
+            if(data.categoryname=="스터디"){
+                itemView.btn_category.setImageResource(R.drawable.cat_book_icon)
+            }
+            else
+                itemView.btn_category.setImageResource(R.drawable.add_icon)
 
             itemView.btn_category.setOnClickListener {
                 OpenChatListActivity.CATEGORY=data.categoryname!!

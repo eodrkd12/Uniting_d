@@ -3,7 +3,7 @@ var router = express.Router();
 var db_user=require('../public/SQL/user_sql')();
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.send("와...");
+  res.send("Hello");
 });
 
 router.get('/test',function(req,res,next){

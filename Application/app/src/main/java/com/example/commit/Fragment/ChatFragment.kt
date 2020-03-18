@@ -122,6 +122,9 @@ class ChatFragment() : Fragment() {
             myChatAdapter.notifyDataSetChanged()
         })
 
+
+
+
         return view
     }
 }

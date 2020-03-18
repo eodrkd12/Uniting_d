@@ -1,4 +1,4 @@
-package com.example.commit.IntroActivity
+/*package com.example.commit.IntroActivity
 
 import android.content.Intent
 import android.os.Bundle
@@ -65,4 +65,4 @@ class Join3Activity : AppCompatActivity() {
             }
         })
     }
-}
+}*/
