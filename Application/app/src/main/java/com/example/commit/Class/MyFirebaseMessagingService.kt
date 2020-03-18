@@ -27,7 +27,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(p0: RemoteMessage) {
         if(p0.notification!=null){
-            Log.d("test","MyFirebaseMessagingService p0.notification.body : ${p0.notification?.body}")
+            Log.d("uniting","MyFirebaseMessagingService p0.notification.body : ${p0.notification?.body}")
             if(!isAppOnForeground(this))
                 sendNotification(p0.notification?.body)
         }

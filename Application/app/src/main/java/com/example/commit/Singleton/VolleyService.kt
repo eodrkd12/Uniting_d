@@ -861,9 +861,6 @@ fun getSearchReq(universityName: String,  context: Context, success:(JSONArray?)
         Volley.newRequestQueue(context).add(request)
 
     }
-
-
-
     fun createFCMGroupReq(token: String, roomId: String, context: Context, success: (String) -> Unit){
         val url = "${ip}/join_room/fcm/create"
 
@@ -902,7 +899,6 @@ fun getSearchReq(universityName: String,  context: Context, success:(JSONArray?)
 
         Volley.newRequestQueue(context).add(request)
     }
-
     fun updateFCMGroupReq(operation:String, key:String, token: String, roomId: String, context: Context){
         val url = "${ip}/join_room/fcm/${operation}"
 
@@ -923,13 +919,22 @@ fun getSearchReq(universityName: String,  context: Context, success:(JSONArray?)
         Volley.newRequestQueue(context).add(request)
     }
 
-    fun sendFCMReq(title: String, content:String,time: String, context: Context){
-        var url="${ip}/join_room/fcm/send"
+    fun sendFCMReq(roomId: String,title:String, content:String,time: String, context: Context){
+        var url="https://fcm.googleapis.com/fcm/send"
 
         var json=JSONObject()
-        json.put("topic",title)
-        json.put("content",content)
-        json.put("time",time)
+        json.put("to","topics/${roomId}")
+        json.put("priority","high")
+
+        var notification=JSONObject()
+        notification.put("body",content)
+        notification.put("title",title)
+        json.put("notification",notification)
+
+        var data=JSONObject()
+        data.put("message",content)
+        data.put("title",title)
+        json.put("data",data)
 
         var request=object : JsonObjectRequest(Method.POST,
             url,
@@ -937,7 +942,6 @@ fun getSearchReq(universityName: String,  context: Context, success:(JSONArray?)
             Response.Listener {
             },
             Response.ErrorListener {
-
             }){
         }
 
@@ -963,7 +967,4 @@ fun delectuser(id: String, context: Context, success: (String?) -> Unit){
         }) {
     }
     Volley.newRequestQueue(context).add(request)
-
-
-
 }
