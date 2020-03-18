@@ -9,6 +9,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.Toast
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.commit.Adapter.CategoryAdapter
 import com.example.commit.Adapter.ChatRoomListAdapter
 import com.example.commit.Adapter.MyChatListAdapter
+import com.example.commit.Adapter.SearchAdapter
 import com.example.commit.Class.UserInfo
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
@@ -212,12 +214,8 @@ class OpenChatListActivity : AppCompatActivity() {
         VolleyService.getSearchReq(UserInfo.UNIV,this, {success ->
             openchatArray = success
 
-            var chatRoomArray = success
-            if (chatRoomArray!!.length() == 0) {
-
-            } else {
-                for (i in 0..chatRoomArray.length() - 1) {
-                    var json = chatRoomArray[i] as JSONObject
+                for (i in 0..openchatArray!!.length() - 1) {
+                    var json = openchatArray!![i] as JSONObject
                     var roomId = json.getString("room_id")
                     var category = json.getString("cate_name")
                     var maker = json.getString("maker")
@@ -239,9 +237,11 @@ class OpenChatListActivity : AppCompatActivity() {
 
                    openchatList.add(item)
                 }
+                Toast.makeText(this@OpenChatListActivity, openchatList.size.toString(), Toast.LENGTH_SHORT).show()
 
-            }
+
         })
+
         text_search.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
 
@@ -251,34 +251,33 @@ class OpenChatListActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if(openchatList.size == 0)
-                {
+                if (openchatList.size == 0) {
 
-                }
-                else{
+                } else {
                     openchatFilter.clear()
-                    for(i in 0..openchatList.size-1) {
-                        if((openchatList.get(i).roomTitle!!.contains(text_search.text) == true) && text_search.text.toString() != "") {
-                            var item:ChatRoomListItem = ChatRoomListItem()
-                            item.roomId=openchatList.get(i).roomId
-                            item.cateName=openchatList.get(i).cateName
-                            item.maker=openchatList.get(i).maker
-                            item.roomTitle=openchatList.get(i).roomTitle
-                            item.limitNum=openchatList.get(i).limitNum
-                            item.universityName=openchatList.get(i).universityName
-                            item.curNum=openchatList.get(i).curNum
-                            item.introduce=openchatList.get(i).introduce
+                    for (i in 0..openchatList.size - 1) {
+                        if ((openchatList.get(i).roomTitle!!.contains(text_search.text) == true) && text_search.text.toString() != "") {
+                            var item: ChatRoomListItem = ChatRoomListItem()
+                            item.roomId = openchatList.get(i).roomId
+                            item.cateName = openchatList.get(i).cateName
+                            item.maker = openchatList.get(i).maker
+                            item.roomTitle = openchatList.get(i).roomTitle
+                            item.limitNum = openchatList.get(i).limitNum
+                            item.universityName = openchatList.get(i).universityName
+                            item.curNum = openchatList.get(i).curNum
+                            item.introduce = openchatList.get(i).introduce
 
                             openchatFilter.add(item)
                         }
                     }
-                    OPENCHATRV!!.setHasFixedSize(true)
-                    OPENCHATRV!!.layoutManager = LinearLayoutManager(this@OpenChatListActivity, LinearLayout.VERTICAL, false)
-                   // OPENCHATRV!!.adapter = MyChatListAdapter(this@OpenChatListActivity, openchatFilter)
+                    rv_open.setHasFixedSize(true)
+                    rv_open.layoutManager =
+                        LinearLayoutManager(this@OpenChatListActivity, LinearLayout.VERTICAL, false)
+                    rv_open.adapter = SearchAdapter(this@OpenChatListActivity, openchatFilter)
+                    Toast.makeText(this@OpenChatListActivity, openchatFilter.size.toString(), Toast.LENGTH_SHORT).show()
                 }
             }
         })
-
 
 
     }
