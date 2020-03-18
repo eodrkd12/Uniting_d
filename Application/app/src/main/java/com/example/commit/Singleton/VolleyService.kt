@@ -32,12 +32,10 @@ object VolleyService {
             , url
             , json
             , Response.Listener {
-                Toast.makeText(context, "중복된 ID입니다.", Toast.LENGTH_SHORT).show()
                 success(0)
             }
             , Response.ErrorListener {
                 if (it is com.android.volley.ParseError) {
-                    Toast.makeText(context, "사용 가능한 ID입니다.", Toast.LENGTH_SHORT).show()
                     success(1)
                 }
             }
