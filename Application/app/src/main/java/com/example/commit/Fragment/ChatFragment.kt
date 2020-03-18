@@ -1,6 +1,7 @@
 package com.example.commit.Fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,10 @@ import com.example.commit.Adapter.MyChatListAdapter
 import com.example.commit.Class.UserInfo
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
+import com.google.firebase.database.ChildEventListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -31,6 +36,30 @@ class ChatFragment() : Fragment() {
         var layoutManager = LinearLayoutManager(context)
         rvRoom.adapter = myChatAdapter
         rvRoom.layoutManager = layoutManager
+        rvRoom.setHasFixedSize(true)
+
+
+
+        /*var firebaseDataBase=FirebaseDatabase.getInstance()
+        var databaseReference=firebaseDataBase.getReference()
+
+        databaseReference.child("chat").addChildEventListener(object : ChildEventListener{
+            override fun onCancelled(p0: DatabaseError) {
+            }
+
+            override fun onChildMoved(p0: DataSnapshot, p1: String?) {
+            }
+
+            override fun onChildChanged(p0: DataSnapshot, p1: String?) {
+            }
+
+            override fun onChildAdded(p0: DataSnapshot, p1: String?) {
+                Log.d("firebase","방 조회 : ${p0.key}")
+            }
+
+            override fun onChildRemoved(p0: DataSnapshot) {
+            }
+        })*/
 
         VolleyService.myChatRoomListReq(UserInfo.NICKNAME, context!!, { success ->
             myChatAdapter.clear()
@@ -89,15 +118,6 @@ class ChatFragment() : Fragment() {
                     )
                 }
             }
-
-            /*rvRoom.setOnItemClickListener { parent, view, position, id ->
-                var roomId=chatRoomAdapter.getRoomId(position)
-                var category=chatRoomAdapter.getCategory(position)
-                var intent= Intent(activity, ChatActivity::class.java)
-                intent.putExtra("room_id",roomId)
-                intent.putExtra("category",category)
-                startActivity(intent)
-            }*/
 
             myChatAdapter.notifyDataSetChanged()
         })

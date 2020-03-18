@@ -1,6 +1,7 @@
 package com.example.commit.MainActivity
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.commit.Adapter.ChatAdapter
@@ -56,28 +57,6 @@ class DatingActivity : AppCompatActivity() {
             }
 
             datingAdapter.notifyDataSetChanged()
-
-            /*list_content.setOnItemClickListener { parent, view, position, id ->
-                var userNickname = datingAdapter.getNickname(position)
-                val builder =
-                    AlertDialog.Builder(this)
-                builder.setTitle("${userNickname}님과의 대화")
-                builder.setMessage("시작하시겠습니까?")
-
-                builder.setPositiveButton("확인") { _, _ ->
-                    VolleyService.createChatRoomReq(UserInfo.NICKNAME, userNickname!!,"","데이팅", UserInfo.UNIV, this, { success ->
-                        var roomId = success!!.getString("room_id")
-                        var intent = Intent(this, ChatActivity::class.java)
-                        intent.putExtra("room_id", roomId)
-                        intent.putExtra("category","데이팅")
-                        startActivity(intent)
-                    })
-                }
-                builder.setNegativeButton("취소") { _, _ ->
-
-                }
-                builder.show()
-            }*/
         })
     }
 }
