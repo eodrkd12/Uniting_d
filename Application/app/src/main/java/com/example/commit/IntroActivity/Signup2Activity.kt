@@ -27,6 +27,7 @@ class Signup2Activity : AppCompatActivity() {
 
 
         text_univaddr.text = univMail
+        text_univaddr.bringToFront()
 
         btn_sendmail.setOnClickListener{
             webMail = edit_univid.text.toString() + univMail
