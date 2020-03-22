@@ -94,6 +94,8 @@ class Signup1Activity : AppCompatActivity() {
                     edit_universityname.setCursorVisible(true)
                     edit_majorname.setText(null)
                     btn_signup1next.setEnabled(false)
+                    majorList.clear()
+                    majorFilter.clear()
                 }
             }
             false

@@ -2,6 +2,11 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#BDBDBD</color>
     <color name="radio_click">#87CEEB</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorRed">#FF0000</color>
+    <color name="colorLime">#00FF00</color>
+    <color name="colorSkyBlue">#87CEEB</color>
+    <color name="colorDeepSkyblue">#00BFFF</color>
 </resources>

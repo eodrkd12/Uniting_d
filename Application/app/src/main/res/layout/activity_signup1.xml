@@ -4,6 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#FFFFFF"
         tools:context=".MainActivity.SettingActivity">
 
     <TextView
@@ -98,6 +99,9 @@
             android:layout_height="wrap_content"
             android:enabled="false"
             android:text="다음"
+            android:background="@drawable/standard_btn_rev"
+            android:textColor="#00BFFF"
+            android:textSize="15.5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.95"

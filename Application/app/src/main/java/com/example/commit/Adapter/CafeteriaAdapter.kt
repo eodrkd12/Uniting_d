@@ -5,14 +5,17 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.commit.Class.UserInfo
 import com.example.commit.ListItem.Homefeed
+import com.example.commit.ListItem.Item
 import com.example.commit.MainActivity.InformActivity
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
 import kotlinx.android.synthetic.main.cafeteria_item.view.*
+import org.jetbrains.anko.doAsync
 
 class CafeteriaAdapter(val context: Context, val homefeed: Homefeed) : RecyclerView.Adapter<CafeteriaAdapter.ViewHolder>() {
     override fun getItemCount(): Int {
@@ -37,20 +40,24 @@ class CafeteriaAdapter(val context: Context, val homefeed: Homefeed) : RecyclerV
                 title+=temp[i]
         }
         holder.itemView.text_cafeteria_title.text = title
+        doAsync {
+            VolleyService.getReviewsScoreReq(title!!, UserInfo.UNIV, context, { success ->
+                var point:String? = null
+                point = success
+                if(point == "null")
+                {
+                    holder.itemView.text_starpoint.text = "☆0"
+                }
+                else
+                {
+                    holder.itemView.text_starpoint.text = "☆" + point
+                }
+            })
+        }
 
-        VolleyService.getReviewsScoreReq(title!!, UserInfo.UNIV, context, { success ->
-            var point:String? = null
-            point = success
-            if(point == "null")
-            {
-                holder.itemView.text_starpoint.text = "☆0"
-            }
-            else
-            {
-                holder.itemView.text_starpoint.text = "☆" + point
-            }
-        })
 
+
+        //holder.bindItems(homefeed.items.get(position))
 
         Glide.with(holder.itemView)
             .load(homefeed.items.get(position).imageSrc)
@@ -86,5 +93,9 @@ class CafeteriaAdapter(val context: Context, val homefeed: Homefeed) : RecyclerV
     }
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view){
+        fun bindItems(data: Item) {
+            //itemView.text_starpoint.text = data.starPoint
+
+        }
     }
 }

@@ -24,7 +24,7 @@ class OptionFragment():Fragment() {
 
         var view=inflater.inflate(R.layout.fragment_mypage,container,false)
 
-        var listView=view.findViewById<ListView>(R.id.list_mypage)
+        var listView: ListView =view.findViewById(R.id.list_mypage)
         var mypageAdapter=MypageAdapter()
         listView.adapter=mypageAdapter
 

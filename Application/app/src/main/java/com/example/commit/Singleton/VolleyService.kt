@@ -29,12 +29,10 @@ object VolleyService {
             , url
             , json
             , Response.Listener {
-                Toast.makeText(context, "중복된 ID입니다.", Toast.LENGTH_SHORT).show()
                 success(0)
             }
             , Response.ErrorListener {
                 if (it is com.android.volley.ParseError) {
-                    Toast.makeText(context, "사용 가능한 ID입니다.", Toast.LENGTH_SHORT).show()
                     success(1)
                 }
             }
@@ -863,9 +861,6 @@ fun getSearchReq(universityName: String,  context: Context, success:(JSONArray?)
         Volley.newRequestQueue(context).add(request)
 
     }
-
-
-
     fun createFCMGroupReq(token: String, roomId: String, context: Context, success: (String) -> Unit){
         val url = "${ip}/join_room/fcm/create"
 
@@ -904,7 +899,6 @@ fun getSearchReq(universityName: String,  context: Context, success:(JSONArray?)
 
         Volley.newRequestQueue(context).add(request)
     }
-
     fun updateFCMGroupReq(operation:String, key:String, token: String, roomId: String, context: Context){
         val url = "${ip}/join_room/fcm/${operation}"
 
@@ -925,19 +919,21 @@ fun getSearchReq(universityName: String,  context: Context, success:(JSONArray?)
         Volley.newRequestQueue(context).add(request)
     }
 
-    fun sendFCMReq(key:String,title: String, content:String, context: Context){
+    fun sendFCMReq(roomId: String,title:String, content:String,time: String, context: Context){
         var url="https://fcm.googleapis.com/fcm/send"
 
         var json=JSONObject()
-        json.put("to",key)
+        json.put("to","topics/${roomId}")
         json.put("priority","high")
+
         var notification=JSONObject()
         notification.put("body",content)
         notification.put("title",title)
         json.put("notification",notification)
+
         var data=JSONObject()
-        data.put("title",content)
-        data.put("message",title)
+        data.put("message",content)
+        data.put("title",title)
         json.put("data",data)
 
         var request=object : JsonObjectRequest(Method.POST,
@@ -946,16 +942,7 @@ fun getSearchReq(universityName: String,  context: Context, success:(JSONArray?)
             Response.Listener {
             },
             Response.ErrorListener {
-
             }){
-            override fun getHeaders(): MutableMap<String, String> {
-                var map= HashMap<String,String>()
-
-                map.put("Content-Type","application/json")
-                map.put("Authorization","key=AAAAUTWRvps:APA91bHfWoTIhtP8NSwSsv31WVlZJDnHyAgC8ADTjBdnHbufN7o34wE1qjEK5T3yRHOdlHoJUZL_jpy4_EKsTnJX0UgoLZJyDYBPGpPMgoAijgEIwKQllI88d5XPxWC-gSKWUyrQReA0")
-
-                return map
-            }
         }
 
         Volley.newRequestQueue(context).add(request)
@@ -980,7 +967,4 @@ fun delectuser(id: String, context: Context, success: (String?) -> Unit){
         }) {
     }
     Volley.newRequestQueue(context).add(request)
-
-
-
 }

@@ -32,7 +32,10 @@ import android.util.Log
 //import android.support.v7.widget.RecyclerView
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.example.commit.Adapter.CafeteriaAdapter
+import com.example.commit.Class.UserInfo
 import com.example.commit.ListItem.*
+import com.example.commit.Singleton.VolleyService
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.cafeteria_horizontal.view.*
 import java.io.IOException
@@ -52,11 +55,9 @@ class CafeteriaFragment() : Fragment() {
 
     companion object {
         var cafetype = arrayListOf<Type>(Type("한식"), Type("중식"), Type("일식"), Type("치킨"))
-        var koreanfood = arrayListOf<KoreanFood>()
-        var japanesefood = arrayListOf<JapaneseFood>()
-        var chinesefood = arrayListOf<ChineseFood>()
-        var chicken = arrayListOf<Chicken>()
     }
+
+    var starpointList:ArrayList<String> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,6 +68,60 @@ class CafeteriaFragment() : Fragment() {
 
         CafeHorizontalRV = rootView1.findViewById(R.id.CafeHorizontalRV)
         CafeVerticalRV = rootView.findViewById(R.id.CafeVerticalRV)
+
+        /*fun fetchJson(vararg p0: String) {
+            val searchtext = "성서계명대" + "한식"
+            val text:String = URLEncoder.encode(searchtext, "UTF-8")
+            val apiURL = "https://store.naver.com/sogum/api/businesses?start=1&display=10&query=$text&sortingOrder=reviewCount"
+
+            val url = URL(apiURL)
+
+            val request = Request.Builder()
+                .url(url)
+                //.addHeader("X-Naver-Client-Id", clientId)
+                //.addHeader("X-Naver-Client-Secret", clientSecret)
+                .method("GET", null)
+                .build()
+
+            val client = OkHttpClient()
+            client.newCall(request).enqueue(object: Callback {
+                override fun onResponse(call: Call?, response: Response?) {
+
+                    activity!!.runOnUiThread {
+                        val body = response?.body()?.string()
+                        println("Success to execute request : $body")
+
+                        val gson = GsonBuilder().create()
+
+                        val homefeed = gson.fromJson(body, Homefeed::class.java)
+
+                        for(i in 0..homefeed.items.size-1) {
+                            VolleyService.getReviewsScoreReq(homefeed.items.get(i).name!!, UserInfo.UNIV, activity!!, { success ->
+                                var point:String? = null
+                                point = success
+                                if(point == "null")
+                                {
+                                    homefeed.items.get(i).starPoint = "★0"
+                                }
+                                else
+                                {
+                                    homefeed.items.get(i).starPoint = "★" + point
+                                }
+                            })
+                        }
+
+                        CafeVerticalRV.setHasFixedSize(true)
+                        CafeVerticalRV.layoutManager = LinearLayoutManager(activity)
+                        CafeVerticalRV.adapter = CafeVerticalAdapter(activity!!, homefeed, cafetype)
+                    }
+                }
+
+                override fun onFailure(call: Call?, e: IOException?) {
+                    println("Failed to execute request")
+                }
+            })
+        }*/
+
 
 
         /*fun fetchJson(vararg p0: String) {
@@ -140,10 +195,11 @@ class CafeteriaFragment() : Fragment() {
             }
         }*/
 
+
+
         CafeVerticalRV.setHasFixedSize(true)
         CafeVerticalRV.layoutManager = LinearLayoutManager(activity)
         CafeVerticalRV.adapter = CafeVerticalAdapter(activity!!, cafetype)
-
 
         return rootView
     }
