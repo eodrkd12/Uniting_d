@@ -185,11 +185,17 @@ class InformActivity : AppCompatActivity(), OnMapReadyCallback {
             val dialogRatingBar = dialogView.findViewById<RatingBar>(R.id.dialogRb)
             val dialogInsertButton = dialogView.findViewById<Button>(R.id.btn_insertreview)
 
-            builder.setView(dialogView).show()
+            val alertDialog: AlertDialog = builder.setView(dialogView).create()
+
+            alertDialog.show()
 
             dialogInsertButton.setOnClickListener {
                 VolleyService.insertReviewReq(UserInfo.NICKNAME, name!!, UserInfo.UNIV, dialogRatingBar.rating.toInt(), dialogContent.text.toString(), this,{ success ->
                 })
+                alertDialog.dismiss()
+                val fragment = ReviewFragment(name as String)
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.frame_inform, fragment, fragment.javaClass.simpleName).commit()
             }
         }
     }

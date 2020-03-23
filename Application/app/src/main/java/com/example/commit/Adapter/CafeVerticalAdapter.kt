@@ -5,6 +5,7 @@ import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
+import android.os.Handler
 import android.util.Log
 //import android.support.v7.app.AppCompatActivity
 //import android.support.v7.widget.LinearLayoutManager
@@ -16,10 +17,13 @@ import android.widget.LinearLayout
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.commit.Class.UserInfo
 import com.example.commit.ListItem.Homefeed
 import com.example.commit.ListItem.Type
 import com.example.commit.MainActivity.CafeteriaActivity
 import com.example.commit.R
+import com.example.commit.Singleton.VolleyService
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.cafeteria_horizontal.view.*
 import java.io.IOException
@@ -35,15 +39,11 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 
-class CafeVerticalAdapter(activity: Activity,val cafetype: ArrayList<Type>) : RecyclerView.Adapter<CafeVerticalAdapter.ViewHolder>() {
+class CafeVerticalAdapter(activity: Activity ,val cafetype: ArrayList<Type>) : RecyclerView.Adapter<CafeVerticalAdapter.ViewHolder>() {
     val clientId:String = "zjmsxbzZatZyy90LhgRy"
     val clientSecret:String = "tUYfairJPI"
 
     val mactivity:Activity = activity
-
-    val TAG = "Main Activity"
-
-
 
     override fun getItemCount():Int{
         return cafetype.size
@@ -72,7 +72,6 @@ class CafeVerticalAdapter(activity: Activity,val cafetype: ArrayList<Type>) : Re
             val client = OkHttpClient()
             client.newCall(request).enqueue(object: Callback {
                 override fun onResponse(call: Call?, response: Response?) {
-
                     mactivity.runOnUiThread {
                         val body = response?.body()?.string()
                         println("Success to execute request : $body")
@@ -83,7 +82,8 @@ class CafeVerticalAdapter(activity: Activity,val cafetype: ArrayList<Type>) : Re
 
                         holder.CafeHorizontalRV.setHasFixedSize(true)
                         holder.CafeHorizontalRV.layoutManager = LinearLayoutManager(mactivity, LinearLayout.HORIZONTAL, false)
-                        holder.CafeHorizontalRV.adapter = CafeteriaAdapter(mactivity!!, homefeed)
+                        holder.CafeHorizontalRV.adapter = CafeteriaAdapter(mactivity!!,  homefeed)
+
                     }
                 }
 
@@ -94,6 +94,10 @@ class CafeVerticalAdapter(activity: Activity,val cafetype: ArrayList<Type>) : Re
         }
         holder.bindItems(cafetype.get(position))
         fetchJson(" ")
+
+
+
+
 
         holder.itemView.textView5.setOnClickListener {
             val intent = Intent(mactivity, CafeteriaActivity::class.java)
@@ -121,6 +125,7 @@ class CafeVerticalAdapter(activity: Activity,val cafetype: ArrayList<Type>) : Re
         }*/
 
     }
+
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
         val CafeHorizontalRV : RecyclerView = view.findViewById(R.id.CafeHorizontalRV)

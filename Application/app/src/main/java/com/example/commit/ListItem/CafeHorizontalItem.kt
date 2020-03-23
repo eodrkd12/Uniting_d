@@ -12,7 +12,8 @@ data class Item (
     val tags:ArrayList<String>?,
     val id:String?,
     val options:String?,
-    val bizHourInfo:String?
+    val bizHourInfo:String?,
+    var starPoint:String?
 )
 
 data class Type(
@@ -22,24 +23,4 @@ data class Type(
 data class Menu(
     val name:String?,
     val price:String?
-)
-
-data class KoreanFood(
-    val name:String?,
-    val imageSrc:String?
-)
-
-data class ChineseFood(
-    val name:String?,
-    val imageSrc:String?
-)
-
-data class JapaneseFood(
-    val name:String?,
-    val imageSrc:String?
-)
-
-data class Chicken(
-    val name:String?,
-    val imageSrc:String?
 )
