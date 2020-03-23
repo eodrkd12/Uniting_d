@@ -32,6 +32,8 @@ class CafeteriaActivity : AppCompatActivity() {
         doAsync {
             fetchJson(" ")
         }
+
+        text_category.text= cafetype
     }
 
     fun fetchJson(vararg p0: String) {
