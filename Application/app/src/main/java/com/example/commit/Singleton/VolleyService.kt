@@ -815,7 +815,7 @@ fun getSearchReq(universityName: String,  context: Context, success:(JSONArray?)
             }) {
 
         }
-       // Volley.newRequestQueue(context).add(request)
+        Volley.newRequestQueue(context).add(request)
     }
 
     fun getReviewsScoreReq(cafeName: String, universityName: String, context:Context, success: (String?) -> Unit) {
