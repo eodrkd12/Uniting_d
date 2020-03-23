@@ -8,21 +8,19 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.widget.LinearLayout
+import android.widget.Toast
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.commit.Adapter.CategoryAdapter
 import com.example.commit.Adapter.ChatRoomListAdapter
-import com.example.commit.Adapter.MyChatListAdapter
 import com.example.commit.Class.UserInfo
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
 import kotlinx.android.synthetic.main.activity_open_chat_list.*
 import org.json.JSONObject
 import com.example.commit.ListItem.ChatRoomListItem
-import org.json.JSONArray
 
 
 class OpenChatListActivity : AppCompatActivity() {
@@ -43,16 +41,12 @@ class OpenChatListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_open_chat_list)
         OPENCHATRV = findViewById(R.id.rv_open)
 
+
         btn_make.setOnClickListener(View.OnClickListener() {
             var intent = Intent(this, MakeRoomActivity::class.java)
             startActivity(intent)
         }
         )
-      /*  btn_search.setOnClickListener(View.OnClickListener {
-            var intent = Intent(this, SearchActivity::class.java)
-            startActivity(intent)
-
-        })*/
 
         rv_category.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rv_category.adapter = CategoryAdapter(this)
@@ -98,64 +92,7 @@ class OpenChatListActivity : AppCompatActivity() {
 
             }
 
-            /*listChatRoom.setOnItemClickListener { parent, view, position, id ->
 
-                var roomId = chatRoomAdapter.getRoomId(position)
-                var category = chatRoomAdapter.getCategory(position)
-                var introduce=chatRoomAdapter.getIntroduce(position)
-
-                VolleyService.checkJoinReq(roomId, UserInfo.NICKNAME, this, { success ->
-                    if (success == "true") {
-                        val builder =
-                            AlertDialog.Builder(ContextThemeWrapper(this, R.style.Theme_AppCompat_Light_Dialog))
-                        builder.setTitle("참여 중인 방입니다.")
-
-                        builder.setPositiveButton("입장") { _, _ ->
-                            var intent = Intent(this, ChatActivity::class.java)
-                            intent.putExtra("room_id", roomId)
-                            intent.putExtra("category", category)
-                            startActivity(intent)
-                        }
-                        builder.setNegativeButton("취소") { _, _ ->
-
-                        }
-                        builder.show()
-                    } else {
-                        var builder=AlertDialog.Builder(ContextThemeWrapper(this, R.style.Theme_AppCompat_Light_Dialog))
-                        builder.setTitle("방에 입장하시겠습니까?")
-                        builder.setMessage(introduce)
-                        builder.setPositiveButton("입장"){_,_ ->
-                            VolleyService.joinChatRoomReq(roomId, UserInfo.NICKNAME, this, { success ->
-                                if (success == 1) {
-                                    var isFull = chatRoomAdapter.isFull(position)
-
-                                    if (isFull) {
-                                        val builder =
-                                            AlertDialog.Builder(ContextThemeWrapper(this, R.style.Theme_AppCompat_Light_Dialog))
-                                        builder.setTitle("입장할 수 없습니다.")
-                                        builder.setPositiveButton("확인") { _, _ ->
-
-                                        }
-                                        builder.show()
-                                    }
-
-                                    var intent = Intent(this, ChatActivity::class.java)
-                                    intent.putExtra("room_id", roomId)
-                                    intent.putExtra("category", category)
-                                    startActivity(intent)
-                                }
-                            })
-                        }
-                        builder.setNegativeButton("취소"){_,_ ->
-
-                        }
-                        builder.show()
-                    }
-                })
-            }
-
-            chatRoomAdapter.notifyDataSetChanged()
-        })*/
             HANDLER = object : Handler() {
                 override fun handleMessage(msg: Message?) {
                     Log.d("test", "카테고리 메시지 도착 : ${msg!!.what}")
@@ -205,19 +142,16 @@ class OpenChatListActivity : AppCompatActivity() {
             }
         })
 
-        var openchatArray: JSONArray? = null
+        //var openchatArray: JSONArray? = null
         var openchatList: ArrayList<ChatRoomListItem> = arrayListOf()
         var openchatFilter: ArrayList<ChatRoomListItem> = arrayListOf()
 
         VolleyService.getSearchReq(UserInfo.UNIV,this, {success ->
-            openchatArray = success
-
+          //  chatRoomAdapter.clear()
             var chatRoomArray = success
-            if (chatRoomArray!!.length() == 0) {
 
-            } else {
-                for (i in 0..chatRoomArray.length() - 1) {
-                    var json = chatRoomArray[i] as JSONObject
+                for (i in 0..chatRoomArray!!.length() - 1) {
+                    var json = chatRoomArray!![i] as JSONObject
                     var roomId = json.getString("room_id")
                     var category = json.getString("cate_name")
                     var maker = json.getString("maker")
@@ -238,47 +172,116 @@ class OpenChatListActivity : AppCompatActivity() {
                     item.introduce=introduce
 
                    openchatList.add(item)
-                }
 
-            }
+                }
+                Toast.makeText(this@OpenChatListActivity, openchatList.size.toString(), Toast.LENGTH_SHORT).show()
+
+
         })
+
         text_search.addTextChangedListener(object : TextWatcher {
+
             override fun afterTextChanged(p0: Editable?) {
 
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if(openchatList.size == 0)
-                {
+                if (openchatList.size == 0)  {
 
-                }
-                else{
+                }else{
+                    rv_open.adapter = chatRoomAdapter
+                    chatRoomAdapter.clear()
+
                     openchatFilter.clear()
-                    for(i in 0..openchatList.size-1) {
-                        if((openchatList.get(i).roomTitle!!.contains(text_search.text) == true) && text_search.text.toString() != "") {
-                            var item:ChatRoomListItem = ChatRoomListItem()
-                            item.roomId=openchatList.get(i).roomId
-                            item.cateName=openchatList.get(i).cateName
-                            item.maker=openchatList.get(i).maker
-                            item.roomTitle=openchatList.get(i).roomTitle
-                            item.limitNum=openchatList.get(i).limitNum
-                            item.universityName=openchatList.get(i).universityName
-                            item.curNum=openchatList.get(i).curNum
-                            item.introduce=openchatList.get(i).introduce
+
+                    for (i in 0..openchatList.size - 1) {
+                        if ((openchatList.get(i).roomTitle!!.contains(text_search.text) == true) && text_search.text.toString() != "") {
+
+
+                            var item: ChatRoomListItem = ChatRoomListItem()
+                            item.roomId = openchatList.get(i).roomId
+                            item.cateName = openchatList.get(i).cateName
+                            item.maker = openchatList.get(i).maker
+                            item.roomTitle = openchatList.get(i).roomTitle
+                            item.limitNum = openchatList.get(i).limitNum
+                            item.universityName = openchatList.get(i).universityName
+                            item.curNum = openchatList.get(i).curNum
+                            item.introduce = openchatList.get(i).introduce
 
                             openchatFilter.add(item)
+
+
+                            var roomId = item.roomId
+                            var cateName = item.cateName
+                            var maker = item.maker
+                            var roomTitle = item.roomTitle
+                            var limitNum = item.limitNum
+                            var universityName = item.universityName
+                            var curNum = item.curNum
+                            var introduce = item.introduce
+
+
+                            chatRoomAdapter.addItem(
+                                roomId.toString(),
+                                cateName.toString(),
+                                maker.toString(),
+                                roomTitle.toString(),
+                                limitNum!!,
+                                universityName.toString(),
+                                curNum!!,
+                                introduce.toString()
+                            )
+
+                            chatRoomAdapter.notifyDataSetChanged()
                         }
+                        else if( text_search.text.toString() == "" ){
+                            var item: ChatRoomListItem = ChatRoomListItem()
+                            item.roomId = openchatList.get(i).roomId
+                            item.cateName = openchatList.get(i).cateName
+                            item.maker = openchatList.get(i).maker
+                            item.roomTitle = openchatList.get(i).roomTitle
+                            item.limitNum = openchatList.get(i).limitNum
+                            item.universityName = openchatList.get(i).universityName
+                            item.curNum = openchatList.get(i).curNum
+                            item.introduce = openchatList.get(i).introduce
+
+                            var roomId = openchatList.get(i).roomId
+                            var cateName = openchatList.get(i).cateName
+                            var maker = openchatList.get(i).maker
+                            var roomTitle = openchatList.get(i).roomTitle
+                            var limitNum = openchatList.get(i).limitNum
+                            var universityName = openchatList.get(i).universityName
+                            var curNum = openchatList.get(i).curNum
+                            var introduce = openchatList.get(i).introduce
+
+
+                            chatRoomAdapter.addItem(
+                                roomId.toString(),
+                                cateName.toString(),
+                                maker.toString(),
+                                roomTitle.toString(),
+                                limitNum!!,
+                                universityName.toString(),
+                                curNum!!,
+                                introduce.toString()
+                            )
+
+                            chatRoomAdapter.notifyDataSetChanged()
+
+
+                        }
+
                     }
-                    OPENCHATRV!!.setHasFixedSize(true)
-                    OPENCHATRV!!.layoutManager = LinearLayoutManager(this@OpenChatListActivity, LinearLayout.VERTICAL, false)
-                   // OPENCHATRV!!.adapter = MyChatListAdapter(this@OpenChatListActivity, openchatFilter)
+                    rv_open.setHasFixedSize(true)
+
+                   Toast.makeText(this@OpenChatListActivity, openchatFilter.size.toString(), Toast.LENGTH_SHORT).show()
                 }
             }
         })
-
 
 
     }
