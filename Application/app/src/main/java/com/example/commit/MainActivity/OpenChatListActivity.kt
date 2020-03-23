@@ -214,14 +214,15 @@ class OpenChatListActivity : AppCompatActivity() {
 
                             openchatFilter.add(item)
 
-                            var roomId = openchatFilter.get(i).roomId
-                            var cateName = openchatFilter.get(i).cateName
-                            var maker = openchatFilter.get(i).maker
-                            var roomTitle = openchatFilter.get(i).roomTitle
-                            var limitNum = openchatFilter.get(i).limitNum
-                            var universityName = openchatFilter.get(i).universityName
-                            var curNum = openchatFilter.get(i).curNum
-                            var introduce = openchatFilter.get(i).introduce
+
+                            var roomId = item.roomId
+                            var cateName = item.cateName
+                            var maker = item.maker
+                            var roomTitle = item.roomTitle
+                            var limitNum = item.limitNum
+                            var universityName = item.universityName
+                            var curNum = item.curNum
+                            var introduce = item.introduce
 
 
                             chatRoomAdapter.addItem(
