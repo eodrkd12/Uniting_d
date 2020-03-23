@@ -920,7 +920,7 @@ fun getSearchReq(universityName: String,  context: Context, success:(JSONArray?)
     }
 
     fun sendFCMReq(roomId: String,title:String, content:String,time: String, context: Context){
-        var url="https://fcm.googleapis.com/fcm/send"
+        /*var url="https://fcm.googleapis.com/fcm/send"
 
         var json=JSONObject()
         json.put("to","topics/${roomId}")
@@ -934,12 +934,19 @@ fun getSearchReq(universityName: String,  context: Context, success:(JSONArray?)
         var data=JSONObject()
         data.put("message",content)
         data.put("title",title)
-        json.put("data",data)
+        json.put("data",data)*/
+        var url="${ip}/join_room/fcm/send"
+
+        var json=JSONObject()
+        json.put("topic",roomId)
+        json.put("content",content)
+        json.put("time",time)
 
         var request=object : JsonObjectRequest(Method.POST,
             url,
             json,
             Response.Listener {
+                Log.d("uniting","VolleyService.sendFCMReq it : ${it.toString()}")
             },
             Response.ErrorListener {
             }){

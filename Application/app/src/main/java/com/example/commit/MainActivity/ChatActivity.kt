@@ -47,9 +47,12 @@ class ChatActivity : AppCompatActivity() {
             .addOnCompleteListener {
                 var msg="${roomId} subscribe success"
                 if(!it.isSuccessful) msg="${roomId} subscribe fail"
-                Log.d("uniting","ChatActivity.msg : ${msg}")
+                Log.d("uniting","ChatActivity.msg : ${UserInfo.NICKNAME} ${msg}")
             }
 
+        text_title.text=title
+
+        list_chat.adapter=chatAdapter
 
         VolleyService.getJoinTimeReq(roomId!!,UserInfo.NICKNAME,this,{success ->
             val ref = FirebaseDatabase.getInstance().reference.child("chat").child(roomId!!)
@@ -110,9 +113,6 @@ class ChatActivity : AppCompatActivity() {
             }
         })
 
-        text_title.text=title
-
-        list_chat.adapter=chatAdapter
         /*VolleyService.getNotificationKeyReq(roomId!!,this,{success ->
             Log.d("test","success : ${success}")
             notificationKey=success
