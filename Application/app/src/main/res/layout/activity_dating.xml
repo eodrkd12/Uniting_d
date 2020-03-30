@@ -11,7 +11,7 @@
             android:id="@+id/rv_dating"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="#FFC0CB"
+            android:background="#FFFFFF"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

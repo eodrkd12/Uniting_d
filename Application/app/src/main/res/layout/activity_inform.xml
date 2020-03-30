@@ -77,6 +77,7 @@
                     android:paddingBottom="20dp"
                     app:itemIconTint="@drawable/selector_bottomnav"
                     app:itemTextColor="#000000"
+                    app:itemBackground="@color/colorWhite"
                     app:labelVisibilityMode="auto"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
