@@ -15,7 +15,12 @@ import android.app.NotificationChannel
 import android.os.Build
 import android.app.Notification
 import android.graphics.Color
-import com.example.commit.R
+import android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.R
+import android.view.View
 
 
 class SplashActivity: AppCompatActivity() {
@@ -24,7 +29,16 @@ class SplashActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView : 액티비티와 연결되는 레이아웃파일을 설정
-        setContentView(R.layout.activity_splash)
+        setContentView(com.example.commit.R.layout.activity_splash)
+
+        val view = window.decorView
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (view != null) {
+                view.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                //window.statusBarColor = Color.parseColor("#f2f2f2")
+            }
+        }
 
         //스마트폰 인터넷 사용 권한 허가
         StrictMode.setThreadPolicy(

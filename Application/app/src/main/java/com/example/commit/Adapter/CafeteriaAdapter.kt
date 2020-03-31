@@ -44,13 +44,17 @@ class CafeteriaAdapter(val context: Context, val homefeed: Homefeed) : RecyclerV
             VolleyService.getReviewsScoreReq(title!!, UserInfo.UNIV, context, { success ->
                 var point:String? = null
                 point = success
+                holder.itemView.text_starpoint.text="★"
                 if(point == "null")
                 {
-                    holder.itemView.text_starpoint.text = "☆0"
+                    holder.itemView.text_point.text = "0"
                 }
                 else
                 {
-                    holder.itemView.text_starpoint.text = "☆" + point
+                    if(point!!.length<3)
+                        holder.itemView.text_point.text=point
+                    else
+                        holder.itemView.text_point.text = point!!.substring(0,3)
                 }
             })
         }

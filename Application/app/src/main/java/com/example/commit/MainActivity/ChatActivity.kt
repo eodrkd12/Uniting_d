@@ -105,7 +105,7 @@ class ChatActivity : AppCompatActivity() {
 
                     root.updateChildren(objectMap)
 
-                    VolleyService.sendFCMReq(roomId!!,title!!,"${UserInfo.NICKNAME} : ${edit_chat.text}",formatted , this)
+                    VolleyService.sendFCMReq(roomId!!,title!!,"${UserInfo.NICKNAME} : ${edit_chat.text}", this)
 
                     edit_chat!!.setText("")
                     list_chat.setSelection(chatAdapter.count-1)
