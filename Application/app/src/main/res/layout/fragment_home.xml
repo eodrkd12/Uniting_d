@@ -2,8 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="613dp">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal">
 
 
     <TextView
@@ -25,10 +26,10 @@
             android:layout_width="0dp"
             android:layout_height="260dp"
             android:background="@drawable/color_view_dating"
-            app:layout_constraintBottom_toTopOf="@+id/guideline12"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
             android:id="@+id/text_open"
@@ -48,10 +49,12 @@
             android:id="@+id/view_open"
             android:layout_width="0dp"
             android:layout_height="260dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginTop="140dp"
             android:background="@drawable/color_view_open"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_dating"
+            app:layout_constraintVertical_bias="0.362" />
 
     <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline12"
