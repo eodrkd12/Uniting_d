@@ -3,67 +3,48 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".MainActivity.ReviewActivity">
 
     <RatingBar
-            android:id="@+id/dialogRb"
-            android:layout_width="240dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center_horizontal"
-            android:numStars="5"
-            android:progressTint="@android:color/holo_orange_light"
-            android:scrollbarSize="4dp"
-            android:stepSize="1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.1" />
-
-    <EditText
-            android:id="@+id/text_content"
-            android:layout_width="260dp"
-            android:layout_height="120dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/light_gray_background"
-            android:ems="10"
-            android:gravity="fill_horizontal"
-            android:hint="텍스트를 입력해주세요."
-            android:inputType="textPersonName"
-            android:paddingStart="8dp"
-            android:paddingTop="8dp"
-            android:textSize="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.438"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dialogRb"
-            app:layout_constraintVertical_bias="0.009" />
-
-    <ImageView
-            android:id="@+id/btn_insertimage1"
-            android:layout_width="43dp"
+            android:id="@+id/rating_review"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/text_content"
-            app:layout_constraintTop_toBottomOf="@+id/text_content"
-            app:srcCompat="@android:drawable/ic_menu_camera" />
+            android:layout_marginTop="20dp"
+            android:progressTint="@android:color/holo_orange_light"
+            android:stepSize="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_insertreview" />
 
     <Button
             android:id="@+id/btn_insertreview"
             android:layout_width="wrap_content"
-            android:layout_height="37dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/borderless"
-            android:text="완료"
-            android:textSize="16dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/standard_btn_rev"
+            android:textColor="#00BFFF"
+            android:textSize="15.5dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="등록"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_insertimage1" />
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+    <EditText
+            android:id="@+id/edit_insertreview"
+            android:hint="텍스트를 입력해주세요"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:paddingLeft="10dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rating_review" />
 </androidx.constraintlayout.widget.ConstraintLayout>

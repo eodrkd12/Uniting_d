@@ -17,6 +17,9 @@
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true"
             tools:replace="android:appComponentFactory">
+        <activity android:name=".MainActivity.MenuActivity"></activity>
+        <activity android:name=".MainActivity.ReviewActivity" />
+
         <provider
                 android:name="androidx.core.content.FileProvider"
                 android:authorities="com.example.commit.Uniting.provider"
@@ -26,23 +29,19 @@
                     android:name="android.support.FILE_PROVIDER_PATHS"
                     android:resource="@xml/filepahts" />
         </provider>
+
         <meta-data
                 android:name="com.naver.maps.map.CLIENT_ID"
                 android:value="4fk2n2jfrm" />
-        <activity android:name=".IntroActivity.Signup3Activity"></activity>
+
+        <activity android:name=".IntroActivity.Signup3Activity" />
         <activity android:name=".IntroActivity.Signup2Activity" />
         <activity
                 android:name=".IntroActivity.Signup1Activity"
                 android:windowSoftInputMode="adjustResize" />
         <activity android:name=".MainActivity.CafeteriaActivity" />
         <activity android:name=".MainActivity.InsertReview" />
-
-
-
         <activity android:name=".MainActivity.ImageTestActivity" />
-
-
-
         <activity android:name=".MainActivity.ReportActivity" />
         <activity
                 android:name=".Popup.ReportPopup"
@@ -82,16 +81,15 @@
         <activity android:name=".IntroActivity.IntroActivity" />
         <activity android:name=".MainActivity.MainActivity" />
 
-
         <service
                 android:name=".Class.MyFirebaseMessagingService"
                 android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <activity android:name=".MainActivity.SettingActivity"/>
 
+        <activity android:name=".MainActivity.SettingActivity" />
     </application>
 
 </manifest>

@@ -1,27 +1,45 @@
 package com.example.commit.MainActivity
 
+import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
+import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Parcelable
+import android.provider.Settings
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.view.ContextThemeWrapper
+import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.commit.Adapter.MenuAdapter
+import com.example.commit.Adapter.MenuPreviewAdapter
+import com.example.commit.Adapter.ReviewAdapter
+import com.example.commit.Adapter.ReviewPreviewAdapter
 import com.example.commit.Class.UserInfo
-import com.example.commit.Fragment.MenuFragment
-import com.example.commit.Fragment.ReviewFragment
-import com.example.commit.Fragment.SummaryFragment
 import com.example.commit.ListItem.Menu
+import com.example.commit.ListItem.ReviewItem
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.Marker
 import kotlinx.android.synthetic.main.activity_inform.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.wrapContent
+import org.json.JSONArray
+import org.json.JSONObject
 import org.jsoup.Jsoup
 
 class InformActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -36,8 +54,7 @@ class InformActivity : AppCompatActivity(), OnMapReadyCallback {
         var name: String? = null
         var id:String? = null
         var roadAddr:String? = null
-        var menu:ArrayList<Menu>? = arrayListOf()
-        var fabreview:FloatingActionButton? = null
+        var menuList = ArrayList<Menu>()
         var options:String? = null
         var bizHourInfo:String? = null
         var tags:String? = null
@@ -87,8 +104,8 @@ class InformActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_inform)
 
-        fabreview = findViewById(R.id.fab_review)
-        fabreview!!.hide()
+        var check:Boolean = true
+        var sync = AsyncTask()
 
         var intent=intent
         name =intent.getStringExtra("name")
@@ -101,52 +118,106 @@ class InformActivity : AppCompatActivity(), OnMapReadyCallback {
         bizHourInfo = intent.getStringExtra("bizHourInfo")
         tags = intent.getStringExtra("tags")
 
+
+        sync.execute("")
+
+
+
         if(bizHourInfo == "" || bizHourInfo == null)
         {
             bizHourInfo = "정보없음"
         }
+
+        if("|" in bizHourInfo!!)
+        {
+            var index:Int =  bizHourInfo!!.indexOf("|")
+            var timeOpenClose:String = bizHourInfo!!.substring(0, index-1)
+            text_bizHourInfo.text = timeOpenClose + " ∨"
+            var timeData:String = bizHourInfo!!.substring(index+2, bizHourInfo!!.length).replace(" | ", "\n")
+            text_bizHourInfo.setOnClickListener{
+                if(check == true)
+                {
+                    text_bizHourInfo.setText(timeOpenClose + " ∧\n" + timeData)
+
+                    check = false
+                }
+                else
+                {
+                    text_bizHourInfo.text = timeOpenClose + " ∨"
+                    check = true
+                }
+            }
+        }
+        else
+        {
+            text_bizHourInfo.text = bizHourInfo
+        }
+
 
         if(options == "" || options == null)
         {
             options = "정보없음"
         }
 
+        text_inform_title.text = name
+        text_roadaddr.text = roadAddr
 
-        doAsync {
-            val url = "https://store.naver.com/restaurants/detail?id=$id"
-            try {
-                val doc = Jsoup.connect(url).get()
-                val menuData = doc.select("ul[class=list_menu]").select("li")
-                //timeData = doc.select("div.biztime > span").text()
-                menu = null
-                menu = arrayListOf()
 
-                menuData.forEachIndexed { index, element ->
-                    val menuName = element.select("li span[class=name]").text()
-                    val menuPrice = element.select("li em[class=price]").text()
-                    menu?.add(Menu(menuName, menuPrice))
+
+
+        var reviewArray: JSONArray? = null
+        var reviewList: ArrayList<ReviewItem> = arrayListOf()
+
+        VolleyService.getReviewReq(name!!, UserInfo.UNIV, this, { success ->
+            reviewList.clear()
+            reviewArray = success
+
+            if (reviewArray!!.length() == 0) {
+                text_noreview.visibility = View.VISIBLE
+                rating_inform.visibility = View.VISIBLE
+            } else {
+                for (i in 0..reviewArray!!.length() - 1) {
+                    var json = JSONObject()
+                    json = reviewArray!![i] as JSONObject
+
+                    var nickname = json.getString("user_nickname")
+                    var date = json.getString("date")
+                    var point = json.getInt("point")
+                    var content = json.getString("content")
+
+                    var starpoint:String? = null
+
+                    if(point==1)
+                    {
+                        starpoint = "★☆☆☆☆"
+                    }
+                    else if(point==2)
+                    {
+                        starpoint = "★★☆☆☆"
+                    }
+                    else if(point==3)
+                    {
+                        starpoint = "★★★☆☆"
+                    }
+                    else if(point==4)
+                    {
+                        starpoint = "★★★★☆"
+                    }
+                    else if(point==5)
+                    {
+                        starpoint = "★★★★★"
+                    }
+
+                    reviewList.add(ReviewItem(nickname, date, starpoint, content))
                 }
 
-            } catch (e: Exception) {
-                e.printStackTrace()
+
+                reviewRV.setHasFixedSize(true)
+                reviewRV.layoutManager = LinearLayoutManager(this)
+                reviewRV.adapter = ReviewPreviewAdapter(reviewList)
+
             }
-
-            if (savedInstanceState == null) {
-                val fragment = SummaryFragment(roadAddr as String, bizHourInfo!!, options!!, tags!!)
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.frame_inform, fragment, fragment.javaClass.simpleName).commit()
-                fabreview!!.hide()
-            }
-        }
-
-
-
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bnv_inform)
-        bottomNavigationView.setOnNavigationItemSelectedListener(navListener)
-
-
-        //Toast.makeText(this, menu.size.toString(), Toast.LENGTH_LONG).show();
-
+        })
 
         val fm = supportFragmentManager
         val mapFragment = fm.findFragmentById(R.id.map) as MapFragment?
@@ -155,7 +226,6 @@ class InformActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         mapFragment.getMapAsync(this)
 
-        text_inform_title.text = name
 
         btn_phone.setOnClickListener {
             val builder = AlertDialog.Builder(ContextThemeWrapper(this@InformActivity, R.style.Theme_AppCompat_Light_Dialog))
@@ -178,25 +248,41 @@ class InformActivity : AppCompatActivity(), OnMapReadyCallback {
             builder.show()
         }
 
-        fabreview!!.setOnClickListener{
-            val builder = AlertDialog.Builder(this)
-            val dialogView = layoutInflater.inflate(R.layout.dialog_insertreview, null)
-            val dialogContent = dialogView.findViewById<EditText>(R.id.text_content)
-            val dialogRatingBar = dialogView.findViewById<RatingBar>(R.id.dialogRb)
-            val dialogInsertButton = dialogView.findViewById<Button>(R.id.btn_insertreview)
+        rating_inform.setOnRatingBarChangeListener{ ratingBar, fl, b ->
+            if(rating_inform.rating != 0.0f) {
+                val dialog: Dialog = Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar)
+                val dialogView = layoutInflater.inflate(R.layout.dialog_insertreview, null)
+                val dialogContent = dialogView.findViewById<EditText>(R.id.edit_insertreview)
+                val dialogRatingBar = dialogView.findViewById<RatingBar>(R.id.rating_review)
+                val dialogButton = dialogView.findViewById<Button>(R.id.btn_insertreview)
 
-            val alertDialog: AlertDialog = builder.setView(dialogView).create()
+                dialogRatingBar.setRating(ratingBar.rating)
 
-            alertDialog.show()
+                dialog.getWindow().getAttributes().windowAnimations = R.style.AnimationPopupStyle
+                dialog.addContentView(dialogView, ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT))
+                dialog.show()
+                rating_inform.setRating(0.0f)
+                //rating_inform.setRating(num.toFloat())
 
-            dialogInsertButton.setOnClickListener {
-                VolleyService.insertReviewReq(UserInfo.NICKNAME, name!!, UserInfo.UNIV, dialogRatingBar.rating.toInt(), dialogContent.text.toString(), this,{ success ->
-                })
-                alertDialog.dismiss()
-                val fragment = ReviewFragment(name as String)
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.frame_inform, fragment, fragment.javaClass.simpleName).commit()
+                dialogButton.setOnClickListener{
+                    VolleyService.insertReviewReq(UserInfo.NICKNAME, name!!, UserInfo.UNIV, dialogRatingBar.rating.toInt(), dialogContent.text.toString(), this,{ success ->
+                    })
+                    dialog.dismiss()
+                }
             }
+        }
+
+        text_viewmenu.setOnClickListener{
+            var intent = Intent(this, MenuActivity::class.java)
+            //intent.putParcelableArrayListExtra("menu", menu)
+            intent.putExtra("menuList", menuList)
+            startActivity(intent)
+        }
+
+        text_viewreview.setOnClickListener{
+            var intent = Intent(this, ReviewActivity::class.java)
+            intent.putExtra("reviewList", reviewList)
+            startActivity(intent)
         }
     }
 
@@ -211,31 +297,42 @@ class InformActivity : AppCompatActivity(), OnMapReadyCallback {
         marker.map = naverMap
     }
 
-    private val navListener = BottomNavigationView.OnNavigationItemSelectedListener {
-        when (it.itemId) {
-            R.id.summary -> {
-                val fragment = SummaryFragment(roadAddr  as String, bizHourInfo!!, options!!, tags!!)
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.frame_inform, fragment, fragment.javaClass.simpleName).commit()
-                fabreview!!.hide()
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.menu -> {
-                    val fragment = MenuFragment(menu!!)
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.frame_inform, fragment, fragment.javaClass.simpleName).commit()
-                fabreview!!.hide()
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.review -> {
-                val fragment = ReviewFragment(name as String)
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.frame_inform, fragment, fragment.javaClass.simpleName).commit()
-                fabreview!!.show()
-                return@OnNavigationItemSelectedListener true
-            }
-
+    inner class AsyncTask: android.os.AsyncTask<String, Long, ArrayList<Menu>>() {
+        override fun onPreExecute() {
+            super.onPreExecute()
         }
-        false
+
+        override fun doInBackground(vararg p0: String?): ArrayList<Menu> {
+            val url = "https://store.naver.com/restaurants/detail?id=$id"
+            try {
+                val doc = Jsoup.connect(url).get()
+                val menuData = doc.select("ul[class=list_menu]").select("li")
+                //timeData = doc.select("div.biztime > span").text()
+                menuList.clear()
+                menuData.forEachIndexed { index, element ->
+                    val menuName = element.select("li span[class=name]").text()
+                    val menuPrice = element.select("li em[class=price]").text()
+                    menuList?.add(Menu(menuName, menuPrice))
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            return menuList!!
+        }
+
+        override fun onProgressUpdate(vararg values: Long?) {
+            super.onProgressUpdate(*values)
+        }
+
+        override fun onPostExecute(result: ArrayList<Menu>?) {
+            super.onPostExecute(result)
+
+            menuRV.adapter = MenuPreviewAdapter(result!!)
+            menuRV.setHasFixedSize(true)
+            menuRV.layoutManager = LinearLayoutManager(this@InformActivity, RecyclerView.VERTICAL, false)
+        }
+
+
     }
+
 }
