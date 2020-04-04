@@ -12,10 +12,12 @@ import android.widget.Switch
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.commit.Adapter.MypageAdapter
+import com.example.commit.Class.UserInfo
 import com.example.commit.IntroActivity.LoginActivity
 import com.example.commit.MainActivity.DatingActivity
 import com.example.commit.MainActivity.SettingActivity
 import com.example.commit.R
+import com.example.commit.Singleton.VolleyService
 import kotlinx.android.synthetic.main.activity_signup2.view.*
 
 class mypage_list (var memu :String)
@@ -31,7 +33,6 @@ class OptionFragment():Fragment() {
         var view=inflater.inflate(R.layout.fragment_mypage,container,false)
 
         var textOption1=view.findViewById<TextView>(R.id.text_option1)
-        var textOption2=view.findViewById<TextView>(R.id.text_option2)
         var textOption3=view.findViewById<TextView>(R.id.text_option3)
         var textOption4=view.findViewById<TextView>(R.id.text_option4)
         var textOption5=view.findViewById<TextView>(R.id.text_option5)
@@ -45,7 +46,18 @@ class OptionFragment():Fragment() {
         var click=""
 
         switch.setOnCheckedChangeListener { buttonView, isChecked ->
-            
+            if (isChecked == true) {
+                VolleyService.datingonoff(UserInfo.NICKNAME, "Y", activity!!.applicationContext,
+                    { success ->
+
+                    })
+            }else{
+                VolleyService.datingonoff(UserInfo.NICKNAME, "N", activity!!.applicationContext,
+                    { success ->
+
+                    })
+
+            }
         }
 
         textOption1.setOnClickListener{
@@ -55,13 +67,7 @@ class OptionFragment():Fragment() {
             startActivity(intent)
 
         }
-        textOption2.setOnClickListener{
-            click  = textOption2.text.toString()
-            var intent = Intent(activity,SettingActivity::class.java)
-            intent.putExtra("tag",click)
-            startActivity(intent)
 
-        }
         textOption3.setOnClickListener{
             click  = textOption3.text.toString()
             var intent = Intent(activity,SettingActivity::class.java)

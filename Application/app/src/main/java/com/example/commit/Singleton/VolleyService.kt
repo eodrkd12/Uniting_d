@@ -953,6 +953,27 @@ fun getSearchReq(universityName: String,  context: Context, success:(JSONArray?)
 
         Volley.newRequestQueue(context).add(request)
     }
+
+    fun datingonoff(id: String, yn:String, context: Context,  success: (JSONArray?) -> Unit){
+        // var url = "${id}/user"
+
+        var jsonObject = JSONObject()
+        jsonObject.put("id", id)
+        jsonObject.put("yncheck",yn)
+
+      /*   var request = object : JsonObjectRequest(
+              Method.POST,
+             url,
+              jsonObject,
+              Response.Listener {
+
+              },
+              Response.ErrorListener {
+
+              }) {
+          }
+          Volley.newRequestQueue(context).add(request)*/
+    }
 }
 
 fun delectuser(id: String, context: Context, success: (String?) -> Unit){
@@ -974,3 +995,4 @@ fun delectuser(id: String, context: Context, success: (String?) -> Unit){
     }
     Volley.newRequestQueue(context).add(request)
 }
+
