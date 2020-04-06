@@ -60,9 +60,9 @@ module.exports=function(){
 		    })
 	    }
 	    ,
-	insert_join_room: function(room_id,user_nickname,time,callback){
+	insert_join_room: function(room_id,user_nickname,time,isDating,callback){
 		pool.getConnection(function(err,con){
-			var sql=`insert into join_room value('${room_id}','${user_nickname}','${time}')`
+			var sql=`insert into join_room value('${room_id}','${user_nickname}','${time}','${isDating}')`
 			con.query(sql,function(err,result,field){
 				con.release()
 				if(err) callback(err)
@@ -219,6 +219,26 @@ module.exports=function(){
 		    })
 	    }
 	    ,
+	    get_partner:function(nickname,callback){
+		    pool.getConnection(function(err,con){
+			    var sql=`select B.* from join_room A, join_room B where A.room_id=B.room_id and A.user_nickname<>B.user_nickname and A.user_nickname='${nickname}' and A.is_dating='true' and B.is_dating='true'`
+			    con.query(sql,function(err,result,field){
+				    con.release()
+				    if(err) callback(err)
+				    else callback(null,result)
+			    })
+		    })
+	    },
+	    get_room_info:function(roomId,callback){
+		    pool.getConnection(function(err,con){
+			    var sql=`select * from chat_room where room_id='${roomId}'`
+			    con.query(sql,function(err,result,field){
+				    con.release()
+				    if(err) callback(err)
+				    else callback(null,result)
+			    })
+		    })
+	    },
         pool:pool
     }
 }
