@@ -2,10 +2,15 @@ package com.example.commit.MainActivity
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Base64
 import com.example.commit.IntroActivity.LoginActivity
 import com.example.commit.R
+import com.example.commit.Class.UserInfo
+import com.example.commit.Singleton.VolleyService
 import kotlinx.android.synthetic.main.activity_dating_on_off.*
 import kotlinx.android.synthetic.main.activity_profile.*
 
@@ -20,10 +25,21 @@ class SettingActivity : AppCompatActivity() {
         when(tag){
             "프로필 보기" ->{
                 setContentView(R.layout.activity_profile)
-            }
-            "데이팅"->{
-                setContentView(R.layout.activity_dating_on_off)
 
+                var gender=""
+                if(UserInfo.GENDER=="M"){
+                    gender="남자"
+                } else gender="여자"
+                text_id.text=UserInfo.NICKNAME
+                text_name.text=UserInfo.NAME+" / "+UserInfo.ID+" / "+gender
+                text_university.text=UserInfo.UNIV
+
+                VolleyService.getImageReq(UserInfo.NICKNAME,this, { success ->
+                    val imageBytes = Base64.decode(success, 0)
+                    val image = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+
+                    image_profile.setImageBitmap(image)
+                })
             }
             "알림 설정"->{
                 setContentView(R.layout.activity_alam_setting)
