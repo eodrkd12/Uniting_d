@@ -34,12 +34,12 @@ class SettingActivity : AppCompatActivity() {
                 text_name.text=UserInfo.NAME+" / "+UserInfo.ID+" / "+gender
                 text_university.text=UserInfo.UNIV
 
-              /*  VolleyService.getImageReq(UserInfo.NICKNAME,this, { success ->
+                VolleyService.getImageReq(UserInfo.NICKNAME,this, { success ->
                     val imageBytes = Base64.decode(success, 0)
                     val image = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
 
                     image_profile.setImageBitmap(image)
-                })*/
+                })
             }
             "알림 설정"->{
                 setContentView(R.layout.activity_alam_setting)

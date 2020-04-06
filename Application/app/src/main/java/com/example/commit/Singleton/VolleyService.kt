@@ -843,15 +843,18 @@ fun getSearchReq(universityName: String,  context: Context, success:(JSONArray?)
         var url="http://52.78.27.41:1901/user/getImage"
 
         var json= JSONObject()
+        json.put("nickname", nickname)
+        var array=JSONArray()
+        array.put(json)
 
-        json.put("id", nickname)
 
-        var request=object : JsonObjectRequest(Method.POST,
+        var request=object : JsonArrayRequest(Method.POST,
             url,
-            json,
+            array,
             Response.Listener {
-                var stringImage=it.getString("user_image")
-                success(stringImage)
+                /*var data=it.get(0) as JSONObject
+                var stringImage=data.getString("user_image")
+                success(stringImage)*/
             },
             Response.ErrorListener {
 
