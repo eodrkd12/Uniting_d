@@ -839,7 +839,7 @@ fun getSearchReq(universityName: String,  context: Context, success:(JSONArray?)
         Volley.newRequestQueue(context).add(request)
     }
 
-    fun getImageReq(nickname: String, context: Context, success: (String?) -> Unit){
+    fun getImageReq(nickname: String, context: Context, success: (JSONObject?) -> Unit){
         var url="http://52.78.27.41:1901/user/getImage"
 
         var json= JSONObject()
@@ -852,9 +852,7 @@ fun getSearchReq(universityName: String,  context: Context, success:(JSONArray?)
             url,
             array,
             Response.Listener {
-                /*var data=it.get(0) as JSONObject
-                var stringImage=data.getString("user_image")
-                success(stringImage)*/
+                success(it[0] as JSONObject)
             },
             Response.ErrorListener {
 
