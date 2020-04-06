@@ -15,6 +15,8 @@ class UserInfo :Application() {
         var UNIV : String=""
         var ENTER : String=""
         var DEPT : String=""
+        var HOBBY : String=""
+        var PERSONALITY : String=""
         var IMG : String=""
         var FCM_TOKEN : String=""
         /*var GOOGLE_ID_TOKEN : String=""

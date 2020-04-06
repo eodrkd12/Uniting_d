@@ -7,7 +7,6 @@ import android.widget.Toast
 import com.android.volley.Response
 import com.android.volley.toolbox.*
 import com.example.commit.MainActivity.MakeRoomActivity
-import com.example.commit.MainActivity.OpenChatListActivity
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -893,17 +892,15 @@ object VolleyService {
 
         var json = JSONObject()
         json.put("nickname", nickname)
-        var array = JSONArray()
-        array.put(json)
 
 
-        var request = object : JsonArrayRequest(Method.POST,
+        var request = object : JsonObjectRequest(Method.POST,
             url,
-            array,
+            json,
             Response.Listener {
-                /*var data=it.get(0) as JSONObject
-                var stringImage=data.getString("user_image")
-                success(stringImage)*/
+                var data = it
+                var stringImage = data.getString("user_image")
+                success(stringImage)
             },
             Response.ErrorListener {
 
@@ -1087,25 +1084,34 @@ object VolleyService {
     }
 
     //데이팅 onoff
-    fun datingOnOff(id: String, yn: String, context: Context, success: (JSONArray?) -> Unit) {
-        // var url = "${id}/user"
+    fun datingOnOff(id:String,nickname: String,universityName: String,departmentName: String,birthday: String,gender: String,hobby:String,personality:String, yn: Boolean, context: Context, success: (String?) -> Unit) {
+        var url = "${ip}/user/dating_on_off"
 
         var jsonObject = JSONObject()
         jsonObject.put("id", id)
-        jsonObject.put("yncheck", yn)
+        jsonObject.put("nickname", nickname)
+        jsonObject.put("univ_name", universityName)
+        jsonObject.put("dept_name", departmentName)
+        jsonObject.put("birthday", birthday)
+        jsonObject.put("gender", gender)
+        jsonObject.put("hobby",hobby)
+        jsonObject.put("personality",personality)
+        if(yn==true) jsonObject.put("yn", "Y")
+        else jsonObject.put("yn","N")
 
-        /*   var request = object : JsonObjectRequest(
-          Method.POST,
-         url,
-          jsonObject,
-          Response.Listener {
+        var request = object : JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonObject,
+            Response.Listener {
+                Log.d("uniting","${it.toString()}")
+                success(it.getString("result"))
+            },
+            Response.ErrorListener {
 
-          },
-          Response.ErrorListener {
-
-          }) {
-      }
-      Volley.newRequestQueue(context).add(request)*/
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
     }
 
     fun getRoomInfoReq(roomId: String, context: Context, success: (JSONObject?) -> Unit) {
