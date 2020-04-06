@@ -89,7 +89,8 @@ class LoginActivity : AppCompatActivity() {
                         UserInfo.ENTER=user.getString("enter_year")
                         UserInfo.DEPT=user.getString("dept_name")
                         UserInfo.IMG=user.getString("user_image")
-
+                        UserInfo.HOBBY=user.getString("user_hobby")
+                        UserInfo.PERSONALITY=user.getString("user_personality")
                         //var token=FirebaseInstanceId.getInstance().token
                         UserInfo.FCM_TOKEN=user.getString("token")
 
@@ -121,6 +122,8 @@ class LoginActivity : AppCompatActivity() {
                             .putString("UNIV",UserInfo.UNIV)
                             .putString("ENTER",UserInfo.ENTER)
                             .putString("DEPT",UserInfo.DEPT)
+                            .putString("HOBBY",UserInfo.HOBBY)
+                            .putString("PERSONALITY",UserInfo.PERSONALITY)
                             .putString("ING",UserInfo.IMG)
                             .putString("FCM_TOKEN",UserInfo.FCM_TOKEN)
                             /*.putString("GOOGLE_ID_TOKEN",UserInfo.GOOGLE_ID_TOKEN)
