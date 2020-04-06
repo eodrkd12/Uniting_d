@@ -8,18 +8,18 @@ import com.example.commit.ListItem.ReviewItem
 import com.example.commit.R
 import kotlinx.android.synthetic.main.item_review.view.*
 
-class ReviewAdapter(val reviewList: ArrayList<ReviewItem>): RecyclerView.Adapter<ReviewAdapter.ViewHolder>() {
+class ReviewPreviewAdapter(val reviewList: ArrayList<ReviewItem>, val count: Int): RecyclerView.Adapter<ReviewPreviewAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
-        return reviewList.size
+        return count
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewPreviewAdapter.ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_review, parent, false)
         return ViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: ReviewAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ReviewPreviewAdapter.ViewHolder, position: Int) {
         holder.itemView.text_reviewnickname.text = reviewList.get(position).nickname
         holder.itemView.text_reviewpoint.text = reviewList.get(position).starpoint
         holder.itemView.text_reviewcontent.text = reviewList.get(position).content

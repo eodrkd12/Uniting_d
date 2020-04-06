@@ -23,24 +23,24 @@
 
     <EditText
             android:id="@+id/text_room_name"
-            android:layout_width="289dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="64dp"
+            android:layout_width="220dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="72dp"
             android:layout_weight="1"
             android:ems="10"
             android:hint="@string/hint_roomname"
             android:inputType="textPersonName"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.458"
+            app:layout_constraintHorizontal_bias="0.722"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
             android:id="@+id/text_max"
-            android:layout_width="289dp"
-            android:layout_height="44dp"
-            android:layout_marginTop="40dp"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="48dp"
             android:layout_marginEnd="44dp"
             android:layout_weight="1"
             android:ems="10"
@@ -49,7 +49,7 @@
 
             android:text="인원"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.717"
+            app:layout_constraintHorizontal_bias="0.89"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_room_name" />
 
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="취미"
-                android:theme="@style/CustomRadioButton"/>
+                android:theme="@style/CustomRadioButton" />
 
         <RadioButton
                 android:id="@+id/r_btn_category2"
@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="스터디"
-                android:theme="@style/CustomRadioButton"/>
+                android:theme="@style/CustomRadioButton" />
 
         <RadioButton
                 android:id="@+id/r_btn_category3"
@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="취/창업"
-                android:theme="@style/CustomRadioButton"/>
+                android:theme="@style/CustomRadioButton" />
 
         <RadioButton
                 android:id="@+id/r_btn_category4"
@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="고민"
-                android:theme="@style/CustomRadioButton"/>
+                android:theme="@style/CustomRadioButton" />
 
         <RadioButton
                 android:id="@+id/r_btn_category5"
@@ -121,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="아무말"
-                android:theme="@style/CustomRadioButton"/>
+                android:theme="@style/CustomRadioButton" />
 
         <TextView
                 android:id="@+id/text_lable"
@@ -140,13 +140,21 @@
             android:id="@+id/text_info2"
             android:layout_width="63dp"
             android:layout_height="30dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="14dp"
-            android:text="인원 "
-            android:textSize="10pt"
-            app:layout_constraintBottom_toTopOf="@+id/text_max"
+            android:layout_marginTop="48dp"
+            android:text="인원"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toStartOf="@+id/text_max"
+            app:layout_constraintHorizontal_bias="0.267"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_room_name"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/text_room_name" />
+
+    <TextView
+            android:id="@+id/text_info"
+            android:layout_width="93dp"
+            android:layout_height="30dp"
+            android:text="채팅방명:"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toStartOf="@+id/text_room_name"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="85dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

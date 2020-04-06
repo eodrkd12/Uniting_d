@@ -197,9 +197,13 @@ class CafeteriaFragment() : Fragment() {
 
 
 
+
         CafeVerticalRV.setHasFixedSize(true)
         CafeVerticalRV.layoutManager = LinearLayoutManager(activity)
-        CafeVerticalRV.adapter = CafeVerticalAdapter(activity!!, cafetype)
+        var adapter = CafeVerticalAdapter(activity!!, cafetype)
+        adapter.notifyDataSetChanged()
+        CafeVerticalRV.adapter = adapter
+
 
         return rootView
     }

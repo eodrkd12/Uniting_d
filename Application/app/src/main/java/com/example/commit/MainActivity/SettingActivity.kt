@@ -21,7 +21,7 @@ class SettingActivity : AppCompatActivity() {
             "프로필 보기" ->{
                 setContentView(R.layout.activity_profile)
             }
-            "데이팅 on/off"->{
+            "데이팅"->{
                 setContentView(R.layout.activity_dating_on_off)
 
             }

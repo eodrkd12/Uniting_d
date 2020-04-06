@@ -1,5 +1,8 @@
 package com.example.commit.ListItem
 
+import java.io.Serializable
+
+
 data class Homefeed(val items: ArrayList<Item>)
 data class Item (
     val name:String?,
@@ -20,7 +23,7 @@ data class Type(
     val title:String?
 )
 
-data class Menu(
+data class Menu (
     val name:String?,
     val price:String?
-)
+) : Serializable
