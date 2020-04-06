@@ -3,61 +3,147 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="613dp">
+        android:layout_height="match_parent">
 
-
-    <TextView
-            android:id="@+id/text_dating"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="60dp"
-            android:clickable="false"
-            android:text="Dating"
-            android:textColor="#FFFFFFFF"
-            android:textSize="30dp"
-            android:textStyle="bold|italic"
-            app:layout_constraintStart_toStartOf="@+id/view_dating"
-            app:layout_constraintTop_toTopOf="@+id/view_dating" />
-
-    <View
-            android:id="@+id/view_dating"
+    <Button
+            android:id="@+id/btn_dating"
             android:layout_width="0dp"
-            android:layout_height="260dp"
-            android:background="@drawable/color_view_dating"
-            app:layout_constraintBottom_toTopOf="@+id/guideline12"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
-
-    <TextView
-            android:id="@+id/text_open"
-            android:layout_width="160dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
             android:layout_marginTop="60dp"
-            android:clickable="false"
-            android:text="Open Chat"
-            android:textColor="#FFFFFFFF"
-            android:textSize="30dp"
-            android:textStyle="bold|italic"
+            android:background="@drawable/home_button2"
+            android:text="새로운 만남"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="@+id/cardView"
+            app:layout_constraintStart_toStartOf="@+id/cardView"
+            app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+    <Button
+            android:id="@+id/btn_open"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/home_button1"
+            android:text="새로운 모임"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="@+id/btn_dating"
+            app:layout_constraintStart_toStartOf="@+id/btn_dating"
+            app:layout_constraintTop_toBottomOf="@+id/btn_dating" />
+
+    <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/view_open" />
+            app:layout_constraintTop_toBottomOf="@+id/text_partner_state">
 
-    <View
-            android:id="@+id/view_open"
-            android:layout_width="0dp"
-            android:layout_height="260dp"
-            android:layout_marginBottom="24dp"
-            android:background="@drawable/color_view_open"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+                android:id="@+id/text_partner_null"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="설정에서 만남 기능을 On으로 바꿔주세요"
+                android:textColor="#000000"
+                android:textSize="20dp"
+                android:visibility="gone" />
 
-    <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline12"
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_profile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="157dp" />
+
+            <TextView
+                    android:id="@+id/text_nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="TextView"
+                    android:textColor="#000000"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toTopOf="@+id/img_profile" />
+
+            <TextView
+                    android:id="@+id/text_age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="TextView"
+                    android:textColor="#000000"
+                    app:layout_constraintStart_toStartOf="@+id/text_nickname"
+                    app:layout_constraintTop_toBottomOf="@+id/text_nickname" />
+
+            <TextView
+                    android:id="@+id/text_department"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="TextView"
+                    android:textColor="#000000"
+                    app:layout_constraintStart_toStartOf="@+id/text_nickname"
+                    app:layout_constraintTop_toBottomOf="@+id/text_age" />
+
+            <TextView
+                    android:id="@+id/text_hobby"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="TextView"
+                    android:textColor="#000000"
+                    app:layout_constraintStart_toStartOf="@+id/text_nickname"
+                    app:layout_constraintTop_toBottomOf="@+id/text_department" />
+
+            <TextView
+                    android:id="@+id/text_personality"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="TextView"
+                    android:textColor="#000000"
+                    app:layout_constraintStart_toStartOf="@+id/text_nickname"
+                    app:layout_constraintTop_toBottomOf="@+id/text_hobby" />
+
+            <ImageView
+                    android:id="@+id/img_profile"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="32dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:srcCompat="@android:drawable/ic_menu_help" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+            android:id="@+id/text_partner_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_end="264dp" />
-
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="100dp"
+            android:text="TextView"
+            android:textColor="#000000"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="@+id/cardView"
+            app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

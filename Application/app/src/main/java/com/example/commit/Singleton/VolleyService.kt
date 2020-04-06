@@ -953,24 +953,69 @@ fun getSearchReq(universityName: String,  context: Context, success:(JSONArray?)
 
         Volley.newRequestQueue(context).add(request)
     }
-}
 
-fun delectuser(id: String, context: Context, success: (String?) -> Unit){
-    var url = "${id}/user/"
+    fun delectuser(id: String, context: Context, success: (String?) -> Unit){
+        var url = "${id}/user/"
 
-    var jsonObject = JSONObject()
-    jsonObject.put("id", id)
+        var jsonObject = JSONObject()
+        jsonObject.put("id", id)
 
-    var request = object : JsonObjectRequest(
-        Method.POST,
-        url,
-        jsonObject,
-        Response.Listener {
+        var request = object : JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonObject,
+            Response.Listener {
 
-        },
-        Response.ErrorListener {
+            },
+            Response.ErrorListener {
 
-        }) {
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
     }
-    Volley.newRequestQueue(context).add(request)
+
+    fun getJoinDating(nickname:String, context: Context, success:(JSONObject?)->Unit){
+        var url= "${ip}/user/dating/joined"
+
+        var jsonObject=JSONObject()
+        jsonObject.put("nickname",nickname)
+
+
+        var request=object :JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonObject,
+            Response.Listener{
+                success(it)
+            },
+            Response.ErrorListener {
+            }){
+
+        }
+
+        Volley.newRequestQueue(context).add(request)
+    }
+    fun getMyPartner(nickname:String, context: Context, success:(String?)->Unit){
+        var url= "${ip}/user/dating/joined"
+
+        var jsonObject=JSONObject()
+        jsonObject.put("nickname",nickname)
+
+
+        var request=object :JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonObject,
+            Response.Listener{
+                if(it==null) success("null")
+                else success("true")
+            },
+            Response.ErrorListener {
+            }){
+
+        }
+
+        Volley.newRequestQueue(context).add(request)
+    }
 }
+

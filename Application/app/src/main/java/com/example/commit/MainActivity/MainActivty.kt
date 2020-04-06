@@ -59,11 +59,21 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bnv_main)
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener)
 
-        if (savedInstanceState == null) {
-            val fragment = HomeFragment()
+        var intent=intent
+        if(intent.getStringExtra("from")=="chat"){
+            val fragment = ChatFragment()
             supportFragmentManager.beginTransaction()
                 .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
         }
+        else {
+            if (savedInstanceState == null) {
+                val fragment = HomeFragment()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
+            }
+        }
+
+
     }
 
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener {
