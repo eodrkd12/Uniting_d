@@ -90,8 +90,8 @@ class LoginActivity : AppCompatActivity() {
                         UserInfo.DEPT=user.getString("dept_name")
                         UserInfo.IMG=user.getString("user_image")
 
-                        var token=FirebaseInstanceId.getInstance().token
-                        UserInfo.FCM_TOKEN=token!!
+                        //var token=FirebaseInstanceId.getInstance().token
+                        UserInfo.FCM_TOKEN=user.getString("token")
 
                         /*val accountName = getAccount(this)
                         UserInfo.GOOGLE_ACCOUNT=accountName

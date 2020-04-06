@@ -135,6 +135,12 @@ class ChatActivity : AppCompatActivity() {
 
     }
 
+    override fun onBackPressed() {
+        var intent=Intent(this,MainActivity::class.java)
+        intent.putExtra("from","chat")
+        startActivity(intent)
+    }
+
     fun chatConversation(dataSnapshot: DataSnapshot){
         var i=dataSnapshot.children.iterator()
 

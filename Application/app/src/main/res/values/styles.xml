@@ -14,4 +14,9 @@
         <item name="colorControlNormal">@color/radio_click</item>
     </style>
 
+    <style name="AnimationPopupStyle">
+        <item name="android:windowEnterAnimation">@anim/anim_slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/anim_notwork</item>
+    </style>
+
 </resources>
