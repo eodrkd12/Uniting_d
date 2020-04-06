@@ -21,8 +21,18 @@ module.exports = function () {
 				    else callback(null,result);
 			    })
 		    })
-	    }    
-	    ,
+	    },
+	    get_dating_joined: function(nickname,callback){
+		    pool.getConnection(function(err,con){
+			    var sql=`select * from dating_on where user_nickname='${nickname}'`
+
+			    con.query(sql,function(err,result,fields){
+				    con.release()
+				    if(err) callback(err,result)
+				    else callback(null,result)
+			    })
+		    })
+	    },
         join: function(id,pw,name,birthday,gender,nickname,webMail,universityName,enterYear,departmentName,profileImage){
             pool.getConnection(function(err,con){
                 var sql=`insert into user values('${id}','${pw}','${name}',${birthday},'${gender}','${nickname}','${webMail}','${universityName}',${enterYear},'${departmentName}','${profileImage}')`
@@ -88,9 +98,8 @@ module.exports = function () {
                 })
             })
         },
-
-
-        login: function(id,callback){
+	   
+	    login: function(id,callback){
             pool.getConnection(function(err,con){
                 var sql=`select * from user where user_id='${id}'`
                 
@@ -111,6 +120,26 @@ module.exports = function () {
 			})
 		})
 	},
+	    get_token:function(nickname,callback){
+		    pool.getConnection(function(err,con){
+			    var sql=`select token from user where user_nickname='${nickname}'`
+			    con.query(sql,function(err,result,fields){
+				    con.release()
+				    if(err) console.log(err)
+				    else callback(null,result)
+			    })
+		    })
+	    },
+	    get_profile:function(nickname,callback){
+		    pool.getConnection(function(err,con){
+			    var sql=`select * from user where user_nickname='${nickname}'`
+			    con.query(sql,function(err,result,fields){
+				    con.release()
+				    if(err) console.log(err)
+				    else callback(null,result)
+			    })
+		    })
+	    },
         pool: pool
     }
 };

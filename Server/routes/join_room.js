@@ -6,10 +6,17 @@ moment.tz.setDefault("Asia/Seoul");
 var router=express.Router();
 
 var db_join_room=require('../public/SQL/join_room_sql')();
-
+var db_user=require('../public/SQL/user_sql')();
 var request=require('request')
 
 var admin=require('firebase-admin')
+var serviceAccount=require("../../realtimechatting-70acf-firebase-adminsdk-34z0s-ed88f96e29.json")
+
+admin.initializeApp({
+                credential: admin.credential.cert(serviceAccount),
+                databaseURL: 'https://realtimechatting-70acf.firebaseio.com'
+        })
+
 
 router.get('/date',function(req,res,next){
     db_join_room.get_join_room_date(function(err,result){
@@ -46,17 +53,32 @@ router.post('/',function(req,res,next){//채팅방 생성
 	var maker=req.body.maker
 	var user=req.body.user
 	var universityName=req.body.univ_name
-        var time=moment().format('YYYY-MM-DD HH:mm:ss')
+        var time=moment().format('YYYY-MM-DD_HH-mm-ss')
         var room_id=`${universityName}-${maker}-${time}`
 	var room_title=`${maker}&${user}`
-	
-    db_join_room.create_dating_room(room_id,room_title,cate_name,maker,universityName,function(err,result){
+
+
+	db_user.get_token(user,function(err,result){
+		if(err) console.log(err)
+		else{
+			var registrationTokens=[result[0].token]
+
+			admin.messaging().subscribeToTopic(registrationTokens, room_id).then(function(response){
+				console.log('success subscribeToTopic : ', response)
+			}).catch(function(error){
+				console.log('error subscribeToTopic : ',error)
+			})
+		}
+	})
+
+
+    	db_join_room.create_dating_room(room_id,room_title,cate_name,maker,universityName,function(err,result){
 	    if(err) console.log(err)
 	    else{
-		    db_join_room.insert_join_room(room_id,maker,time,function(err,result){
+		    db_join_room.insert_join_room(room_id,maker,time,'true',function(err,result){
 			    if(err) console.log(err)
 			    else{
-				    db_join_room.insert_join_room(room_id,user,time,function(err,result){
+				    db_join_room.insert_join_room(room_id,user,time,'true',function(err,result){
 					    if(err) console.log(err)
 					    else{
 						    db_join_room.joined_true(maker,function(err,result){
@@ -84,7 +106,7 @@ router.post('/open_chat',function(req,res,next){
 	var category=req.body.category
 	var maker=req.body.maker
 	var universityName=req.body.univ_name
-	var time=moment().format('YYYY-MM-DD HH:mm:ss')
+	var time=moment().format('YYYY-MM-DD_HH-mm-ss')
 	var roomId=`${universityName}-${maker}-${time}`
 	var roomTitle=req.body.room_title
 	var maxNum=req.body.max_num
@@ -93,12 +115,33 @@ router.post('/open_chat',function(req,res,next){
 	db_join_room.create_open_room(roomId,roomTitle,category,maker,universityName,introduce,maxNum,function(err,result){
 		if(err) console.log(err)
 		else{
-			db_join_room.insert_join_room(roomId,maker,time,function(err,result){
+			db_join_room.insert_join_room(roomId,maker,time,'false',function(err,result){
 				if(err) console.log(err)
 				else{
 					var object=new Object()
 		                        object.room_id=roomId
 		                        res.send(object)
+				}
+			})
+		}
+	})
+})
+
+router.post('/get_partner',function(req,res,next){
+	var nickname=req.body.nickname
+
+	db_join_room.get_partner(nickname,function(err,result){
+		if(err) console.log(err)
+		else{
+			console.log(result)
+			var partner=result[0].user_nickname
+			var object=new Object()
+			object.room=result
+			db_user.get_profile(partner,function(err,resultPartner){
+				if(err) console.log(err)
+				else {
+					object.partner=resultPartner
+					res.send(object)
 				}
 			})
 		}
@@ -164,6 +207,17 @@ router.post('/open_chat_room',function(req,res,next){
 		else {
 			console.log(result)
 			res.send(result)
+		}
+	})
+})
+
+router.post('/get_room_info',function(req,res,next){
+	var roomId=req.body.room_id
+
+	db_join_room.get_room_info(roomId,function(err,result){
+		if(err) console.log(err)
+		else{
+			res.send(result[0])
 		}
 	})
 })
@@ -355,6 +409,38 @@ router.post('fcm/remove',function(req,res,next){
                 res.send(body)
         })
 
+})
+
+router.post('/fcm/send',function(req,res,next){
+
+	var topic = req.body.topic
+	var content = req.body.content
+	var title=req.body.title
+
+
+	var message={
+		notification : {
+			body : content,
+			title : title
+		},
+		topic : topic
+
+	}
+
+	admin.messaging().send(message)
+		.then((response) => {
+			//Response is a message ID string
+			console.log('Successfully sent message:', response)
+			var object=new Object()
+			object.result=response
+			res.send(object)
+		})
+		.catch((error) => {
+			console.log('Error sending message:', error)
+			var object=new Object()
+			object.result=error
+			res.send(object)
+		})
 })
 
 

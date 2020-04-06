@@ -18,6 +18,15 @@ router.post('/dating', function(req, res, next) {
   })
 });
 
+router.post('/dating/joined', function(req,res,next){
+	db_user.get_dating_joined(req.body.nickname,function(err,result){
+		if(err) console.log(err)
+		else {
+			res.send(result[0])
+		}
+	})
+})
+
 router.post('/login', function(req,res,next){
   db_user.login(req.body.id,function(err,result){
     if(err) console.log(err);
@@ -85,17 +94,12 @@ router.delete('/',function(req,res,next){ // 상원 회원정보 삭제 (최신�
 })
 
 router.post('/getImage',function(req,res,next){
-	var id=req.body.nickname
-
-	db_user.get_image(id,function(err,result){
+	var nickname=req.body[0].nickname
+	console.log(nickname)
+	db_user.get_image(nickname,function(err,result){
 		if(err) console.log(err)
 		else{
-			const buf=result[0].user_image
-			var str=buf.toString()
-			
-			var object=new Object()
-			object.user_image=str
-			res.send(object)
+			res.send(result)
 		}
 	})
 })
