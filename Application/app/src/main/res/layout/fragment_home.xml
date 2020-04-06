@@ -14,9 +14,10 @@
             android:text="새로운 만남"
             android:textColor="#FFFFFF"
             android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="@+id/cardView"
-            app:layout_constraintStart_toStartOf="@+id/cardView"
-            app:layout_constraintTop_toBottomOf="@+id/cardView" />
+            app:layout_constraintEnd_toEndOf="@+id/card_partner"
+            app:layout_constraintStart_toStartOf="@+id/card_partner"
+            app:layout_constraintTop_toBottomOf="@+id/card_partner" />
+    w
 
     <Button
             android:id="@+id/btn_open"
@@ -32,7 +33,7 @@
             app:layout_constraintTop_toBottomOf="@+id/btn_dating" />
 
     <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
+            android:id="@+id/card_partner"
             android:layout_width="0dp"
             android:layout_height="200dp"
             android:layout_marginStart="16dp"
@@ -140,10 +141,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="100dp"
             android:text="TextView"
             android:textColor="#000000"
             android:textSize="20dp"
-            app:layout_constraintStart_toStartOf="@+id/cardView"
+            app:layout_constraintStart_toStartOf="@+id/card_partner"
             app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

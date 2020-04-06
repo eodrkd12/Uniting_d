@@ -1,8 +1,6 @@
 package com.example.commit.Fragment
 
-import android.annotation.SuppressLint
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,9 +9,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.android.volley.toolbox.Volley
 import com.example.commit.Class.UserInfo
 import com.example.commit.MainActivity.ChatActivity
 
@@ -22,8 +22,6 @@ import com.example.commit.MainActivity.OpenChatListActivity
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
 import com.google.firebase.messaging.FirebaseMessaging
-import com.google.gson.JsonObject
-import kotlinx.android.synthetic.main.fragment_home.*
 import org.json.JSONObject
 import java.util.*
 
@@ -52,6 +50,10 @@ class HomeFragment() : Fragment() {
         var textHobby=view.findViewById<TextView>(R.id.text_hobby)
         var textPersonality=view.findViewById<TextView>(R.id.text_personality)
 
+        textPartnerNull.visibility=View.GONE
+        layoutProfile.visibility=View.GONE
+
+        var cardPartner=view.findViewById<CardView>(R.id.card_partner)
 
         btnDating.setOnClickListener {
             var intent= Intent(activity,DatingActivity::class.java)
@@ -100,7 +102,7 @@ class HomeFragment() : Fragment() {
                         textHobby.setText(json.getString("user_hobby"))
                         textPersonality.setText(json.getString("user_personality"))
 
-                        layoutProfile.setOnClickListener {
+                        cardPartner.setOnClickListener {
                             val builder =
                                 AlertDialog.Builder(activity!!.applicationContext!!)
                             builder.setTitle("${textNickname.text.toString()}님과의 대화")
@@ -134,6 +136,39 @@ class HomeFragment() : Fragment() {
                 }
                 else{
                     textPartnerState.setText("현재 대화중인 상대")
+                    layoutProfile.visibility=View.VISIBLE
+                    VolleyService.getMyPartner(UserInfo.NICKNAME,activity!!.applicationContext,{success ->
+                        var partner : JSONObject=success!!.getJSONArray("partner")[0] as JSONObject
+                        textNickname.setText("닉네임 : ${partner.getString("user_nickname")}")
+
+                        //현재 연도 구하기
+                        var calendar = GregorianCalendar(Locale.KOREA)
+                        var year = calendar.get(Calendar.YEAR)
+                        //이용자 생일 구하기
+                        var birthday = partner.getString("user_birthday")
+                        birthday = birthday.substring(0, 4)
+                        //이용자 나이 계산
+                        var age = year - Integer.parseInt(birthday) + 1
+                        textAge.setText("나이 : ${age.toString()}")
+
+                        textDepartment.setText("학과 : ${partner.getString("dept_name")}")
+                        textHobby.setText("취미 : ${partner.getString("user_hobby")}")
+                        textPersonality.setText("성격 : ${partner.getString("user_personality")}")
+
+                        cardPartner.setOnClickListener {
+                            var room:JSONObject=success.getJSONArray("room").get(0) as JSONObject
+                            VolleyService.getRoomInfoReq(room.getString("room_id"),activity!!.applicationContext,{success ->
+                                var data=success!!
+
+                                var intent=Intent(activity!!.applicationContext,ChatActivity::class.java)
+                                intent.putExtra("room_id",data.getString("room_Id"))
+                                intent.putExtra("title",data.getString("room_title"))
+                                intent.putExtra("category",data.getString("cate_name"))
+                                startActivity(intent)
+                            })
+                        }
+
+                    })
                 }
 
             }
