@@ -128,6 +128,16 @@ class InformActivity : AppCompatActivity(), OnMapReadyCallback {
             bizHourInfo = "정보없음"
         }
 
+        if(options == "" || options == null)
+        {
+            options = "정보없음"
+        }
+
+        if(phone == "" || phone == null)
+        {
+            phone = "정보없음"
+        }
+
         if("|" in bizHourInfo!!)
         {
             var index:Int =  bizHourInfo!!.indexOf("|")
@@ -154,14 +164,9 @@ class InformActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
 
-        if(options == "" || options == null)
-        {
-            options = "정보없음"
-        }
-
         text_inform_title.text = name
         text_roadaddr.text = roadAddr
-
+        text_phone.text = phone
 
 
 
@@ -173,8 +178,7 @@ class InformActivity : AppCompatActivity(), OnMapReadyCallback {
             reviewArray = success
 
             if (reviewArray!!.length() == 0) {
-                text_noreview.visibility = View.VISIBLE
-                rating_inform.visibility = View.VISIBLE
+
             } else {
                 for (i in 0..reviewArray!!.length() - 1) {
                     var json = JSONObject()
@@ -212,9 +216,19 @@ class InformActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
 
 
-                reviewRV.setHasFixedSize(true)
-                reviewRV.layoutManager = LinearLayoutManager(this)
-                reviewRV.adapter = ReviewPreviewAdapter(reviewList)
+                if(reviewList.size < 5)
+                {
+                    reviewRV.setHasFixedSize(true)
+                    reviewRV.layoutManager = LinearLayoutManager(this)
+                    reviewRV.adapter = ReviewPreviewAdapter(reviewList, reviewList.size)
+                }
+                else
+                {
+                    reviewRV.setHasFixedSize(true)
+                    reviewRV.layoutManager = LinearLayoutManager(this)
+                    reviewRV.adapter = ReviewPreviewAdapter(reviewList, 5)
+                }
+
 
             }
         })
@@ -227,7 +241,7 @@ class InformActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
 
 
-        btn_phone.setOnClickListener {
+        text_phone.setOnClickListener {
             val builder = AlertDialog.Builder(ContextThemeWrapper(this@InformActivity, R.style.Theme_AppCompat_Light_Dialog))
             builder.setTitle(name)
             builder.setMessage(phone)
@@ -327,9 +341,18 @@ class InformActivity : AppCompatActivity(), OnMapReadyCallback {
         override fun onPostExecute(result: ArrayList<Menu>?) {
             super.onPostExecute(result)
 
-            menuRV.adapter = MenuPreviewAdapter(result!!)
-            menuRV.setHasFixedSize(true)
-            menuRV.layoutManager = LinearLayoutManager(this@InformActivity, RecyclerView.VERTICAL, false)
+            if(menuList.size < 5)
+            {
+                menuRV.adapter = MenuPreviewAdapter(result!!, menuList.size-1)
+                menuRV.setHasFixedSize(true)
+                menuRV.layoutManager = LinearLayoutManager(this@InformActivity, RecyclerView.VERTICAL, false)
+            }
+            else
+            {
+                menuRV.adapter = MenuPreviewAdapter(result!!, 5)
+                menuRV.setHasFixedSize(true)
+                menuRV.layoutManager = LinearLayoutManager(this@InformActivity, RecyclerView.VERTICAL, false)
+            }
         }
 
 

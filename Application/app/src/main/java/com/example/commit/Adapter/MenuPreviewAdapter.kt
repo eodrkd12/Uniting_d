@@ -7,10 +7,10 @@ import com.example.commit.ListItem.Menu
 import com.example.commit.R
 import kotlinx.android.synthetic.main.item_menu.view.*
 
-class MenuPreviewAdapter(val menu:ArrayList<Menu>) : RecyclerView.Adapter<MenuPreviewAdapter.ViewHolder>() {
+class MenuPreviewAdapter(val menu:ArrayList<Menu>, val count: Int) : RecyclerView.Adapter<MenuPreviewAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
-        return 5
+        return count
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuPreviewAdapter.ViewHolder {

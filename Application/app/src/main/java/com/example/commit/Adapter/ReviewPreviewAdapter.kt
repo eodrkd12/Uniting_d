@@ -8,10 +8,10 @@ import com.example.commit.ListItem.ReviewItem
 import com.example.commit.R
 import kotlinx.android.synthetic.main.item_review.view.*
 
-class ReviewPreviewAdapter(val reviewList: ArrayList<ReviewItem>): RecyclerView.Adapter<ReviewPreviewAdapter.ViewHolder>() {
+class ReviewPreviewAdapter(val reviewList: ArrayList<ReviewItem>, val count: Int): RecyclerView.Adapter<ReviewPreviewAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
-        return 5
+        return count
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewPreviewAdapter.ViewHolder {
