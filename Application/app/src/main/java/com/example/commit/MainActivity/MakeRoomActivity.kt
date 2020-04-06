@@ -24,13 +24,10 @@ class MakeRoomActivity : AppCompatActivity() {
         setContentView(R.layout.activity_makeroom)
 
 
-        rdgroup.check(R.id.r_btn_category1)
-
         btn_room.setOnClickListener {
-            var clicked_rbtn = findViewById<RadioButton>(rdgroup.checkedRadioButtonId)
 
             var roomTitle = text_room_name.text.toString()
-            var category = clicked_rbtn.text.toString()
+            var category = spinner_category.text.toString()
             var introduce = text_introduce.text.toString()
             var maxNum = Integer.parseInt(text_max.selectedItem.toString())
 

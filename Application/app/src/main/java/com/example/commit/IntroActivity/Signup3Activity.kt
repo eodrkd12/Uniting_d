@@ -82,7 +82,25 @@ class Signup3Activity : AppCompatActivity() {
             }
         })
 
-        edit_signuppw.addTextChangedListener(object : TextWatcher {
+        edit_signuppw.setOnFocusChangeListener { view, b ->
+            if(b == false)
+            {
+                if(edit_signuppw.text.length < 8)
+                {
+                    pw1Check = 0
+                    text_signuppwcriteria.text = "비밀번호는 8자리 이상이어야 합니다."
+                    text_signuppwcriteria.setTextColor(Color.parseColor("#FF0000"))
+                }
+                else
+                {
+                    pw1Check = 1
+                    text_signuppwcriteria.text = "사용가능한 비밀번호 입니다."
+                    text_signuppwcriteria.setTextColor(Color.parseColor("#008000"))
+                }
+            }
+        }
+
+        /*edit_signuppw.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 if(edit_signuppw.text.length < 8)
                 {
@@ -104,7 +122,7 @@ class Signup3Activity : AppCompatActivity() {
                 text_signuppwcheck.text = ""
                 pw2Check = 0
             }
-        })
+        })*/
 
         edit_signuppwcheck.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
