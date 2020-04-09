@@ -1,4 +1,4 @@
-package com.example.commit.IntroActivity
+/*package com.example.commit.IntroActivity
 
 //프사 설정은 나중에 ..
 
@@ -135,4 +135,4 @@ class Join5Activity : AppCompatActivity() {
     }
 
 
-}
+}*/

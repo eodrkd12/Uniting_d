@@ -10,6 +10,7 @@ import android.text.Editable
 import android.text.InputFilter
 import android.text.Spanned
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.SpinnerAdapter
 import android.widget.TextView
@@ -36,6 +37,8 @@ class Signup3Activity : AppCompatActivity() {
     var enteryear : String = ""
     var gender: String = ""
     var yearList = ArrayList<String>()
+    var hobby: String = ""
+    var personality: String = ""
 
     class IdFilter : InputFilter {
         override fun filter(source: CharSequence, start: Int, end: Int, dest: Spanned, dstart: Int, dend: Int) : CharSequence?{
@@ -205,8 +208,8 @@ class Signup3Activity : AppCompatActivity() {
                 Toast.makeText(this, "입학년도를 선택해주세요.", Toast.LENGTH_SHORT).show()
             }
 
-            val personalityList = arrayListOf(Personality("소심함"), Personality("활발함"), Personality("사교성좋음"))
-            val hobbyList = arrayListOf(Personality("축구"), Personality("PC방가기"), Personality("카페가기"))
+            val personalityList = arrayListOf(Personality("소심함"), Personality("활발함"), Personality("사교성좋음"), Personality("배려심깊음"), Personality("차분함"), Personality("개성있는"), Personality("재미있는"), Personality("세심함"))
+            val hobbyList = arrayListOf(Personality("운동하기"), Personality("게임하기"), Personality("카페가기"), Personality("노래부르기"), Personality("여행가기"), Personality("춤추기"), Personality("독서하기"), Personality("요리하기"))
 
             val dialog = Dialog(this)
             val dialogView = layoutInflater.inflate(R.layout.dialog_personality, null)
@@ -215,6 +218,7 @@ class Signup3Activity : AppCompatActivity() {
             val dialogSave = dialogView.findViewById<TextView>(R.id.text_personalitysave)
             val personalityRV = dialogView.findViewById<RecyclerView>(R.id.rv_personality)
             var personalityCount : Int = 1
+
 
             personalityRV.setHasFixedSize(true)
             personalityRV.layoutManager = GridLayoutManager(this, 2)
@@ -236,13 +240,76 @@ class Signup3Activity : AppCompatActivity() {
                     var intent = Intent(this, Signup1Activity::class.java)
                     startActivity(intent)
                 }
-
             }
 
+            dialogSave.setOnClickListener {
+                if(personalityCount == 1)
+                {
+                    var count = 0
+                    for(i in 0..personalityList.size-1) {
+                        if(personalityList.get(i).isSelected == true) {
+                            count++
+                        }
+                    }
+                    if(count < 2){
+                        Toast.makeText(this, "2개 이상 선택해주세요.", Toast.LENGTH_LONG).show()
+                    }
+                    else {
+                        dialog.dismiss()
+                        var array= arrayListOf<String>()
+                        for(i in 0..personalityList.size-1)
+                        {
+                            if(personalityList.get(i).isSelected == true)
+                            {
+                                array.add(personalityList.get(i).title!!)
+                            }
+                        }
+                        for(i in 0..array.size-1){
+                            personality+=array[i]
+                            if(i<array.size-1) personality+=", "
+                        }
+                        Log.d("test", personality)
+                        dialogTitle.setText("취미를 2가지 이상 선택해주세요.")
+                        personalityRV.setHasFixedSize(true)
+                        personalityRV.layoutManager = GridLayoutManager(this, 2)
+                        personalityRV.adapter = PersonalityAdapter(hobbyList)
+                        dialog.show()
+                        personalityCount--
+                    }
+                }
+                else {
+                    var count = 0
+                    for(i in 0..hobbyList.size-1) {
+                        if(hobbyList.get(i).isSelected == true) {
+                            count++
+                        }
+                    }
+                    if(count < 2){
+                        Toast.makeText(this, "2개 이상 선택해주세요.", Toast.LENGTH_LONG).show()
+                    }
+                    else {
+                        var array= arrayListOf<String>()
+                        for(i in 0..hobbyList.size-1)
+                        {
+                            if(hobbyList.get(i).isSelected == true)
+                            {
+                                array.add(hobbyList.get(i).title!!)
+                            }
+                        }
+                        for(i in 0..array.size-1){
+                            hobby+=array[i]
+                            if(i<array.size-1) hobby+=", "
+                        }
+                        Log.d("test", hobby)
+                        dialog.dismiss()
+                        var intent = Intent(this, Signup1Activity::class.java)
+                        startActivity(intent)
+                    }
+                }
+            }
 
             dialog.setContentView(dialogView)
             dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
             dialog.show()
 
         }

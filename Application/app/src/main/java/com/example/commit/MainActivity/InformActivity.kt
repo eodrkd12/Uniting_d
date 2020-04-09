@@ -267,7 +267,7 @@ class InformActivity : AppCompatActivity(), OnMapReadyCallback {
 
         rating_inform.setOnRatingBarChangeListener{ ratingBar, fl, b ->
             if(rating_inform.rating != 0.0f) {
-                val dialog: Dialog = Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar)
+                val dialog = Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar)
                 val dialogView = layoutInflater.inflate(R.layout.dialog_insertreview, null)
                 val dialogContent = dialogView.findViewById<EditText>(R.id.edit_insertreview)
                 val dialogRatingBar = dialogView.findViewById<RatingBar>(R.id.rating_review)

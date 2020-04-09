@@ -177,15 +177,15 @@ object VolleyService {
         pw: String,
         name: String,
         birthday: String,
-        gender: String
-        ,
+        gender: String,
         nickname: String,
         webMail: String,
         universityName: String,
         departmentName: String,
         enterYear: String,
-        bitmap: Bitmap
-        ,
+        bitmap: Bitmap,
+        hobby: String,
+        personality: String,
         context: Context,
         success: (String) -> Unit
     ) {
@@ -205,6 +205,8 @@ object VolleyService {
         json.put("department_name", departmentName)
         json.put("enter_year", enterYear)
         json.put("image", stringImage)
+        json.put("hobby", hobby)
+        json.put("personality", personality)
 
         // Request객체를 생성하여야 함 종류는 다양하지만 여기선 JsonObjectRequest객체를 생성
         // 객체 생성 파라미터(메소드타입(GET,POST,PUT,DELETE) / URL / 보낼 데이터(json) / 통신 성공 리스너 / 통신 실패 리스너
