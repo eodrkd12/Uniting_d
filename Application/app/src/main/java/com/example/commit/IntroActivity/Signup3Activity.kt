@@ -1,7 +1,9 @@
 package com.example.commit.IntroActivity
 
+import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -9,7 +11,16 @@ import android.text.InputFilter
 import android.text.Spanned
 import android.text.TextWatcher
 import android.widget.ArrayAdapter
+import android.widget.SpinnerAdapter
+import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.commit.Adapter.PersonalityAdapter
+import com.example.commit.ListItem.Hobby
+import com.example.commit.ListItem.Personality
+import com.example.commit.MainActivity.MainActivity
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
 import kotlinx.android.synthetic.main.activity_signup3.*
@@ -33,6 +44,35 @@ class Signup3Activity : AppCompatActivity() {
                 return ""
             }
             return null
+        }
+    }
+
+    fun pwLengthCheck() {
+        if(edit_signuppw.text.length < 8)
+        {
+            pw1Check = 0
+            text_signuppwcriteria.text = "비밀번호는 8자리 이상이어야 합니다."
+            text_signuppwcriteria.setTextColor(Color.parseColor("#FF0000"))
+        }
+        else
+        {
+            pw1Check = 1
+            text_signuppwcriteria.text = "사용가능한 비밀번호 입니다."
+            text_signuppwcriteria.setTextColor(Color.parseColor("#008000"))
+        }
+    }
+
+    fun pwEqualCheck() {
+        if(edit_signuppw.text.toString().equals(edit_signuppwcheck.text.toString()) && (pw1Check == 1))
+        {
+            text_signuppwcheck.text = "비밀번호가 일치합니다."
+            text_signuppwcheck.setTextColor(Color.parseColor("#008000"))
+            pw2Check = 1
+        }
+        else{
+            text_signuppwcheck.text = "비밀번호가 일치하지 않습니다."
+            text_signuppwcheck.setTextColor(Color.parseColor("#FF0000"))
+            pw2Check = 0
         }
     }
 
@@ -70,12 +110,9 @@ class Signup3Activity : AppCompatActivity() {
 
         edit_signupid.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-
             }
-
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
-
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 idCheck = 0
                 text_signupidcheck.text = ""
@@ -85,66 +122,16 @@ class Signup3Activity : AppCompatActivity() {
         edit_signuppw.setOnFocusChangeListener { view, b ->
             if(b == false)
             {
-                if(edit_signuppw.text.length < 8)
-                {
-                    pw1Check = 0
-                    text_signuppwcriteria.text = "비밀번호는 8자리 이상이어야 합니다."
-                    text_signuppwcriteria.setTextColor(Color.parseColor("#FF0000"))
-                }
-                else
-                {
-                    pw1Check = 1
-                    text_signuppwcriteria.text = "사용가능한 비밀번호 입니다."
-                    text_signuppwcriteria.setTextColor(Color.parseColor("#008000"))
-                }
+                pwLengthCheck()
             }
         }
 
-        /*edit_signuppw.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-                if(edit_signuppw.text.length < 8)
-                {
-                    pw1Check = 0
-                    text_signuppwcriteria.text = "비밀번호는 8자리 이상이어야 합니다."
-                    text_signuppwcriteria.setTextColor(Color.parseColor("#FF0000"))
-                }
-                else
-                {
-                    pw1Check = 1
-                    text_signuppwcriteria.text = "사용가능한 비밀번호 입니다."
-                    text_signuppwcriteria.setTextColor(Color.parseColor("#008000"))
-                }
+        edit_signuppwcheck.setOnFocusChangeListener { view, b ->
+            if(b==false)
+            {
+                pwEqualCheck()
             }
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                edit_signuppwcheck.text.clear()
-                text_signuppwcheck.text = ""
-                pw2Check = 0
-            }
-        })*/
-
-        edit_signuppwcheck.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-                if(edit_signuppw.text.toString().equals(edit_signuppwcheck.text.toString()) && (pw1Check == 1))
-                {
-                    text_signuppwcheck.text = "비밀번호가 일치합니다."
-                    text_signuppwcheck.setTextColor(Color.parseColor("#008000"))
-                    pw2Check = 1
-                }
-                else{
-                    text_signuppwcheck.text = "비밀번호가 일치하지 않습니다."
-                    text_signuppwcheck.setTextColor(Color.parseColor("#FF0000"))
-                    pw2Check = 0
-                }
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-        })
+        }
 
         btn_signupnicknamecheck.setOnClickListener{
             VolleyService.nicknameCheckReq(edit_signupnickname.text.toString(), this, {success->
@@ -194,6 +181,8 @@ class Signup3Activity : AppCompatActivity() {
 
         btn_signup.setOnClickListener{
             enteryear = spinner_year.selectedItem.toString()
+            pwLengthCheck()
+            pwEqualCheck()
 
             if(idCheck == 0)
             {
@@ -215,9 +204,47 @@ class Signup3Activity : AppCompatActivity() {
             {
                 Toast.makeText(this, "입학년도를 선택해주세요.", Toast.LENGTH_SHORT).show()
             }
+
+            val personalityList = arrayListOf(Personality("소심함"), Personality("활발함"), Personality("사교성좋음"))
+            val hobbyList = arrayListOf(Personality("축구"), Personality("PC방가기"), Personality("카페가기"))
+
+            val dialog = Dialog(this)
+            val dialogView = layoutInflater.inflate(R.layout.dialog_personality, null)
+            val dialogPass = dialogView.findViewById<TextView>(R.id.text_personalitypass)
+            val dialogTitle = dialogView.findViewById<TextView>(R.id.text_personalitytitle)
+            val dialogSave = dialogView.findViewById<TextView>(R.id.text_personalitysave)
+            val personalityRV = dialogView.findViewById<RecyclerView>(R.id.rv_personality)
+            var personalityCount : Int = 1
+
+            personalityRV.setHasFixedSize(true)
+            personalityRV.layoutManager = GridLayoutManager(this, 2)
+            personalityRV.adapter = PersonalityAdapter(personalityList)
+
+            dialogPass.setOnClickListener {
+                if(personalityCount == 1)
+                {
+                    dialog.dismiss()
+                    dialogTitle.setText("취미를 2가지 이상 선택해주세요.")
+                    personalityRV.setHasFixedSize(true)
+                    personalityRV.layoutManager = GridLayoutManager(this, 2)
+                    personalityRV.adapter = PersonalityAdapter(hobbyList)
+                    dialog.show()
+                    personalityCount--
+                }
+                else {
+                    dialog.dismiss()
+                    var intent = Intent(this, Signup1Activity::class.java)
+                    startActivity(intent)
+                }
+
+            }
+
+
+            dialog.setContentView(dialogView)
+            dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            dialog.show()
+
         }
-
-
-
     }
 }
