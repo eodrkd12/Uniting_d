@@ -1,3 +1,4 @@
+/*
 package com.example.commit.IntroActivity
 
 import android.app.DatePickerDialog
@@ -119,3 +120,4 @@ class Join4Activity : AppCompatActivity() {
         }
     }
 }
+*/
