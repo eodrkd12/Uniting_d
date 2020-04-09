@@ -3,22 +3,17 @@ package com.example.commit.Fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListView
 import android.widget.Switch
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.example.commit.Adapter.MypageAdapter
 import com.example.commit.Class.UserInfo
 import com.example.commit.IntroActivity.LoginActivity
-import com.example.commit.MainActivity.DatingActivity
 import com.example.commit.MainActivity.SettingActivity
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
-import kotlinx.android.synthetic.main.activity_signup2.view.*
 
 class mypage_list (var memu :String)
 var mypage_item = arrayListOf<mypage_list>()
@@ -47,12 +42,12 @@ class OptionFragment():Fragment() {
 
         switch.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked == true) {
-                VolleyService.datingonoff(UserInfo.NICKNAME, "Y", activity!!.applicationContext,
+                VolleyService.datingOnOff(UserInfo.NICKNAME, "Y", activity!!.applicationContext,
                     { success ->
 
                     })
             }else{
-                VolleyService.datingonoff(UserInfo.NICKNAME, "N", activity!!.applicationContext,
+                VolleyService.datingOnOff(UserInfo.NICKNAME, "N", activity!!.applicationContext,
                     { success ->
 
                     })

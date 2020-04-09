@@ -34,8 +34,15 @@ class MakeRoomActivity : AppCompatActivity() {
             var introduce = text_introduce.text.toString()
             var maxNum = Integer.parseInt(text_max.selectedItem.toString())
 
-
-
+            if(roomTitle==null){
+                return@setOnClickListener
+            }
+            if(introduce==null){
+                return@setOnClickListener
+            }
+            if(maxNum==null){
+                return@setOnClickListener
+            }
 
             VolleyService.createOpenChatReq(
                 UserInfo.NICKNAME,
