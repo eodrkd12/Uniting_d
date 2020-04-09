@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Switch
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.commit.Class.UserInfo
 import com.example.commit.IntroActivity.LoginActivity
@@ -40,20 +41,28 @@ class OptionFragment():Fragment() {
         var switch=view.findViewById<Switch>(R.id.switch_onoff)
         var click=""
 
-        switch.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked == true) {
-                VolleyService.datingOnOff(UserInfo.NICKNAME, "Y", activity!!.applicationContext,
-                    { success ->
+        VolleyService.getJoinDating(UserInfo.NICKNAME,activity!!.applicationContext,{success ->
+            if(success==null) {
+                switch.isChecked = false
+            }
+            else {
+                switch.isChecked = true
+            }
 
-                    })
-            }else{
-                VolleyService.datingOnOff(UserInfo.NICKNAME, "N", activity!!.applicationContext,
-                    { success ->
+            switch.setOnCheckedChangeListener { buttonView, isChecked ->
 
-                    })
+                    VolleyService.datingOnOff(UserInfo.ID,UserInfo.NICKNAME,UserInfo.UNIV,UserInfo.DEPT,UserInfo.BIRTH,UserInfo.GENDER,UserInfo.HOBBY,UserInfo.PERSONALITY, switch.isChecked, activity!!.applicationContext,
+                        { success ->
+                            if(success=="On"){
+                                Toast.makeText(activity!!.applicationContext,"만남 기능이 활성화 되었습니다.",Toast.LENGTH_SHORT).show()
+                            }
+                            else{
+                                Toast.makeText(activity!!.applicationContext,"만남 기능이 비활성화 되었습니다.",Toast.LENGTH_SHORT).show()
+                            }
+                        })
 
             }
-        }
+        })
 
         textOption1.setOnClickListener{
             click  = textOption1.text.toString()

@@ -7,7 +7,6 @@ import android.widget.Toast
 import com.android.volley.Response
 import com.android.volley.toolbox.*
 import com.example.commit.MainActivity.MakeRoomActivity
-import com.example.commit.MainActivity.OpenChatListActivity
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -1058,8 +1057,8 @@ object VolleyService {
         Volley.newRequestQueue(context).add(request)
     }
 
-    fun getMyPartner(nickname: String, context: Context, success: (String?) -> Unit) {
-        var url = "${ip}/user/dating/joined"
+    fun getMyPartner(nickname: String, context: Context, success: (JSONObject?) -> Unit) {
+        var url = "${ip}/join_room/get_partner"
 
         var jsonObject = JSONObject()
         jsonObject.put("nickname", nickname)
@@ -1070,8 +1069,8 @@ object VolleyService {
             url,
             jsonObject,
             Response.Listener {
-                if (it == null) success("null")
-                else success("true")
+                Log.d("uniting", "VolleyService.getMyPartner it : ${it.toString()}")
+                success(it)
             },
             Response.ErrorListener {
             }) {
@@ -1079,27 +1078,58 @@ object VolleyService {
         }
 
         Volley.newRequestQueue(context).add(request)
+
     }
+
     //데이팅 onoff
-    fun datingOnOff(id: String, yn: String, context: Context, success: (JSONArray?) -> Unit) {
-        // var url = "${id}/user"
+    fun datingOnOff(id:String,nickname: String,universityName: String,departmentName: String,birthday: String,gender: String,hobby:String,personality:String, yn: Boolean, context: Context, success: (String?) -> Unit) {
+        var url = "${ip}/user/dating_on_off"
 
         var jsonObject = JSONObject()
         jsonObject.put("id", id)
-        jsonObject.put("yncheck", yn)
+        jsonObject.put("nickname", nickname)
+        jsonObject.put("univ_name", universityName)
+        jsonObject.put("dept_name", departmentName)
+        jsonObject.put("birthday", birthday)
+        jsonObject.put("gender", gender)
+        jsonObject.put("hobby",hobby)
+        jsonObject.put("personality",personality)
+        if(yn==true) jsonObject.put("yn", "Y")
+        else jsonObject.put("yn","N")
 
-        /*   var request = object : JsonObjectRequest(
-          Method.POST,
-         url,
-          jsonObject,
-          Response.Listener {
+        var request = object : JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonObject,
+            Response.Listener {
+                Log.d("uniting","${it.toString()}")
+                success(it.getString("result"))
+            },
+            Response.ErrorListener {
 
-          },
-          Response.ErrorListener {
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
 
-          }) {
-      }
-      Volley.newRequestQueue(context).add(request)*/
+    fun getRoomInfoReq(roomId: String, context: Context, success: (JSONObject?) -> Unit) {
+        var url = "${roomId}/join_room/get_room_info"
+
+        var jsonObject = JSONObject()
+        jsonObject.put("room_id", roomId)
+
+        var request = object : JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonObject,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
     }
 }
 

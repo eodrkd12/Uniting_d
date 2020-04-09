@@ -84,6 +84,8 @@ class SplashActivity: AppCompatActivity() {
             UserInfo.UNIV=userPref.getString("UNIV","")
             UserInfo.ENTER=userPref.getString("ENTER","")
             UserInfo.DEPT=userPref.getString("DEPT","")
+            UserInfo.HOBBY=userPref.getString("HOBBY","")
+            UserInfo.PERSONALITY=userPref.getString("PERSONALITY","")
             UserInfo.IMG=userPref.getString("IMG","")
             UserInfo.FCM_TOKEN=userPref.getString("FCM_TOKEN","")
             /*UserInfo.GOOGLE_ID_TOKEN=userPref.getString("GOOGLE_ID_TOKEN","")
