@@ -122,7 +122,7 @@ class HomeFragment() : Fragment() {
                             textPersonality.setText("성격 : ${json.getString("user_personality")}")
 
                             VolleyService.getImageReq(json.getString("user_nickname"),activity!!.applicationContext,{success ->
-                                val imageBytes = Base64.decode(success, 0)
+                                val imageBytes = Base64.decode(success!!.getString("user_image"), 0)
                                 val image = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
 
                                 imgProfile.setImageBitmap(image)

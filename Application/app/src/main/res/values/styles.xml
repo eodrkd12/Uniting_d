@@ -19,4 +19,18 @@
         <item name="android:windowExitAnimation">@anim/anim_notwork</item>
     </style>
 
+    <style name="loading_dialog_style" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowTitleStyle">@null</item>
+
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+
+        <item name="android:windowBackground">@android:color/white</item>
+
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+
+
 </resources>

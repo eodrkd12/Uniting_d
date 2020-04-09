@@ -34,7 +34,8 @@
                 android:name="com.naver.maps.map.CLIENT_ID"
                 android:value="4fk2n2jfrm" />
 
-        <activity android:name=".IntroActivity.Signup3Activity" />
+        <activity android:name=".IntroActivity.Signup3Activity"
+                android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".IntroActivity.Signup2Activity" />
         <activity
                 android:name=".IntroActivity.Signup1Activity"

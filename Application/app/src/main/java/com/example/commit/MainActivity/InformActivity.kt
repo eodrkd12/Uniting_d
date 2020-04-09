@@ -58,6 +58,7 @@ class InformActivity : AppCompatActivity(), OnMapReadyCallback {
         var options:String? = null
         var bizHourInfo:String? = null
         var tags:String? = null
+        var dialog:Dialog? = null
     }
 
     /*fun fetchJson(vararg p0: String) {
@@ -103,6 +104,8 @@ class InformActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_inform)
+
+
 
         var check:Boolean = true
         var sync = AsyncTask()
@@ -314,6 +317,11 @@ class InformActivity : AppCompatActivity(), OnMapReadyCallback {
     inner class AsyncTask: android.os.AsyncTask<String, Long, ArrayList<Menu>>() {
         override fun onPreExecute() {
             super.onPreExecute()
+            dialog = Dialog(this@InformActivity, R.style.loading_dialog_style)
+            var pb = ProgressBar(this@InformActivity)
+
+            dialog!!.addContentView(pb, LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT))
+            dialog!!.show()
         }
 
         override fun doInBackground(vararg p0: String?): ArrayList<Menu> {
@@ -353,6 +361,8 @@ class InformActivity : AppCompatActivity(), OnMapReadyCallback {
                 menuRV.setHasFixedSize(true)
                 menuRV.layoutManager = LinearLayoutManager(this@InformActivity, RecyclerView.VERTICAL, false)
             }
+
+            dialog!!.dismiss()
         }
 
 

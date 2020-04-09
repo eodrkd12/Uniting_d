@@ -32,9 +32,15 @@ class ChatActivity : AppCompatActivity() {
     var category:String?=null
     var title:String?=null
     var notificationKey:String?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
+
+        setSupportActionBar(toolbar)
+       supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
 
         var intent= intent
 
@@ -50,7 +56,7 @@ class ChatActivity : AppCompatActivity() {
                 Log.d("uniting","ChatActivity.msg : ${UserInfo.NICKNAME} ${msg}")
             }
 
-        text_title.text=title
+            toolbar.title=title
 
         list_chat.adapter=chatAdapter
 
@@ -167,6 +173,7 @@ class ChatActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         var inflater=getMenuInflater()
         inflater.inflate(R.menu.menu_chat,menu)
+
 
         menu!!.add("참여중인 유저").setEnabled(false)
 

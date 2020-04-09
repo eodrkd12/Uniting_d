@@ -7,6 +7,8 @@ import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
+
+import android.util.Log
 import com.example.commit.IntroActivity.LoginActivity
 import com.example.commit.R
 import com.example.commit.Class.UserInfo
@@ -35,7 +37,8 @@ class SettingActivity : AppCompatActivity() {
                 text_university.text=UserInfo.UNIV
 
                 VolleyService.getImageReq(UserInfo.NICKNAME,this, { success ->
-                    val imageBytes = Base64.decode(success, 0)
+                    Log.d("uniting",success!!.getString("user_image"))
+                    val imageBytes = Base64.decode(success!!.getString("user_image"), 0)
                     val image = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
 
                     image_profile.setImageBitmap(image)
