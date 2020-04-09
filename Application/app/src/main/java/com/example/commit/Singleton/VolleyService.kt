@@ -308,6 +308,7 @@ object VolleyService {
             url,
             jsonArray,
             Response.Listener {
+                Log.d("uniting",it.toString())
                 success(it)
             },
             Response.ErrorListener {
@@ -1052,6 +1053,9 @@ object VolleyService {
                 success(it)
             },
             Response.ErrorListener {
+                Log.d("uniting","${it}")
+                if(it is com.android.volley.ParseError)
+                    success(null)
             }) {
 
         }
@@ -1104,11 +1108,11 @@ object VolleyService {
             url,
             jsonObject,
             Response.Listener {
-                Log.d("uniting","${it.toString()}")
+                Log.d("uniting","${it}")
                 success(it.getString("result"))
             },
             Response.ErrorListener {
-
+                Log.d("uniting","${it}")
             }) {
         }
         Volley.newRequestQueue(context).add(request)

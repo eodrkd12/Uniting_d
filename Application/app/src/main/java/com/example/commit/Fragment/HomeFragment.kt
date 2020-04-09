@@ -1,7 +1,10 @@
 package com.example.commit.Fragment
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.OvalShape
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
@@ -11,7 +14,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
+
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -27,6 +30,7 @@ import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_profile.*
+import org.jetbrains.anko.backgroundDrawable
 import org.json.JSONObject
 import java.util.*
 
@@ -73,12 +77,14 @@ class HomeFragment() : Fragment() {
             startActivity(intent)
         }
         VolleyService.getJoinDating(UserInfo.NICKNAME, activity!!.applicationContext, { success ->
+            Log.d("uniting",success.toString())
             if (success == null) {
                 //데이팅 기능이 꺼져있는 경우
                 textPartnerState.setText("만남 기능이 Off 상태입니다")
                 textPartnerNull.visibility = View.VISIBLE
             } else {
                 layoutProfile.visibility = View.VISIBLE
+
                 //if(success.getString("joined")=="false"){
                 textPartnerState.setText("랜덤 추천 상대")
                 VolleyService.datingUserReq(
@@ -99,7 +105,7 @@ class HomeFragment() : Fragment() {
                             var json = array[num] as JSONObject
 
                             textNickname.setText("닉네임 : ${json.getString("user_nickname")}")
-
+                            var nickname=json.getString("user_nickname")
                             //현재 연도 구하기
                             var calendar = GregorianCalendar(Locale.KOREA)
                             var year = calendar.get(Calendar.YEAR)
@@ -108,6 +114,7 @@ class HomeFragment() : Fragment() {
                             birthday = birthday.substring(0, 4)
                             //이용자 나이 계산
                             var age = year - Integer.parseInt(birthday) + 1
+
                             textAge.setText("나이 : ${age}")
 
                             textDepartment.setText("학과 : ${json.getString("dept_name")}")
@@ -123,14 +130,14 @@ class HomeFragment() : Fragment() {
 
                             cardPartner.setOnClickListener {
                                 val builder =
-                                    AlertDialog.Builder(activity!!.applicationContext!!)
-                                builder.setTitle("${textNickname.text.toString()}님과의 대화")
+                                    AlertDialog.Builder(activity)
+                                builder.setTitle("${nickname}님과의 대화")
                                 builder.setMessage("시작하시겠습니까?")
 
                                 builder.setPositiveButton("확인") { _, _ ->
                                     VolleyService.createChatRoomReq(
                                         UserInfo.NICKNAME,
-                                        textNickname.text.toString(),
+                                        nickname,
                                         "",
                                         "데이팅",
                                         UserInfo.UNIV,
@@ -144,7 +151,7 @@ class HomeFragment() : Fragment() {
                                             intent.putExtra("room_id", roomId)
                                             intent.putExtra(
                                                 "title",
-                                                "${UserInfo.NICKNAME}&${textNickname.text.toString()}"
+                                                "${UserInfo.NICKNAME}&${nickname}"
                                             )
                                             intent.putExtra("category", "데이팅")
 
@@ -154,7 +161,6 @@ class HomeFragment() : Fragment() {
                                                     var msg = "${roomId} subscribe success"
                                                     if (!it.isSuccessful) msg =
                                                         "${roomId} subscribe fail"
-                                                    Log.d("uniting", "DatingAdapter.msg : ${msg}")
                                                     ContextCompat.startActivity(
                                                         activity!!.applicationContext,
                                                         intent,
