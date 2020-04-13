@@ -2,6 +2,7 @@ package com.example.commit.MainActivity
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.commit.Adapter.ChatAdapter
@@ -25,6 +26,8 @@ class DatingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dating)
 
+        text_dating.text=UserInfo.UNIV
+
         VolleyService.datingUserReq(UserInfo.NICKNAME, UserInfo.GENDER, UserInfo.UNIV, this, { success ->
             rv_dating.adapter = datingAdapter
             rv_dating.layoutManager=layoutManager
@@ -34,8 +37,9 @@ class DatingActivity : AppCompatActivity() {
             datingArray = success
 
             if (datingArray!!.length() == 0) {
-
+                text_partner_null.visibility= View.VISIBLE
             } else {
+                text_partner_null.visibility= View.GONE
                 for (i in 0..datingArray!!.length() - 1) {
                     var json = JSONObject()
                     json = datingArray!![i] as JSONObject

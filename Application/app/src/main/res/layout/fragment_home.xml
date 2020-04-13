@@ -17,7 +17,7 @@
             app:layout_constraintEnd_toEndOf="@+id/card_partner"
             app:layout_constraintStart_toStartOf="@+id/card_partner"
             app:layout_constraintTop_toBottomOf="@+id/card_partner" />
-    w
+
 
     <Button
             android:id="@+id/btn_open"
@@ -118,16 +118,16 @@
                     app:layout_constraintStart_toStartOf="@+id/text_nickname"
                     app:layout_constraintTop_toBottomOf="@+id/text_hobby" />
 
-            <ImageView
+            <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/img_profile"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_gravity="center_vertical"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="32dp"
-                    android:background="@drawable/image_profile"
+                    android:scaleType="centerCrop"
+                    app:riv_corner_radius="30dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideline"
                     app:layout_constraintStart_toStartOf="parent"
@@ -142,6 +142,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
             android:text="TextView"
             android:textColor="#000000"
             android:textSize="20dp"

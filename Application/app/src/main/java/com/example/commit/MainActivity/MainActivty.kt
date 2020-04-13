@@ -59,20 +59,11 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bnv_main)
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener)
 
-        var intent=intent
-        if(intent.getStringExtra("from")=="chat"){
-            val fragment = ChatFragment()
+        if (savedInstanceState == null) {
+            val fragment = HomeFragment()
             supportFragmentManager.beginTransaction()
                 .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
         }
-        else {
-            if (savedInstanceState == null) {
-                val fragment = HomeFragment()
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
-            }
-        }
-
 
     }
 
@@ -109,24 +100,24 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
-        var inflater=getMenuInflater()
-        inflater.inflate(R.menu.menu_main,menu)
+        var inflater = getMenuInflater()
+        inflater.inflate(R.menu.menu_main, menu)
 
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
-        var title=item!!.title.toString()
-        when(title){
+        var title = item!!.title.toString()
+        when (title) {
             "로그아웃" -> {
-                var pref=this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
-                var editor=pref.edit()
+                var pref = this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
+                var editor = pref.edit()
 
                 editor.clear()
                 editor.commit()
 
-                var intent=Intent(this,LoginActivity::class.java)
+                var intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
             }
         }

@@ -11,6 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="729dp"
             android:layout_marginTop="8dp"
+            android:background="#FFFFFF"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_category" />
 
@@ -22,6 +23,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="sans-serif"
             android:text="TextView"
+            android:textColor="#000000"
             android:textSize="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
