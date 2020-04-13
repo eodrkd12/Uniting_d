@@ -6,6 +6,7 @@ import android.widget.LinearLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.commit.Adapter.CafeteriaAdapter
+import com.example.commit.Adapter.CafeteriaGridAdapter
 import com.example.commit.Class.UserInfo
 import com.example.commit.ListItem.Homefeed
 import com.example.commit.R
@@ -65,7 +66,7 @@ class CafeteriaActivity : AppCompatActivity() {
 
                     cafeteriaRV.setHasFixedSize(true)
                     cafeteriaRV.layoutManager = GridLayoutManager(this@CafeteriaActivity, 2)
-                    cafeteriaRV.adapter = CafeteriaAdapter(this@CafeteriaActivity, homefeed)
+                    cafeteriaRV.adapter = CafeteriaGridAdapter(this@CafeteriaActivity, homefeed)
                 }
             }
 
