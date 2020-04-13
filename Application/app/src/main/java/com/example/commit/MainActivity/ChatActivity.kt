@@ -7,6 +7,8 @@ import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toolbar
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -19,6 +21,7 @@ import com.example.commit.Class.UserInfo
 import com.example.commit.Popup.ReportPopup
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.*
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_chat.*
@@ -45,6 +48,8 @@ class ChatActivity : AppCompatActivity() {
         setSupportActionBar(main_layout_toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+
 
 
         var intent= intent
@@ -179,9 +184,7 @@ class ChatActivity : AppCompatActivity() {
         var inflater=getMenuInflater()
         inflater.inflate(R.menu.menu_chat,menu)
 
-
-
-        menu!!.add("참여중인 유저").setEnabled(false)
+        /*menu!!.add("참여중인 유저").setEnabled(false)
 
         menu.add(UserInfo.NICKNAME)
 
@@ -225,16 +228,16 @@ class ChatActivity : AppCompatActivity() {
 
                 true
             }
-        })
+        })*/
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item!!.itemId){
-            android.R.id.home->{ // 메뉴 버튼
+        when(item!!.itemId) {
+            R.id.action_menu -> { // 메뉴 버튼
                 main_layout.openDrawer(GravityCompat.END)    // 네비게이션 드로어 열기
             }
-        /*var title=item!!.title.toString()
+            /*var title=item!!.title.toString()
         when(title){
             "exit_room" -> {
                 VolleyService.exitReq(UserInfo.NICKNAME,roomId!!,this,{success ->
@@ -250,7 +253,8 @@ class ChatActivity : AppCompatActivity() {
             }
         }
         */
+
         }
-            return onOptionsItemSelected(item)
+        return false
     }
 }

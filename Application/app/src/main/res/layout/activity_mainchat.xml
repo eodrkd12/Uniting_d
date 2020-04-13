@@ -20,6 +20,9 @@
             android:layout_gravity="right"
             app:menu="@menu/menu_chat">
 
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
     </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>
