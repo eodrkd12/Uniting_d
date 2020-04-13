@@ -10,6 +10,8 @@ import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.toolbox.Volley
 import com.example.commit.Adapter.ChatAdapter
@@ -20,6 +22,9 @@ import com.example.commit.Singleton.VolleyService
 import com.google.firebase.database.*
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_chat.*
+import kotlinx.android.synthetic.main.activity_mainchat.*
+import kotlinx.android.synthetic.main.toolbar_layout.*
+import org.jetbrains.anko.support.v4.drawerLayout
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -32,9 +37,15 @@ class ChatActivity : AppCompatActivity() {
     var category:String?=null
     var title:String?=null
     var notificationKey:String?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chat)
+        setContentView(R.layout.activity_mainchat)
+
+        setSupportActionBar(main_layout_toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
 
         var intent= intent
 
@@ -50,7 +61,7 @@ class ChatActivity : AppCompatActivity() {
                 Log.d("uniting","ChatActivity.msg : ${UserInfo.NICKNAME} ${msg}")
             }
 
-        text_title.text=title
+        main_layout_toolbar.title=title
 
         list_chat.adapter=chatAdapter
 
@@ -168,6 +179,8 @@ class ChatActivity : AppCompatActivity() {
         var inflater=getMenuInflater()
         inflater.inflate(R.menu.menu_chat,menu)
 
+
+
         menu!!.add("참여중인 유저").setEnabled(false)
 
         menu.add(UserInfo.NICKNAME)
@@ -187,6 +200,7 @@ class ChatActivity : AppCompatActivity() {
 
             var exit=menu.add("나가기")
             exit.setIcon(R.drawable.icon_exit_room)
+
             exit.setOnMenuItemClickListener {
                 VolleyService.exitReq(UserInfo.NICKNAME,roomId!!,this,{success -> })
 
@@ -216,7 +230,10 @@ class ChatActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
+        when(item!!.itemId){
+            android.R.id.home->{ // 메뉴 버튼
+                main_layout.openDrawer(GravityCompat.END)    // 네비게이션 드로어 열기
+            }
         /*var title=item!!.title.toString()
         when(title){
             "exit_room" -> {
@@ -233,6 +250,7 @@ class ChatActivity : AppCompatActivity() {
             }
         }
         */
-        return true
+        }
+            return onOptionsItemSelected(item)
     }
 }
