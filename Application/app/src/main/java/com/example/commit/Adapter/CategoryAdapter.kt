@@ -43,7 +43,16 @@ class CategoryAdapter(val context: Context) : RecyclerView.Adapter<CategoryAdapt
         fun bindItems(data: Categoryitem) {
             itemView.btn_category_lable.text = data.categoryname
             if(data.categoryname=="스터디"){
-                itemView.btn_category.setImageResource(R.drawable.add_icon)
+                itemView.btn_category.setImageResource(R.drawable.book_icon)
+            }
+            else if (data.categoryname=="취/창업"){
+                itemView.btn_category.setImageResource(R.drawable.work_icon)
+            }
+            else if (data.categoryname=="고민상담"){
+                itemView.btn_category.setImageResource(R.drawable.tea_icon)
+            }
+            else if (data.categoryname=="취미"){
+                itemView.btn_category.setImageResource(R.drawable.play_icon)
             }
             else
                 itemView.btn_category.setImageResource(R.drawable.add_icon)
