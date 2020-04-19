@@ -59,7 +59,7 @@
                 android:id="@+id/layout_profile"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="gone">
+                android:visibility="visible">
 
             <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline"
@@ -75,8 +75,12 @@
                     android:layout_marginStart="16dp"
                     android:text="TextView"
                     android:textColor="#000000"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/text_age"
                     app:layout_constraintStart_toStartOf="@+id/guideline"
-                    app:layout_constraintTop_toTopOf="@+id/img_profile" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
 
             <TextView
                     android:id="@+id/text_age"
@@ -85,6 +89,8 @@
                     android:layout_marginTop="8dp"
                     android:text="TextView"
                     android:textColor="#000000"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toTopOf="@id/text_department"
                     app:layout_constraintStart_toStartOf="@+id/text_nickname"
                     app:layout_constraintTop_toBottomOf="@+id/text_nickname" />
 
@@ -95,6 +101,7 @@
                     android:layout_marginTop="8dp"
                     android:text="TextView"
                     android:textColor="#000000"
+                    app:layout_constraintBottom_toTopOf="@id/text_hobby"
                     app:layout_constraintStart_toStartOf="@+id/text_nickname"
                     app:layout_constraintTop_toBottomOf="@+id/text_age" />
 
@@ -105,6 +112,7 @@
                     android:layout_marginTop="8dp"
                     android:text="TextView"
                     android:textColor="#000000"
+                    app:layout_constraintBottom_toTopOf="@id/text_personality"
                     app:layout_constraintStart_toStartOf="@+id/text_nickname"
                     app:layout_constraintTop_toBottomOf="@+id/text_department" />
 
@@ -115,23 +123,24 @@
                     android:layout_marginTop="8dp"
                     android:text="TextView"
                     android:textColor="#000000"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/text_nickname"
                     app:layout_constraintTop_toBottomOf="@+id/text_hobby" />
 
             <ImageView
                     android:id="@+id/img_profile"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_gravity="center_vertical"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="32dp"
-                    android:background="@drawable/image_profile"
+                    android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideline"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:riv_corner_radius="30dp"
                     tools:srcCompat="@android:drawable/ic_menu_help" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -15,6 +15,7 @@ import com.example.commit.Class.UserInfo
 import com.example.commit.Singleton.VolleyService
 import kotlinx.android.synthetic.main.activity_dating_on_off.*
 import kotlinx.android.synthetic.main.activity_profile.*
+import java.util.*
 
 class SettingActivity : AppCompatActivity() {
 
@@ -32,16 +33,32 @@ class SettingActivity : AppCompatActivity() {
                 if(UserInfo.GENDER=="M"){
                     gender="남자"
                 } else gender="여자"
-                text_id.text=UserInfo.NICKNAME
-                text_name.text=UserInfo.NAME+" / "+UserInfo.ID+" / "+gender
-                text_university.text=UserInfo.UNIV
+                //text_id.text=UserInfo.ID
+                text_nickname.text=UserInfo.NICKNAME
+                text_name.text=UserInfo.NAME
+
+                //현재 연도 구하기
+                var calendar = GregorianCalendar(Locale.KOREA)
+                var year = calendar.get(Calendar.YEAR)
+                //이용자 생일 구하기
+                var birthday = UserInfo.BIRTH
+                birthday = birthday.substring(0, 4)
+                //이용자 나이 계산
+                var age = year - Integer.parseInt(birthday) + 1
+                text_age.setText("${age}세")
+
+                text_gender.text=gender
+                text_department.text="${UserInfo.UNIV} ${UserInfo.DEPT}"
+                text_department.text="계명대학교 컴퓨터공학전공"
+                text_hobby.text="취미 : ${UserInfo.HOBBY}"
+                text_personality.text="성격 : ${UserInfo.PERSONALITY}"
 
                 VolleyService.getImageReq(UserInfo.NICKNAME,this, { success ->
                     Log.d("uniting",success!!.getString("user_image"))
                     val imageBytes = Base64.decode(success!!.getString("user_image"), 0)
                     val image = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
 
-                    image_profile.setImageBitmap(image)
+                    img_profile.setImageBitmap(image)
                 })
             }
             "알림 설정"->{

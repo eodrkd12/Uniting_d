@@ -13,12 +13,15 @@ package com.example.commit.MainActivity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.commit.Class.UserInfo
 import com.example.commit.R
+import kotlinx.android.synthetic.main.activity_profile.*
 
 class ProfileActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+
     }
 }

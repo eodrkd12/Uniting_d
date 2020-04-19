@@ -104,7 +104,7 @@ class HomeFragment() : Fragment() {
                             var num = random.nextInt(array!!.length())
                             var json = array[num] as JSONObject
 
-                            textNickname.setText("닉네임 : ${json.getString("user_nickname")}")
+                            textNickname.setText("${json.getString("user_nickname")}")
                             var nickname=json.getString("user_nickname")
                             //현재 연도 구하기
                             var calendar = GregorianCalendar(Locale.KOREA)
@@ -115,9 +115,9 @@ class HomeFragment() : Fragment() {
                             //이용자 나이 계산
                             var age = year - Integer.parseInt(birthday) + 1
 
-                            textAge.setText("나이 : ${age}")
+                            textAge.setText("${age}세")
 
-                            textDepartment.setText("학과 : ${json.getString("dept_name")}")
+                            textDepartment.setText("${json.getString("dept_name")}")
                             textHobby.setText("취미 : ${json.getString("user_hobby")}")
                             textPersonality.setText("성격 : ${json.getString("user_personality")}")
 
@@ -151,7 +151,7 @@ class HomeFragment() : Fragment() {
                                             intent.putExtra("room_id", roomId)
                                             intent.putExtra(
                                                 "title",
-                                                "${UserInfo.NICKNAME}&${nickname}"
+                                                "${nickname}"
                                             )
                                             intent.putExtra("category", "데이팅")
 

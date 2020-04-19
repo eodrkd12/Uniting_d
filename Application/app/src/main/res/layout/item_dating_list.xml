@@ -48,15 +48,22 @@
             app:layout_constraintStart_toEndOf="@+id/image_profile"
             app:layout_constraintTop_toTopOf="@+id/image_profile" />
 
-    <TextView
-            android:id="@+id/text_department"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="TextView"
-            android:textSize="15dp"
-            app:layout_constraintStart_toStartOf="@+id/text_age"
-            app:layout_constraintTop_toBottomOf="@+id/text_age" />
+            <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/img_profile"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="32dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:riv_corner_radius="30dp"
+                    tools:srcCompat="@android:drawable/ic_menu_help" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
             android:id="@+id/text_hobby"
