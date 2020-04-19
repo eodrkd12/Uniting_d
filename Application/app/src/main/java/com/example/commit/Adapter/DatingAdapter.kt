@@ -2,7 +2,6 @@ package com.example.commit.Adapter
 
 import android.content.Context
 import android.content.Intent
-import android.provider.Settings.Global.getString
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.commit.Class.UserInfo
 import com.example.commit.ListItem.DatingItem
 import com.example.commit.MainActivity.ChatActivity
-import com.example.commit.MainActivity.DatingActivity
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
 import com.google.firebase.messaging.FirebaseMessaging
@@ -44,7 +42,7 @@ class DatingAdapter(val context:Context) : RecyclerView.Adapter<DatingAdapter.Ho
         var textDepartment=itemView?.findViewById(R.id.text_department) as TextView
         var textHobby=itemView?.findViewById(R.id.text_hobby) as TextView
         var textPersonality=itemView?.findViewById(R.id.text_personality) as TextView
-        var viewProfile=itemView?.findViewById(R.id.view_profile) as View
+        var cardPartner=itemView?.findViewById(R.id.card_partner) as View
 
         fun bind(item:DatingItem, context: Context){
             textNickname.text=item.nickname
@@ -53,7 +51,7 @@ class DatingAdapter(val context:Context) : RecyclerView.Adapter<DatingAdapter.Ho
             textHobby.text="취미 : ${item.hobby}"
             textPersonality.text="성격 : ${item.personality}"
             imageProfile.bringToFront()
-            viewProfile.setOnClickListener {
+            cardPartner.setOnClickListener {
                 val builder =
                     AlertDialog.Builder(context!!)
                 builder.setTitle("${item.nickname}님과의 대화")
@@ -160,8 +158,8 @@ class ChatAdapter : BaseAdapter() {
         textHobby.setText("취미 : ${item.hobby}")
         textPersonality.setText("성격 : ${item.personality}")
 
-        var viewProfile=view.findViewById(R.id.view_profile) as View
-        viewProfile.setOnClickListener {
+        var cardPartner=view.findViewById(R.id.view_profile) as View
+        cardPartner.setOnClickListener {
             val builder =
                 AlertDialog.Builder(context!!)
             builder.setTitle("${item.nickname}님과의 대화")

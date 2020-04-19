@@ -310,7 +310,7 @@ object VolleyService {
             url,
             jsonArray,
             Response.Listener {
-                Log.d("uniting",it.toString())
+                Log.d("uniting","aaa" + it.toString())
                 success(it)
             },
             Response.ErrorListener {
