@@ -34,7 +34,7 @@
 
     <EditText
             android:id="@+id/edit_insertreview"
-            android:hint="텍스트를 입력해주세요"
+            android:hint="리뷰를 남겨주세요."
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:layout_marginStart="20dp"
@@ -43,7 +43,7 @@
             android:paddingLeft="10dp"
             android:ems="10"
             android:gravity="start|top"
-            android:inputType="textMultiLine"
+            android:inputType="textMultiLine|textNoSuggestions"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rating_review" />

@@ -984,21 +984,6 @@ object VolleyService {
     }
 
     fun sendFCMReq(roomId: String, title: String, content: String, context: Context) {
-        /*var url="https://fcm.googleapis.com/fcm/send"
-
-        var json=JSONObject()
-        json.put("to","topics/${roomId}")
-        json.put("priority","high")
-
-        var notification=JSONObject()
-        notification.put("body",content)
-        notification.put("title",title)
-        json.put("notification",notification)
-
-        var data=JSONObject()
-        data.put("message",content)
-        data.put("title",title)
-        json.put("data",data)*/
         var url = "${ip}/join_room/fcm/send"
 
         var json = JSONObject()

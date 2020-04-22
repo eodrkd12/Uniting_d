@@ -63,6 +63,8 @@ class HomeFragment() : Fragment() {
         var textHobby = view.findViewById<TextView>(R.id.text_hobby)
         var textPersonality = view.findViewById<TextView>(R.id.text_personality)
 
+
+
         textPartnerNull.visibility = View.GONE
         layoutProfile.visibility = View.GONE
 
