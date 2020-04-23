@@ -24,6 +24,7 @@ import java.util.*
 import java.util.Base64.Decoder
 import kotlin.collections.ArrayList
 import android.app.Activity
+import android.app.Dialog
 import android.content.ContentValues.TAG
 import android.os.AsyncTask
 import android.util.Log
@@ -31,6 +32,7 @@ import android.util.Log
 //import android.support.v7.widget.LinearLayoutManager
 //import android.support.v7.widget.RecyclerView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.commit.Adapter.CafeteriaAdapter
 import com.example.commit.Class.UserInfo
@@ -55,9 +57,9 @@ class CafeteriaFragment() : Fragment() {
 
     companion object {
         var cafetype = arrayListOf<Type>(Type("한식"), Type("중식"), Type("일식"), Type("치킨"))
+        var dialog: Dialog? = null
     }
 
-    var starpointList:ArrayList<String> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,6 +70,12 @@ class CafeteriaFragment() : Fragment() {
 
         CafeHorizontalRV = rootView1.findViewById(R.id.CafeHorizontalRV)
         CafeVerticalRV = rootView.findViewById(R.id.CafeVerticalRV)
+
+        CafeVerticalRV.setHasFixedSize(true)
+        CafeVerticalRV.layoutManager = LinearLayoutManager(activity)
+        var adapter = CafeVerticalAdapter(activity!!, cafetype)
+        adapter.notifyDataSetChanged()
+        CafeVerticalRV.adapter = adapter
 
         /*fun fetchJson(vararg p0: String) {
             val searchtext = "성서계명대" + "한식"
@@ -194,17 +202,6 @@ class CafeteriaFragment() : Fragment() {
                 e.printStackTrace()
             }
         }*/
-
-
-
-
-        CafeVerticalRV.setHasFixedSize(true)
-        CafeVerticalRV.layoutManager = LinearLayoutManager(activity)
-        var adapter = CafeVerticalAdapter(activity!!, cafetype)
-        adapter.notifyDataSetChanged()
-        CafeVerticalRV.adapter = adapter
-
-
         return rootView
     }
 }

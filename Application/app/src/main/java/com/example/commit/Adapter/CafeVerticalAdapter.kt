@@ -1,6 +1,7 @@
 package com.example.commit.Adapter
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
@@ -14,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -44,6 +46,7 @@ class CafeVerticalAdapter(activity: Activity ,val cafetype: ArrayList<Type>) : R
     val clientSecret:String = "tUYfairJPI"
 
     val mactivity:Activity = activity
+    var dialog: Dialog? = null
 
     override fun getItemCount():Int{
         return cafetype.size
@@ -95,18 +98,11 @@ class CafeVerticalAdapter(activity: Activity ,val cafetype: ArrayList<Type>) : R
         holder.bindItems(cafetype.get(position))
         fetchJson(" ")
 
-
-
-
-
         holder.itemView.textView5.setOnClickListener {
             val intent = Intent(mactivity, CafeteriaActivity::class.java)
             intent.putExtra("cafetype", cafetype.get(position).title)
             mactivity.startActivity(intent)
         }
-
-
-
         /*var url:URL? = null
         var urlConnection: HttpURLConnection? = null
         var buf: BufferedInputStream? = null
@@ -119,13 +115,8 @@ class CafeVerticalAdapter(activity: Activity ,val cafetype: ArrayList<Type>) : R
 
             var line: String? = null
             var page:String = ""
-
-
-
         }*/
-
     }
-
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
         val CafeHorizontalRV : RecyclerView = view.findViewById(R.id.CafeHorizontalRV)
@@ -133,10 +124,4 @@ class CafeVerticalAdapter(activity: Activity ,val cafetype: ArrayList<Type>) : R
             itemView.menutype.text = data.title
         }
     }
-
-
-
-
-
-
 }
