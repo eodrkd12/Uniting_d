@@ -4,37 +4,30 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
         tools:context=".MainActivity.ChatActivity">
-
+    <include
+            layout="@layout/toolbar_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     <EditText
             android:id="@+id/edit_chat"
             android:layout_width="343dp"
-            android:layout_height="40dp"
+            android:layout_height="47dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/light_gray_background"
             android:ems="10"
-            android:inputType="textMultiLine|textNoSuggestions"
-            android:padding="4dp"
+            android:inputType="textPersonName"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_send"
             app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+
 
     <ImageView
             android:id="@+id/btn_send"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="49dp"
+            android:layout_height="47dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/button3"
             android:cropToPadding="false"
@@ -53,14 +46,14 @@
             android:id="@+id/list_chat"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="16dp"
             android:divider="#00000000"
             app:layout_constraintBottom_toTopOf="@+id/edit_chat"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar">
-
-    </ListView>
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintVertical_bias="0.0"/>
 
     <!--<androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_chat"
