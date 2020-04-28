@@ -2,7 +2,8 @@ package com.example.commit.Adapter
 
 import android.content.Context
 import android.content.Intent
-import android.provider.Settings.Global.getString
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,8 +19,9 @@ import com.example.commit.MainActivity.ChatActivity
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
 import com.google.firebase.messaging.FirebaseMessaging
+import kotlinx.android.synthetic.main.activity_chat.*
 
-class DatingAdapter(val context:Context) : RecyclerView.Adapter<DatingAdapter.Holder>(){
+class DatingAdapter(val context: Context) : RecyclerView.Adapter<DatingAdapter.Holder>() {
 
     private var datingList = ArrayList<DatingItem>()
 
@@ -36,64 +38,75 @@ class DatingAdapter(val context:Context) : RecyclerView.Adapter<DatingAdapter.Ho
         holder?.bind(datingList[position], context)
     }
 
-    inner class Holder(itemView:View?):RecyclerView.ViewHolder(itemView!!){
-        var imageProfile=itemView?.findViewById(R.id.image_profile) as ImageView
-        var textNickname=itemView?.findViewById(R.id.text_nickname) as TextView
-        var textAge=itemView?.findViewById(R.id.text_age) as TextView
-        var textDepartment=itemView?.findViewById(R.id.text_department) as TextView
-        var textHobby=itemView?.findViewById(R.id.text_hobby) as TextView
-        var textPersonality=itemView?.findViewById(R.id.text_personality) as TextView
-        var viewProfile=itemView?.findViewById(R.id.view_profile) as View
+    inner class Holder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
+        var imageProfile = itemView?.findViewById(R.id.img_profile) as ImageView
+        var textNickname = itemView?.findViewById(R.id.text_nickname) as TextView
+        var textAge = itemView?.findViewById(R.id.text_age) as TextView
+        var textDepartment = itemView?.findViewById(R.id.text_department) as TextView
+        var textHobby = itemView?.findViewById(R.id.text_hobby) as TextView
+        var textPersonality = itemView?.findViewById(R.id.text_personality) as TextView
+        var cardPartner = itemView?.findViewById(R.id.card_partner) as View
 
-        fun bind(item:DatingItem, context: Context){
-            textNickname.text=item.nickname
-            textAge.text="나이 : ${item.age}"
-            textDepartment.text="학과 : ${item.department}"
-            textHobby.text="취미 : ${item.hobby}"
-            textPersonality.text="성격 : ${item.personality}"
+        fun bind(item: DatingItem, context: Context) {
+            VolleyService.getImageReq(item.nickname!!, context, { success ->
+                val imageBytes = Base64.decode(success!!.getString("user_image"), 0)
+                val image = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+
+                imageProfile.setImageBitmap(image)
+            })
+
+            textNickname.text = "닉네임 : ${item.nickname}"
+            textAge.text = "나이 : ${item.age}"
+            textDepartment.text = "학과 : ${item.department}"
+            textHobby.text = "취미 : ${item.hobby}"
+            textPersonality.text = "성격 : ${item.personality}"
             imageProfile.bringToFront()
-            viewProfile.setOnClickListener {
+            cardPartner.setOnClickListener {
                 val builder =
                     AlertDialog.Builder(context!!)
                 builder.setTitle("${item.nickname}님과의 대화")
                 builder.setMessage("시작하시겠습니까?")
 
                 builder.setPositiveButton("확인") { _, _ ->
-                    VolleyService.createChatRoomReq(UserInfo.NICKNAME, item.nickname!!,"","데이팅", UserInfo.UNIV, context, { success ->
-                        var roomId = success!!.getString("room_id")
-                        var intent = Intent(context, ChatActivity::class.java)
-                        intent.putExtra("room_id", roomId)
-                        intent.putExtra("category","데이팅")
+                    VolleyService.createChatRoomReq(
+                        UserInfo.NICKNAME,
+                        item.nickname!!,
+                        "",
+                        "데이팅",
+                        UserInfo.UNIV,
+                        context,
+                        { success ->
+                            var roomId = success!!.getString("room_id")
+                            var intent = Intent(context, ChatActivity::class.java)
+                            intent.putExtra("room_id", roomId)
+                            intent.putExtra("title", "${item.nickname}")
+                            intent.putExtra("category", "데이팅")
+                            intent.putExtra("chat_agree", "false")
+                            intent.putExtra("maker", UserInfo.NICKNAME)
 
-                        //FCM 주제구독
-                        FirebaseMessaging.getInstance().subscribeToTopic(roomId)
-                            .addOnCompleteListener {
-                                var msg="${roomId} subscribe success"
-                                if(!it.isSuccessful) msg="${roomId} subscribe fail"
-                                Log.d("uniting","DatingAdapter.msg : ${msg}")
-                            }
+                            //FCM 주제구독
+                            FirebaseMessaging.getInstance().subscribeToTopic(roomId)
+                                .addOnCompleteListener {
+                                    var msg = "${roomId} subscribe success"
+                                    if (!it.isSuccessful) msg = "${roomId} subscribe fail"
+                                    Log.d("uniting", "DatingAdapter.msg : ${msg}")
+                                    startActivity(context, intent, null)
+                                }
+                            //FCM 주제구독취소
+                            /*FirebaseMessaging.getInstance().unsubscribeFromTopic(roomId)
+                                .addOnCompleteListener {
+                                    var msg="${roomId} unsubscribe success"
+                                    if(!it.isSuccessful) msg="${roomId} unsubscribe fail"
+                                    Log.d("uniting","DatingAdapter.VolleyService.createChatRoomReq msg : ${msg}")
+                                }*/
 
-                        //FCM 주제구독취소
-                        /*FirebaseMessaging.getInstance().unsubscribeFromTopic(roomId)
-                            .addOnCompleteListener {
-                                var msg="${roomId} unsubscribe success"
-                                if(!it.isSuccessful) msg="${roomId} unsubscribe fail"
-                                Log.d("uniting","DatingAdapter.VolleyService.createChatRoomReq msg : ${msg}")
-                            }*/
-
-                        /*VolleyService.createFCMGroupReq(UserInfo.FCM_TOKEN,roomId!!,context,{ success ->
-                            var roomPref=context.getSharedPreferences("Room", Context.MODE_PRIVATE)
-                            var stringSet= mutableSetOf<String>()
-                            stringSet.add(success)
-
-                            Log.d("uniting","DatingAdapter.VolleyService.createFCMGroupReq success : ${success}")
-
-                            var editor=roomPref.edit()
-                            editor.clear().commit()
-                            editor.putStringSet("notification_key",stringSet).apply()
-                            startActivity(context,intent,null)
-                        })*/
-                    })
+                            VolleyService.sendFCMReq(
+                                roomId!!,
+                                "대화 요청",
+                                "${UserInfo.NICKNAME}님이 대화를 요청하였습니다.",
+                                context
+                            )
+                        })
                 }
                 builder.setNegativeButton("취소") { _, _ ->
 
@@ -104,119 +117,31 @@ class DatingAdapter(val context:Context) : RecyclerView.Adapter<DatingAdapter.Ho
         }
     }
 
-    fun addItem(nickname: String, department: String, age:Int, hobby:String, personality:String){
-        val item=DatingItem()
+    fun addItem(
+        nickname: String,
+        department: String,
+        age: Int,
+        hobby: String,
+        personality: String
+    ) {
+        val item = DatingItem()
 
-        item.nickname=nickname
-        item.department=department
-        item.age=age.toString()
-        item.hobby=hobby
-        item.personality=personality
+        item.nickname = nickname
+        item.department = department
+        item.age = age.toString()
+        item.hobby = hobby
+        item.personality = personality
 
         datingList.add(item)
     }
 
-    fun getNickname(position: Int): String?{
-        var datingItem=datingList.get(position)
+    fun getNickname(position: Int): String? {
+        var datingItem = datingList.get(position)
 
         return datingItem.nickname
     }
 
-    fun clear(){
+    fun clear() {
         datingList.clear()
     }
 }
-
-
-/*
-class ChatAdapter : BaseAdapter() {
-
-    private var datingList = ArrayList<DatingItem>()
-
-    override fun getCount(): Int {
-        return datingList.size
-    }
-
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-
-    override fun getItem(position: Int): Any {
-        return datingList.get(position)
-    }
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        var view = convertView
-        val context:Context? = parent?.context
-
-        // "listview_item" Layout을 inflate하여 convertView 참조 획득.
-        if (view == null) {
-            val inflater = context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            view = inflater.inflate(R.layout.item_dating_list, parent, false)
-        }
-
-        var textNickname=view?.findViewById(R.id.text_nickname) as TextView
-        var textDepartment=view.findViewById(R.id.text_department) as TextView
-        var textAge=view.findViewById(R.id.text_age) as TextView
-        var textHobby=view.findViewById(R.id.text_hobby) as TextView
-        var textPersonality=view.findViewById(R.id.text_personality) as TextView
-
-
-        var item=datingList[position]
-
-        textNickname.setText(item.nickname)
-        textDepartment.setText("학과 : ${item.department}")
-        textAge.setText("나이 : ${item.age}살")
-        textHobby.setText("취미 : ${item.hobby}")
-        textPersonality.setText("성격 : ${item.personality}")
-
-        var viewProfile=view.findViewById(R.id.view_profile) as View
-        viewProfile.setOnClickListener {
-            val builder =
-                AlertDialog.Builder(context!!)
-            builder.setTitle("${item.nickname}님과의 대화")
-            builder.setMessage("시작하시겠습니까?")
-
-            builder.setPositiveButton("확인") { _, _ ->
-                VolleyService.createChatRoomReq(UserInfo.NICKNAME, item.nickname!!,"","데이팅", UserInfo.UNIV, context, { success ->
-                    var roomId = success!!.getString("room_id")
-                    var intent = Intent(context, ChatActivity::class.java)
-                    intent.putExtra("room_id", roomId)
-                    intent.putExtra("category","데이팅")
-                    startActivity(context,intent,null)
-                })
-            }
-            builder.setNegativeButton("취소") { _, _ ->
-
-            }
-            builder.show()
-        }
-
-        var imageProfile=view.findViewById(R.id.image_profile) as ImageView
-//        imageProfile.bringToFront()
-
-        return view
-    }
-
-    fun addItem(nickname: String, department: String, age:Int, hobby:String, personality:String){
-        val item=DatingItem()
-
-        item.nickname=nickname
-        item.department=department
-        item.age=age.toString()
-        item.hobby=hobby
-        item.personality=personality
-
-        datingList.add(item)
-    }
-
-    fun getNickname(position: Int): String?{
-        var datingItem=datingList.get(position)
-
-        return datingItem.nickname
-    }
-
-    fun clear(){
-        datingList.clear()
-    }
-}*/

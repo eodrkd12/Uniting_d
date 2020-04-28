@@ -36,7 +36,7 @@ class Signup2Activity : AppCompatActivity() {
                 code=success
 
                 //이메일로 인증번호 보내기
-                var mailSender: GMailSender = GMailSender("ljs950113@gmail.com", "Wotjd165879!", code)
+                var mailSender: GMailSender = GMailSender("ljs950113@gmail.com", "limjs165879!", code)
                 mailSender.sendMail(
                     "Uniting 이메일 인증"
                     , "안녕하세요.\n" +

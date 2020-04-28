@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
         android:orientation="vertical"
         android:weightSum="10">
 
@@ -12,49 +13,54 @@
             android:id="@+id/text_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:text="Uniting"
-            android:textColor="#87CEEB"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/alfa_slab_one"
+            android:text="대만추"
+            android:textColor="#00BFFF"
             android:textSize="25dp"
             android:textStyle="bold|italic"
+            app:layout_constraintBottom_toTopOf="@+id/frame_main"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout"
+    <FrameLayout
+            android:id="@+id/frame_main"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline"
+            app:layout_constraintVertical_bias="0.0" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bnv_main"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="8"
-            android:orientation="vertical"
-            android:weightSum="10"
+            android:background="#FFFFFF"
+            app:itemBackground="@color/colorWhite"
+            app:itemIconTint="@drawable/item_color"
+            app:itemTextColor="@drawable/item_color"
+            app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline2"
+            app:menu="@menu/bnv_main" />
 
-        <FrameLayout
-                android:id="@+id/frame_main"
-                android:layout_width="match_parent"
-                android:layout_height="613dp"
-                app:layout_constraintBottom_toTopOf="@+id/bnv_main"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.1" />
 
-        </FrameLayout>
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.92" />
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bnv_main"
-                android:layout_width="409dp"
-                android:layout_height="60dp"
-                android:background="#FFFFFF"
-                app:itemIconTint="#87CEEB"
-                app:itemTextColor="#87CEEB"
-                app:labelVisibilityMode="auto"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:menu="@menu/bnv_main" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

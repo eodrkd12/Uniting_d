@@ -6,11 +6,15 @@ import android.widget.LinearLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.commit.Adapter.CafeteriaAdapter
+import com.example.commit.Adapter.CafeteriaGridAdapter
+import com.example.commit.Class.UserInfo
 import com.example.commit.ListItem.Homefeed
 import com.example.commit.R
+import com.example.commit.Singleton.VolleyService
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_cafeteria.*
 import okhttp3.*
+import org.jetbrains.anko.doAsync
 import java.io.IOException
 import java.net.URL
 import java.net.URLEncoder
@@ -26,8 +30,11 @@ class CafeteriaActivity : AppCompatActivity() {
         setContentView(R.layout.activity_cafeteria)
         val intent = intent
         cafetype = intent.getStringExtra("cafetype")
-        fetchJson(" ")
+        doAsync {
+            fetchJson(" ")
+        }
 
+        text_category.text= cafetype
     }
 
     fun fetchJson(vararg p0: String) {
@@ -56,9 +63,10 @@ class CafeteriaActivity : AppCompatActivity() {
 
                     val homefeed = gson.fromJson(body, Homefeed::class.java)
 
+
                     cafeteriaRV.setHasFixedSize(true)
                     cafeteriaRV.layoutManager = GridLayoutManager(this@CafeteriaActivity, 2)
-                    cafeteriaRV.adapter = CafeteriaAdapter(this@CafeteriaActivity, homefeed)
+                    cafeteriaRV.adapter = CafeteriaGridAdapter(this@CafeteriaActivity, homefeed)
                 }
             }
 

@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.item_menu.view.*
 class MenuAdapter(val menu:ArrayList<Menu>) : RecyclerView.Adapter<MenuAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
-        return menu.count()
+        return menu.count()-1
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuAdapter.ViewHolder {
@@ -29,5 +29,4 @@ class MenuAdapter(val menu:ArrayList<Menu>) : RecyclerView.Adapter<MenuAdapter.V
 
         }
     }
-
 }

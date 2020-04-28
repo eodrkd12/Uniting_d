@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.item_review.view.*
 class ReviewAdapter(val reviewList: ArrayList<ReviewItem>): RecyclerView.Adapter<ReviewAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
-        return reviewList.count()
+        return reviewList.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewAdapter.ViewHolder {

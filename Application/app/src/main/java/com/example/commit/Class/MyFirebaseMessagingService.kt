@@ -27,13 +27,13 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(p0: RemoteMessage) {
         if(p0.notification!=null){
-            Log.d("test","MyFirebaseMessagingService p0.notification.body : ${p0.notification?.body}")
             if(!isAppOnForeground(this))
-                sendNotification(p0.notification?.body)
+                sendNotification(p0.to,p0.notification?.title,p0.notification?.body)
         }
     }
 
-    private fun sendNotification(body: String?) {
+    private fun sendNotification(to:String?,title: String?,body: String?) {
+        Log.d("uniting","${to}")
         val intent=Intent(this,MainActivity::class.java).apply {
             flags=Intent.FLAG_ACTIVITY_CLEAR_TOP
             putExtra("Notification",body)
@@ -44,7 +44,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         var notificationBuilder=NotificationCompat.Builder(this,"fcm_uniting")
             .setSmallIcon(R.mipmap.ic_launcher) // 로고
-            .setContentTitle("Uniting")
+            .setContentTitle("테스트")
             .setContentText(body)
             .setAutoCancel(true)
             .setSound(notificationSound)

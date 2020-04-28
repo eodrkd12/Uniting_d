@@ -32,6 +32,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="test"
+            android:textColor="#000000"
             android:textSize="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -41,7 +42,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:background="@drawable/chat_background"
+            android:padding="8dp"
             android:text="test"
+            android:textColor="#000000"
             android:textSize="20dp"
             app:layout_constraintStart_toStartOf="@+id/text_speaker"
             app:layout_constraintTop_toBottomOf="@id/text_speaker" />
@@ -53,7 +57,7 @@
             android:layout_marginLeft="8dp"
             android:text="test"
             android:textSize="10dp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/text_content"
+            app:layout_constraintBottom_toBottomOf="@+id/text_content"
             app:layout_constraintLeft_toRightOf="@id/text_content" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

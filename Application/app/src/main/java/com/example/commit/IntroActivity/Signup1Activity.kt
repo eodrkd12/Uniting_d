@@ -1,7 +1,11 @@
 package com.example.commit.IntroActivity
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.Color.parseColor
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -15,11 +19,15 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.commit.Adapter.MajorSearchAdapter
+import com.example.commit.Adapter.PersonalityAdapter
 import com.example.commit.Adapter.UniversitySearchAdapter
 import com.example.commit.Class.GMailSender
+import com.example.commit.ListItem.Personality
 import com.example.commit.ListItem.University
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
@@ -61,8 +69,6 @@ class Signup1Activity : AppCompatActivity() {
 
         var majorFilter: ArrayList<String> = arrayListOf()
 
-
-
         VolleyService.search_university(this, {success ->
             univArray = success
 
@@ -94,6 +100,8 @@ class Signup1Activity : AppCompatActivity() {
                     edit_universityname.setCursorVisible(true)
                     edit_majorname.setText(null)
                     btn_signup1next.setEnabled(false)
+                    majorList.clear()
+                    majorFilter.clear()
                 }
             }
             false
@@ -120,7 +128,7 @@ class Signup1Activity : AppCompatActivity() {
                         }
                     }
                     universityRV!!.setHasFixedSize(true)
-                    universityRV!!.layoutManager = LinearLayoutManager(this@Signup1Activity, LinearLayout.VERTICAL, false)
+                    universityRV!!.layoutManager = LinearLayoutManager(this@Signup1Activity, RecyclerView.VERTICAL, false)
                     universityRV!!.adapter = UniversitySearchAdapter(this@Signup1Activity, univFilter)
                 }
             }
@@ -167,7 +175,7 @@ class Signup1Activity : AppCompatActivity() {
                         }
                     }
                     majorRV!!.setHasFixedSize(true)
-                    majorRV!!.layoutManager = LinearLayoutManager(this@Signup1Activity, LinearLayout.VERTICAL, false)
+                    majorRV!!.layoutManager = LinearLayoutManager(this@Signup1Activity, RecyclerView.VERTICAL, false)
                     majorRV!!.adapter = MajorSearchAdapter(this@Signup1Activity, majorFilter)
                 }
             }
