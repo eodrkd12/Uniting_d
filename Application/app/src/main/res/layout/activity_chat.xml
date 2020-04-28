@@ -7,6 +7,19 @@
         android:background="#FFFFFF"
         tools:context=".MainActivity.ChatActivity">
 
+    <TextView
+            android:id="@+id/text_waiting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="채팅 수락 대기중입니다"
+            android:textColor="#000000"
+            android:textSize="30dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/toolbar" />
+
     <EditText
             android:id="@+id/edit_chat"
             android:layout_width="343dp"
@@ -61,6 +74,50 @@
             app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
     </ListView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_agree"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/toolbar">
+
+        <ImageView
+                android:id="@+id/btn_disagree"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="45dp"
+                android:layout_marginBottom="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/cancel_icon" />
+
+        <ImageView
+                android:id="@+id/btn_agree"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="45dp"
+                android:layout_marginBottom="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/check_icon" />
+
+        <TextView
+                android:id="@+id/text_agree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="수락 요청"
+                android:textColor="#000000"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!--<androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_chat"

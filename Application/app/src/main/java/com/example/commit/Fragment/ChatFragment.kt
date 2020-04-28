@@ -61,6 +61,7 @@ class ChatFragment() : Fragment() {
                     var universityName = json.getString("univ_name")
                     var curNum = json.getInt("cur_num")
                     var introduce = json.getString("introduce")
+                    var chatAgree=json.getString("chat_agree")
 
                     if(category=="데이팅") {
                         var tempTitle=roomTitle.split("&")
@@ -98,7 +99,8 @@ class ChatFragment() : Fragment() {
                         curNum,
                         introduce,
                         lastChat,
-                        lastChatTime
+                        lastChatTime,
+                        chatAgree
                     )
                 }
             }

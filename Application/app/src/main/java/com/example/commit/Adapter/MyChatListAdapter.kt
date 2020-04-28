@@ -43,20 +43,28 @@ class MyChatListAdapter(val context:Context) : RecyclerView.Adapter<MyChatListAd
         fun bind(item: MyChatRoomListItem, context: Context){
             textTitle.text=item.roomTitle
             if(item.cateName=="데이팅")
-                textJoinNum.text=""
+                textJoinNum.text = ""
             else
                 textJoinNum.text="${item.curNum}"
-            textLastChat.text="${item.lastChat}"
-            if(item.lastChatTime==null)
+            if(item.chatAgree=="false"){
+                textLastChat.text="채팅 수락 대기중입니다"
                 textLastChatTime.text=""
-            else
-                textLastChatTime.text="${item.lastChatTime}"
+            }
+            else{
+                textLastChat.text="${item.lastChat}"
+                if(item.lastChatTime==null)
+                    textLastChatTime.text=""
+                else
+                    textLastChatTime.text="${item.lastChatTime}"
+            }
 
             cardRoom.setOnClickListener {
                 var intent = Intent(context, ChatActivity::class.java)
                 intent.putExtra("room_id", item.roomId)
                 intent.putExtra("category", item.cateName)
                 intent.putExtra("title", item.roomTitle)
+                intent.putExtra("chat_agree", item.chatAgree)
+                intent.putExtra("maker",item.maker)
                 ContextCompat.startActivity(context, intent, null)
             }
 
@@ -65,8 +73,8 @@ class MyChatListAdapter(val context:Context) : RecyclerView.Adapter<MyChatListAd
         }
     }
 
-    fun addItem(roomId: String, cateName: String, maker:String,roomTitle:String,limitNum:Int,universityName:String,curNum:Int,introduce:String,lastChat:String,lastChatTime:String){
-        val item= MyChatRoomListItem(roomId, cateName, maker, roomTitle, limitNum, universityName, curNum, introduce, lastChat, lastChatTime)
+    fun addItem(roomId: String, cateName: String, maker:String,roomTitle:String,limitNum:Int,universityName:String,curNum:Int,introduce:String,lastChat:String,lastChatTime:String,chatAgree:String){
+        val item= MyChatRoomListItem(roomId, cateName, maker, roomTitle, limitNum, universityName, curNum, introduce, lastChat, lastChatTime,chatAgree)
         myChatRoomList.add(item)
     }
 

@@ -29,6 +29,7 @@ import com.example.commit.MainActivity.OpenChatListActivity
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
 import com.google.firebase.messaging.FirebaseMessaging
+import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.android.synthetic.main.activity_profile.*
 import org.jetbrains.anko.backgroundDrawable
 import org.json.JSONObject
@@ -56,7 +57,7 @@ class HomeFragment() : Fragment() {
         var textPartnerNull = view.findViewById<TextView>(R.id.text_partner_null)
 
         var layoutProfile = view.findViewById<ConstraintLayout>(R.id.layout_profile)
-        var imgProfile=view.findViewById<ImageView>(R.id.img_profile)
+        var imgProfile = view.findViewById<ImageView>(R.id.img_profile)
         var textNickname = view.findViewById<TextView>(R.id.text_nickname)
         var textAge = view.findViewById<TextView>(R.id.text_age)
         var textDepartment = view.findViewById<TextView>(R.id.text_department)
@@ -79,7 +80,7 @@ class HomeFragment() : Fragment() {
             startActivity(intent)
         }
         VolleyService.getJoinDating(UserInfo.NICKNAME, activity!!.applicationContext, { success ->
-            Log.d("uniting",success.toString())
+            Log.d("uniting", success.toString())
             if (success == null) {
                 //데이팅 기능이 꺼져있는 경우
                 textPartnerState.setText("만남 기능이 Off 상태입니다")
@@ -107,7 +108,7 @@ class HomeFragment() : Fragment() {
                             var json = array[num] as JSONObject
 
                             textNickname.setText("${json.getString("user_nickname")}")
-                            var nickname=json.getString("user_nickname")
+                            var nickname = json.getString("user_nickname")
                             //현재 연도 구하기
                             var calendar = GregorianCalendar(Locale.KOREA)
                             var year = calendar.get(Calendar.YEAR)
@@ -123,12 +124,20 @@ class HomeFragment() : Fragment() {
                             textHobby.setText("취미 : ${json.getString("user_hobby")}")
                             textPersonality.setText("성격 : ${json.getString("user_personality")}")
 
-                            VolleyService.getImageReq(json.getString("user_nickname"),activity!!.applicationContext,{success ->
-                                val imageBytes = Base64.decode(success!!.getString("user_image"), 0)
-                                val image = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+                            VolleyService.getImageReq(
+                                json.getString("user_nickname"),
+                                activity!!.applicationContext,
+                                { success ->
+                                    val imageBytes =
+                                        Base64.decode(success!!.getString("user_image"), 0)
+                                    val image = BitmapFactory.decodeByteArray(
+                                        imageBytes,
+                                        0,
+                                        imageBytes.size
+                                    )
 
-                                imgProfile.setImageBitmap(image)
-                            })
+                                    imgProfile.setImageBitmap(image)
+                                })
 
                             cardPartner.setOnClickListener {
                                 val builder =
@@ -169,6 +178,13 @@ class HomeFragment() : Fragment() {
                                                         null
                                                     )
                                                 }
+
+                                            VolleyService.sendFCMReq(
+                                                roomId!!,
+                                                "대화 요청",
+                                                "${UserInfo.NICKNAME}님이 대화를 요청하였습니다.",
+                                                context!!
+                                            )
                                         })
                                 }
                                 builder.setNegativeButton("취소") { _, _ ->

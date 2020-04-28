@@ -52,7 +52,8 @@
                 android:theme="@style/Theme.AppCompat.Dialog" />
         <activity android:name=".MainActivity.SearchActivity" />
         <activity android:name=".MainActivity.OpenChatListActivity" />
-        <activity android:name=".MainActivity.ChatActivity" />
+        <activity android:name=".MainActivity.ChatActivity"
+                android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".MainActivity.DatingActivity" />
         <activity android:name=".IntroActivity.Join3Activity" />
         <activity android:name=".IntroActivity.Join1Activity" />

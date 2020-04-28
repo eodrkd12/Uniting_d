@@ -1122,5 +1122,24 @@ object VolleyService {
         }
         Volley.newRequestQueue(context).add(request)
     }
+
+    fun chatAgreeReq(roomId: String?, context: Context, success: (String) -> Unit) {
+        var url = "${roomId}/join_room/agree"
+
+        var jsonObject = JSONObject()
+        jsonObject.put("room_id", roomId)
+
+        var request = object : JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonObject,
+            Response.Listener {
+                success(it.getString("result"))
+            },
+            Response.ErrorListener {
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
 }
 
