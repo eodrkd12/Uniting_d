@@ -3,6 +3,10 @@ var router = express.Router();
 
 var db_user = require('../public/SQL/user_sql')();
 
+var moment=require('moment');
+require('moment-timezone');
+moment.tz.setDefault("Asia/Seoul");
+
 router.get('/', function(req, res, next) {
   db_user.get_user(function(err,result){
     if(err) console.log(err);
@@ -11,7 +15,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/dating', function(req, res, next) {
-	console.log(req.body[0].nickname)
   db_user.get_dating(req.body[0].nickname,req.body[0].gender,req.body[0].univ_name,function(err,result){
     if(err) console.log(err);
     else res.send(result);
@@ -65,8 +68,6 @@ router.post('/', function(req,res,next){
 	var enterYear=req.body.enter_year
 	var image=req.body.image
 
-	console.log(image)
-
 	db_user.join(id,pw,name,birthday,gender,nickname,webMail,universityName,enterYear,departmentName,image)
 	db_user.insert_dating(id,nickname,universityName,departmentName,birthday,gender)
 
@@ -94,14 +95,102 @@ router.delete('/',function(req,res,next){ // 상원 회원정보 삭제 (최신�
 })
 
 router.post('/getImage',function(req,res,next){
-	var nickname=req.body[0].nickname
+	var nickname=req.body.nickname
 	console.log(nickname)
 	db_user.get_image(nickname,function(err,result){
 		if(err) console.log(err)
 		else{
-			res.send(result)
+			console.log(result[0])
+			const buf=result[0].user_image
+			var str=buf.toString()
+			
+			var object=new Object()
+			object.user_image=str
+			res.send(object)
 		}
 	})
 })
+
+router.post('/dating_on_off',function(req,res,next){
+	var id=req.body.id
+	var nickname=req.body.nickname
+	var universityName=req.body.univ_name
+	var departmentName=req.body.dept_name
+	var birthday=req.body.birthday
+	birthday=birthday.substr(0,10)
+	var gender=req.body.gender
+	var hobby=req.body.hobby
+	var personality=req.body.personality
+	var yn=req.body.yn
+
+	
+
+	var object=new Object()
+	if(yn==="Y"){
+		db_user.insert_dating(id,nickname,universityName,departmentName,birthday,gender,hobby,personality)
+		object.result="On"
+	}
+	else{
+		db_user.delete_dating(nickname)
+		object.result="Off"
+	}
+	res.send(object)
+})
+
+router.post('/insertPersonality', function(req, res, next) {
+	var personality = req.body.personality
+	console.log(personality)
+	db_user.insert_personality(personality)
+
+	res.send("success")
+})
+
+router.post('/insert/temporary/id', function(req, res, next) {
+	var id=req.body.id
+	var universityName=req.body.univ_name
+	var departmentName=req.body.dept_name
+
+	db_user.insert_temporary_id(id, universityName, departmentName)
+
+	res.send("success")
+})
+
+router.post('/delete/temporary/id', function(req, res, next) {
+	var id=req.body.id
+
+	db_user.delete_temporary_id(id)
+
+	res.send("success")
+})
+
+router.post('/insert/temporary/nickname', function(req, res, next) {
+	var id=req.body.id
+	var nickname=req.body.nickname
+
+	db_user.insert_temporary_nickname(id, nickname)
+
+	res.send("success")
+})
+
+router.post('/change/nickname', function(req, res, next) {
+	var id=req.body.id
+	var nickname=req.body.nickname
+
+	db_user.change_nickname(id, nickname)
+
+	res.send("success")
+})
+
+router.post('/check/tmp/nickname', function(req, res, next) {
+	var id=req.body.id
+	var nickname=req.body.nickname
+
+	db_user.check_tmp_nickname(nickname, function(err, result){
+		if(err) console.log(err)
+		else res.send(result[0])
+	})
+})
+
+
 
 module.exports = router;

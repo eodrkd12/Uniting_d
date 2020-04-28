@@ -57,10 +57,10 @@ router.post('/',function(req,res,next){//채팅방 생성
         var room_id=`${universityName}-${maker}-${time}`
 	var room_title=`${maker}&${user}`
 
-
 	db_user.get_token(user,function(err,result){
 		if(err) console.log(err)
 		else{
+			console.log(result)
 			var registrationTokens=[result[0].token]
 
 			admin.messaging().subscribeToTopic(registrationTokens, room_id).then(function(response){
@@ -141,6 +141,10 @@ router.post('/get_partner',function(req,res,next){
 				if(err) console.log(err)
 				else {
 					object.partner=resultPartner
+					const buf=resultPartner[0].user_image
+		                        var str=buf.toString()
+		                        object.image=str
+
 					res.send(object)
 				}
 			})
@@ -443,5 +447,19 @@ router.post('/fcm/send',function(req,res,next){
 		})
 })
 
+router.post('/agree',function(req,res,next){
+	var roomId=req.body.room_id
+
+	db_join_room.chat_agree(roomId,function(err,result){
+		if(err){
+			console.log(err)
+		}
+		else{
+			var object=new Object()
+			object.result="수락"
+			res.send(object)
+		}
+	})
+})
 
 module.exports=router;

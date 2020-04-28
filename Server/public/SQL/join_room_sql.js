@@ -41,7 +41,7 @@ module.exports=function(){
 
         create_dating_room: function(room_id,room_title,cate_name,maker,universityName,callback){
             pool.getConnection(function(err,con){
-                var sql=`insert into chat_room value('${room_id}','${cate_name}','${maker}','${room_title}',2,'${universityName}',2,'')`;
+                var sql=`insert into chat_room value('${room_id}','${cate_name}','${maker}','${room_title}',2,'${universityName}',2,'','false')`;
                 con.query(sql,function(err,result,field){
                     con.release()
                     if(err) callback(err)
@@ -51,7 +51,7 @@ module.exports=function(){
         },
 	    create_open_room: function(roomId,roomTitle,category,maker,universityName,introduce,maxNum,callback){
 		    pool.getConnection(function(err,con){
-			    var sql=`insert into chat_room value('${roomId}','${category}','${maker}','${roomTitle}',${maxNum},'${universityName}',1,'${introduce}')`
+			    var sql=`insert into chat_room value('${roomId}','${category}','${maker}','${roomTitle}',${maxNum},'${universityName}',1,'${introduce}','true')`
 			    con.query(sql,function(err,result,field){
 				    con.release()
 				    if(err) callback(err)
@@ -233,6 +233,16 @@ module.exports=function(){
 		    pool.getConnection(function(err,con){
 			    var sql=`select * from chat_room where room_id='${roomId}'`
 			    con.query(sql,function(err,result,field){
+				    con.release()
+				    if(err) callback(err)
+				    else callback(null,result)
+			    })
+		    })
+	    },
+	    chat_agree:function(roomId,callback){
+		    pool.getConnection(function(err,con){
+			    var sql="update chat_room set chat_agree='true' where room_id='"+roomId+"'"
+			    con.query(sql,function(err,result,fields){
 				    con.release()
 				    if(err) callback(err)
 				    else callback(null,result)
