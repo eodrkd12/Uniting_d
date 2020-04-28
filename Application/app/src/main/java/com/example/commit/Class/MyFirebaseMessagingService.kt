@@ -22,15 +22,12 @@ import com.google.firebase.messaging.RemoteMessage
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onNewToken(p0: String) {
-        Log.d("test","onNewToken() : ${p0}")
     }
 
 
     override fun onMessageReceived(p0: RemoteMessage) {
-        Log.d("test","onMessageReceived() : ${p0.from}")
-
         if(p0.notification!=null){
-            Log.d("test","Notification Message Body : ${p0.notification?.body}")
+            Log.d("test","MyFirebaseMessagingService p0.notification.body : ${p0.notification?.body}")
             if(!isAppOnForeground(this))
                 sendNotification(p0.notification?.body)
         }

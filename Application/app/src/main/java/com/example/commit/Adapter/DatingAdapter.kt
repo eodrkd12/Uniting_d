@@ -70,7 +70,7 @@ class DatingAdapter(val context:Context) : RecyclerView.Adapter<DatingAdapter.Ho
                             .addOnCompleteListener {
                                 var msg="${roomId} subscribe success"
                                 if(!it.isSuccessful) msg="${roomId} subscribe fail"
-                                Log.d("uniting","DatingAdapter.VolleyService.createChatRoomReq msg : ${msg}")
+                                Log.d("uniting","DatingAdapter.msg : ${msg}")
                             }
 
                         //FCM 주제구독취소
