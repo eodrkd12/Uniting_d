@@ -185,8 +185,9 @@ class Signup1Activity : AppCompatActivity() {
             var intent = Intent(this, Signup2Activity::class.java)
             intent.putExtra("univMail", univMail)
             intent.putExtra("univName", editUnivname!!.text.toString())
-            intent.putExtra("univMajor", editMajorname!!.text.toString())
+            intent.putExtra("univDept", editMajorname!!.text.toString())
             startActivity(intent)
+            finish()
         }
 
         /*btn_sendmail.setOnClickListener{

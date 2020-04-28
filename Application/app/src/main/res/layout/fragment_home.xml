@@ -17,7 +17,7 @@
             app:layout_constraintEnd_toEndOf="@+id/card_partner"
             app:layout_constraintStart_toStartOf="@+id/card_partner"
             app:layout_constraintTop_toBottomOf="@+id/card_partner" />
-
+    w
 
     <Button
             android:id="@+id/btn_open"
@@ -59,7 +59,7 @@
                 android:id="@+id/layout_profile"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="visible">
+                android:visibility="gone">
 
             <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline"
@@ -75,12 +75,8 @@
                     android:layout_marginStart="16dp"
                     android:text="TextView"
                     android:textColor="#000000"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@id/text_age"
                     app:layout_constraintStart_toStartOf="@+id/guideline"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_chainStyle="packed" />
+                    app:layout_constraintTop_toTopOf="@+id/img_profile" />
 
             <TextView
                     android:id="@+id/text_age"
@@ -89,8 +85,6 @@
                     android:layout_marginTop="8dp"
                     android:text="TextView"
                     android:textColor="#000000"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toTopOf="@id/text_department"
                     app:layout_constraintStart_toStartOf="@+id/text_nickname"
                     app:layout_constraintTop_toBottomOf="@+id/text_nickname" />
 
@@ -101,7 +95,6 @@
                     android:layout_marginTop="8dp"
                     android:text="TextView"
                     android:textColor="#000000"
-                    app:layout_constraintBottom_toTopOf="@id/text_hobby"
                     app:layout_constraintStart_toStartOf="@+id/text_nickname"
                     app:layout_constraintTop_toBottomOf="@+id/text_age" />
 
@@ -112,7 +105,6 @@
                     android:layout_marginTop="8dp"
                     android:text="TextView"
                     android:textColor="#000000"
-                    app:layout_constraintBottom_toTopOf="@id/text_personality"
                     app:layout_constraintStart_toStartOf="@+id/text_nickname"
                     app:layout_constraintTop_toBottomOf="@+id/text_department" />
 
@@ -123,24 +115,23 @@
                     android:layout_marginTop="8dp"
                     android:text="TextView"
                     android:textColor="#000000"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/text_nickname"
                     app:layout_constraintTop_toBottomOf="@+id/text_hobby" />
 
-            <com.makeramen.roundedimageview.RoundedImageView
+            <ImageView
                     android:id="@+id/img_profile"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="32dp"
-                    android:scaleType="centerCrop"
+                    android:background="@drawable/image_profile"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideline"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:riv_corner_radius="30dp"
                     tools:srcCompat="@android:drawable/ic_menu_help" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -151,7 +142,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
             android:text="TextView"
             android:textColor="#000000"
             android:textSize="20dp"

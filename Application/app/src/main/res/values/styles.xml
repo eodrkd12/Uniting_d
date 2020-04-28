@@ -8,6 +8,11 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowLightStatusBar">true</item>
+
+        <!-- 상태바까지 view를 보여줄 수 있다-->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <!-- 상태바 색상-->
+        <item name="android:statusBarColor">#FFFFFF</item>
     </style>
     <style name="CustomRadioButton" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@color/radio_click</item>
@@ -22,15 +27,10 @@
     <style name="loading_dialog_style" parent="@android:style/Theme.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowTitleStyle">@null</item>
-
         <item name="android:windowFrame">@null</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
-
         <item name="android:windowBackground">@android:color/white</item>
-
+        <item name="android:background">@android:color/white</item>
         <item name="android:backgroundDimEnabled">false</item>
     </style>
-
-
-
 </resources>

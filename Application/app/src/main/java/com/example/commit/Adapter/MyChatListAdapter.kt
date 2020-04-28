@@ -2,45 +2,47 @@ package com.example.commit.Adapter
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.cardview.widget.CardView
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.commit.ListItem.MyChatRoomListItem
+import com.example.commit.Class.UserInfo
+import com.example.commit.ListItem.ChatRoomListItem
+import com.example.commit.ListItem.DatingItem
 import com.example.commit.MainActivity.ChatActivity
 import com.example.commit.R
+import com.example.commit.Singleton.VolleyService
 
 class MyChatListAdapter(val context:Context) : RecyclerView.Adapter<MyChatListAdapter.Holder>() {
-    private var myChatRoomList = ArrayList<MyChatRoomListItem>()
+    private var chatRoomList = ArrayList<ChatRoomListItem>()
 
     var isMyChat:Boolean=true
     var chatIdx:Int=0;
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        val view = LayoutInflater.from(context).inflate(R.layout.item_my_chat_room_list, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.item_chat_room_list, parent, false)
         chatIdx++
         return Holder(view)
     }
 
     override fun getItemCount(): Int {
-        return myChatRoomList.count()
+        return chatRoomList.count()
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.bind(myChatRoomList[position], context)
+        holder.bind(chatRoomList[position], context)
     }
 
     inner class Holder(itemView: View?): RecyclerView.ViewHolder(itemView!!){
 
         var textTitle=itemView?.findViewById(R.id.text_title) as TextView
         var textJoinNum=itemView?.findViewById(R.id.text_join_num) as TextView
-        var cardRoom=itemView?.findViewById(R.id.card_room) as CardView
-        var textLastChat=itemView?.findViewById(R.id.text_last_chat) as TextView
-        var textLastChatTime=itemView?.findViewById(R.id.text_last_chat_time) as TextView
-        fun bind(item: MyChatRoomListItem, context: Context){
+        var viewOpen=itemView?.findViewById(R.id.view_open) as View
+        fun bind(item: ChatRoomListItem, context: Context){
             textTitle.text=item.roomTitle
             if(item.cateName=="데이팅")
                 textJoinNum.text = ""
@@ -58,7 +60,8 @@ class MyChatListAdapter(val context:Context) : RecyclerView.Adapter<MyChatListAd
                     textLastChatTime.text="${item.lastChatTime}"
             }
 
-            cardRoom.setOnClickListener {
+
+            viewOpen.setOnClickListener {
                 var intent = Intent(context, ChatActivity::class.java)
                 intent.putExtra("room_id", item.roomId)
                 intent.putExtra("category", item.cateName)
@@ -78,24 +81,19 @@ class MyChatListAdapter(val context:Context) : RecyclerView.Adapter<MyChatListAd
         myChatRoomList.add(item)
     }
 
+        item.roomId=roomId
+        item.cateName=cateName
+        item.maker=maker
+        item.roomTitle=roomTitle
+        item.limitNum=limitNum
+        item.universityName=universityName
+        item.curNum=curNum
+        item.introduce=introduce
+
+        chatRoomList.add(item)
+    }
+
     fun clear(){
-        myChatRoomList.clear()
+        chatRoomList.clear()
     }
-
-    fun insertLastChat(roomId: String, content: String, fulltime: String, time:String) {
-        for(i in 0..myChatRoomList.size-1){
-            if(myChatRoomList[i].roomId==roomId){
-                myChatRoomList[i].lastChat=content
-                myChatRoomList[i].lastChatFullTime=fulltime
-                myChatRoomList[i].lastChatTime=time
-                break
-            }
-        }
-    }
-
-    fun sortByLastChat() {
-        myChatRoomList.sortByDescending { selector(it) }
-    }
-
-    fun selector(room:MyChatRoomListItem): String = room.lastChatFullTime!!
 }

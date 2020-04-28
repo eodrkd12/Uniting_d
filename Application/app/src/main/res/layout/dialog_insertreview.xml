@@ -35,7 +35,7 @@
 
     <EditText
             android:id="@+id/edit_insertreview"
-            android:hint="리뷰를 남겨주세요."
+            android:hint="텍스트를 입력해주세요"
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:layout_marginStart="20dp"
@@ -49,4 +49,34 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rating_review" />
+
+    <ImageButton
+            android:id="@+id/btn_insertreviewimage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_insertreview"
+            app:srcCompat="@android:drawable/ic_menu_camera" />
+
+    <ImageView
+            android:id="@+id/image_review1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toEndOf="@+id/btn_insertreviewimage"
+            app:layout_constraintTop_toBottomOf="@+id/edit_insertreview"
+            app:srcCompat="@mipmap/ic_launcher" />
+
+    <ImageView
+            android:id="@+id/image_review2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toEndOf="@+id/image_review1"
+            app:layout_constraintTop_toBottomOf="@+id/edit_insertreview"
+            app:srcCompat="@mipmap/ic_launcher" />
 </androidx.constraintlayout.widget.ConstraintLayout>

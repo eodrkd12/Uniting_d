@@ -21,7 +21,7 @@ class Signup2Activity : AppCompatActivity() {
         var intent = intent
         var univMail:String = intent.getStringExtra("univMail")
         var univName:String = intent.getStringExtra("univName")
-        var univMajor:String = intent.getStringExtra("univMajor")
+        var univDept:String = intent.getStringExtra("univDept")
 
         text_univaddr.setText(univMail)
 
@@ -56,8 +56,9 @@ class Signup2Activity : AppCompatActivity() {
                 code="만료"
                 //Log.d("test","${universityName} / ${webMail}")
                 intent.putExtra("univName", univName)
-                intent.putExtra("univMajor", univMajor)
+                intent.putExtra("univDept", univDept)
                 intent.putExtra("univMail", webMail)
+                finish()
                 startActivity(intent)
             }
             else if(code=="만료"){

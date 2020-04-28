@@ -2,16 +2,19 @@ package com.example.commit.Adapter
 
 import android.content.Context
 import android.content.Intent
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.commit.Class.UserInfo
 import com.example.commit.ListItem.ChatRoomListItem
+import com.example.commit.ListItem.DatingItem
 import com.example.commit.MainActivity.ChatActivity
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
@@ -39,14 +42,13 @@ class ChatRoomListAdapter(val context: Context) :
 
         var textTitle = itemView?.findViewById(R.id.text_title) as TextView
         var textJoinNum = itemView?.findViewById(R.id.text_join_num) as TextView
-        var cardRoom = itemView?.findViewById(R.id.card_room) as CardView
-
+        var viewOpen = itemView?.findViewById(R.id.view_open) as View
         fun bind(item: ChatRoomListItem, context: Context) {
             textTitle.text = item.roomTitle
-            textJoinNum.text = "${item.curNum}명 참가중"
+            textJoinNum.text = "${item.curNum}/${item.limitNum}"
 
 
-            cardRoom.setOnClickListener {
+            viewOpen.setOnClickListener {
                 VolleyService.checkJoinReq(item.roomId!!, UserInfo.NICKNAME, context, { success ->
                     if (success == "true") {
                         val builder =

@@ -2,6 +2,7 @@ package com.example.commit.MainActivity
 
 import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +13,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.*
@@ -60,46 +62,6 @@ class InformActivity : AppCompatActivity(), OnMapReadyCallback {
         var tags:String? = null
         var dialog:Dialog? = null
     }
-
-    /*fun fetchJson(vararg p0: String) {
-        val intent = intent
-        val text = intent.getStringExtra("roadAddress")
-        val apiURL = "https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query=$text"
-
-        val url = URL(apiURL)
-
-        val request = Request.Builder()
-            .url(url)
-            .addHeader("X-NCP-APIGW-API-KEY-ID", ncclientId)
-            .addHeader("X-NCP-APIGW-API-KEY", ncclientSecret)
-            .method("GET", null)
-            .build()
-
-        val client = OkHttpClient()
-        client.newCall(request).enqueue(object: Callback {
-            override fun onResponse(call: Call?, response: Response?) {
-
-                runOnUiThread {
-                    val body = response?.body()?.string()
-                    println("Success to execute request : $body")
-
-                    val jObject : JSONObject = JSONObject(body)
-                    val jArray = jObject.getJSONArray("addresses")
-
-                    for(i in 0 until jArray.length())
-                    {
-                        val obj = jArray.getJSONObject(i)
-                        mapx = obj.getDouble("x")
-                        mapy = obj.getDouble("y")
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call?, e: IOException?) {
-                println("Failed to execute request")
-            }
-        })
-    }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -272,14 +234,15 @@ class InformActivity : AppCompatActivity(), OnMapReadyCallback {
                 val dialogContent = dialogView.findViewById<EditText>(R.id.edit_insertreview)
                 val dialogRatingBar = dialogView.findViewById<RatingBar>(R.id.rating_review)
                 val dialogButton = dialogView.findViewById<Button>(R.id.btn_insertreview)
+                val dialogImageButton = dialogView.findViewById<ImageButton>(R.id.btn_insertreviewimage)
 
                 dialogRatingBar.setRating(ratingBar.rating)
 
+                dialog.getWindow().statusBarColor = Color.TRANSPARENT
                 dialog.getWindow().getAttributes().windowAnimations = R.style.AnimationPopupStyle
                 dialog.addContentView(dialogView, ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT))
                 dialog.show()
                 rating_inform.setRating(0.0f)
-                //rating_inform.setRating(num.toFloat())
 
                 dialogButton.setOnClickListener{
                     VolleyService.insertReviewReq(UserInfo.NICKNAME, name!!, UserInfo.UNIV, dialogRatingBar.rating.toInt(), dialogContent.text.toString(), this,{ success ->
