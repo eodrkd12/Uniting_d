@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android"/>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+            android:id="@+id/action_menu"
+            android:icon="@drawable/option_icon"
+            android:iconTint="@color/cardview_dark_background"
+            app:showAsAction="always"
+            android:title="메뉴"
+            />
+</menu>

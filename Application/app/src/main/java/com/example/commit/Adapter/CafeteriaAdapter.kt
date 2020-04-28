@@ -32,7 +32,6 @@ class CafeteriaAdapter(val context: Context, val homefeed: Homefeed) : RecyclerV
         var tags : String? = ""
         var title : String? = ""
 
-
         for(i in 0..temp!!.length-1){
             if(temp[i]=='<'||temp[i]=='>'||temp[i]=='/'||temp[i]=='b')
                 continue
