@@ -1,14 +1,10 @@
 package com.example.commit.Adapter
 
-import android.app.Dialog
 import android.content.Context
 import android.content.Intent
-import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -28,7 +24,6 @@ class CafeteriaAdapter(val context: Context, val homefeed: Homefeed) : RecyclerV
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CafeteriaAdapter.ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.cafeteria_item, parent, false)
-
         return ViewHolder(itemView)
     }
 
@@ -107,5 +102,4 @@ class CafeteriaAdapter(val context: Context, val homefeed: Homefeed) : RecyclerV
 
         }
     }
-
 }

@@ -64,6 +64,8 @@ class HomeFragment() : Fragment() {
         var textHobby = view.findViewById<TextView>(R.id.text_hobby)
         var textPersonality = view.findViewById<TextView>(R.id.text_personality)
 
+
+
         textPartnerNull.visibility = View.GONE
         layoutProfile.visibility = View.GONE
 
@@ -116,9 +118,9 @@ class HomeFragment() : Fragment() {
                             //이용자 나이 계산
                             var age = year - Integer.parseInt(birthday) + 1
 
-                            textAge.setText("나이 : ${age}")
+                            textAge.setText("${age}세")
 
-                            textDepartment.setText("학과 : ${json.getString("dept_name")}")
+                            textDepartment.setText("${json.getString("dept_name")}")
                             textHobby.setText("취미 : ${json.getString("user_hobby")}")
                             textPersonality.setText("성격 : ${json.getString("user_personality")}")
 
@@ -160,7 +162,7 @@ class HomeFragment() : Fragment() {
                                             intent.putExtra("room_id", roomId)
                                             intent.putExtra(
                                                 "title",
-                                                "${UserInfo.NICKNAME}&${nickname}"
+                                                "${nickname}"
                                             )
                                             intent.putExtra("category", "데이팅")
 

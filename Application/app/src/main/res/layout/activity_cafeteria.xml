@@ -22,6 +22,7 @@
             android:layout_marginStart="8dp"
             android:fontFamily="sans-serif"
             android:text="TextView"
+            android:textColor="#000000"
             android:textSize="30dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline12"
             app:layout_constraintStart_toStartOf="parent"

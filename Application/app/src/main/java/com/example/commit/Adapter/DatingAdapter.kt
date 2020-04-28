@@ -2,7 +2,8 @@ package com.example.commit.Adapter
 
 import android.content.Context
 import android.content.Intent
-import android.provider.Settings.Global.getString
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.commit.Class.UserInfo
 import com.example.commit.ListItem.DatingItem
 import com.example.commit.MainActivity.ChatActivity
-import com.example.commit.MainActivity.DatingActivity
 import com.example.commit.R
 import com.example.commit.Singleton.VolleyService
 import com.google.firebase.messaging.FirebaseMessaging
@@ -61,7 +61,7 @@ class DatingAdapter(val context: Context) : RecyclerView.Adapter<DatingAdapter.H
             textHobby.text = "취미 : ${item.hobby}"
             textPersonality.text = "성격 : ${item.personality}"
             imageProfile.bringToFront()
-            viewProfile.setOnClickListener {
+            cardPartner.setOnClickListener {
                 val builder =
                     AlertDialog.Builder(context!!)
                 builder.setTitle("${item.nickname}님과의 대화")
@@ -145,97 +145,3 @@ class DatingAdapter(val context: Context) : RecyclerView.Adapter<DatingAdapter.H
         datingList.clear()
     }
 }
-
-
-/*
-class ChatAdapter : BaseAdapter() {
-
-    private var datingList = ArrayList<DatingItem>()
-
-    override fun getCount(): Int {
-        return datingList.size
-    }
-
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-
-    override fun getItem(position: Int): Any {
-        return datingList.get(position)
-    }
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        var view = convertView
-        val context:Context? = parent?.context
-
-        // "listview_item" Layout을 inflate하여 convertView 참조 획득.
-        if (view == null) {
-            val inflater = context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            view = inflater.inflate(R.layout.item_dating_list, parent, false)
-        }
-
-        var textNickname=view?.findViewById(R.id.text_nickname) as TextView
-        var textDepartment=view.findViewById(R.id.text_department) as TextView
-        var textAge=view.findViewById(R.id.text_age) as TextView
-        var textHobby=view.findViewById(R.id.text_hobby) as TextView
-        var textPersonality=view.findViewById(R.id.text_personality) as TextView
-
-
-        var item=datingList[position]
-
-        textNickname.setText(item.nickname)
-        textDepartment.setText("학과 : ${item.department}")
-        textAge.setText("나이 : ${item.age}살")
-        textHobby.setText("취미 : ${item.hobby}")
-        textPersonality.setText("성격 : ${item.personality}")
-
-        var viewProfile=view.findViewById(R.id.view_profile) as View
-        viewProfile.setOnClickListener {
-            val builder =
-                AlertDialog.Builder(context!!)
-            builder.setTitle("${item.nickname}님과의 대화")
-            builder.setMessage("시작하시겠습니까?")
-
-            builder.setPositiveButton("확인") { _, _ ->
-                VolleyService.createChatRoomReq(UserInfo.NICKNAME, item.nickname!!,"","데이팅", UserInfo.UNIV, context, { success ->
-                    var roomId = success!!.getString("room_id")
-                    var intent = Intent(context, ChatActivity::class.java)
-                    intent.putExtra("room_id", roomId)
-                    intent.putExtra("category","데이팅")
-                    startActivity(context,intent,null)
-                })
-            }
-            builder.setNegativeButton("취소") { _, _ ->
-
-            }
-            builder.show()
-        }
-
-        var imageProfile=view.findViewById(R.id.image_profile) as ImageView
-//        imageProfile.bringToFront()
-
-        return view
-    }
-
-    fun addItem(nickname: String, department: String, age:Int, hobby:String, personality:String){
-        val item=DatingItem()
-
-        item.nickname=nickname
-        item.department=department
-        item.age=age.toString()
-        item.hobby=hobby
-        item.personality=personality
-
-        datingList.add(item)
-    }
-
-    fun getNickname(position: Int): String?{
-        var datingItem=datingList.get(position)
-
-        return datingItem.nickname
-    }
-
-    fun clear(){
-        datingList.clear()
-    }
-}*/

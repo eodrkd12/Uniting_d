@@ -138,8 +138,6 @@
 
 
     <!--<androidx.constraintlayout.widget.ConstraintLayout
-
-    <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_profile"
             android:background="@drawable/layout_cornet"
             android:layout_width="match_parent"
@@ -197,7 +195,7 @@
                 android:textSize="20dp"
                 app:layout_constraintStart_toEndOf="@+id/image_profile"
                 app:layout_constraintTop_toBottomOf="@+id/text_name" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_account"
